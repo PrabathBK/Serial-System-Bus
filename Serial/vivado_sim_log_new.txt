@@ -1,0 +1,97 @@
+xsim simple_read_test_behav -key {Behavioral:sim_1:Functional:simple_read_test} -tclbatch simple_read_test.tcl -log simulate.log
+
+****** xsim v2022.2 (64-bit)
+  **** SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source xsim.dir/simple_read_test_behav/xsim_script.tcl
+# xsim {simple_read_test_behav} -autoloadwcfg -tclbatch {simple_read_test.tcl} -key {Behavioral:sim_1:Functional:simple_read_test}
+Time resolution is 1 ps
+source simple_read_test.tcl
+## set curr_wave [current_wave_config]
+## if { [string length $curr_wave] == 0 } {
+##   if { [llength [get_objects]] > 0} {
+##     add_wave /
+##     set_property needs_save false [current_wave_config]
+##   } else {
+##      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+##   }
+## }
+## run 1000ns
+
+========== Simple Read Test Started ==========
+
+========== TEST 1: Write 0xAA to 0x1000, then read back ==========
+
+[TEST @45000] Master 2 WRITE: addr=0x1000, data=0xaa
+[MASTER_PORT simple_read_test.master2 @55000] IDLE: Starting new transaction (addr=0x1000, mode=WRITE), current rdata=0x00
+[MASTER_PORT simple_read_test.master2 @65000] STATE: IDLE -> REQ, mode=1
+[MASTER_PORT simple_read_test.master2 @85000] STATE: REQ -> SADDR, mode=1
+[MASTER_PORT simple_read_test.master2 @125000] STATE: SADDR -> WAIT, mode=1
+[MASTER_PORT simple_read_test.master2 @125000] SADDR complete: mode=1, mmode=1 (0=READ, 1=WRITE)
+[MASTER_PORT simple_read_test.master2 @145000] STATE: WAIT -> ADDR, mode=1
+[SLAVE_PORT simple_read_test.slave2.sp @165000] STATE TRANSITION: IDLE -> ADDR, mode=0, mvalid=1, smode=1
+[SLAVE_PORT simple_read_test.slave2.sp @165000] IDLE: Latching mode=1 (smode=1), receiving first addr bit=0
+[MASTER_PORT simple_read_test.master2 @265000] STATE: ADDR -> WDATA, mode=1
+[SLAVE_PORT simple_read_test.slave2.sp @275000] STATE TRANSITION: ADDR -> WDATA, mode=1, mvalid=1, smode=1
+[MASTER_PORT simple_read_test.master2 @345000] STATE: WDATA -> IDLE, mode=1
+[SLAVE_PORT simple_read_test.slave2.sp @355000] STATE TRANSITION: WDATA -> SREADY, mode=1, mvalid=1, smode=1
+[TEST @365000] Master 2 WRITE complete
+
+
+[TEST @365000] Master 2 READ: addr=0x1000
+[TEST @365000] Before read request: d2_rdata=0x00
+[SLAVE_PORT simple_read_test.slave2.sp @365000] STATE TRANSITION: SREADY -> IDLE, mode=1, mvalid=0, smode=0
+[SLAVE_PORT @365000] SREADY state (WRITE): addr=0x000, wdata=0xaa
+[MASTER_PORT simple_read_test.master2 @375000] IDLE: Starting new transaction (addr=0x1000, mode= READ), current rdata=0x00
+[TEST @385000] Read request sent, d2_rdata=0x00
+[MASTER_PORT simple_read_test.master2 @385000] STATE: IDLE -> REQ, mode=0
+[TEST @385000] d2_ready de-asserted (transaction started)
+[MASTER_PORT simple_read_test.master2 @405000] STATE: REQ -> SADDR, mode=0
+[MASTER_PORT simple_read_test.master2 @445000] STATE: SADDR -> WAIT, mode=0
+[MASTER_PORT simple_read_test.master2 @445000] SADDR complete: mode=0, mmode=0 (0=READ, 1=WRITE)
+[MASTER_PORT simple_read_test.master2 @465000] STATE: WAIT -> ADDR, mode=0
+[SLAVE_PORT simple_read_test.slave2.sp @485000] STATE TRANSITION: IDLE -> ADDR, mode=1, mvalid=1, smode=0
+[SLAVE_PORT simple_read_test.slave2.sp @485000] IDLE: Latching mode=0 (smode=0), receiving first addr bit=0
+[MASTER_PORT simple_read_test.master2 @585000] STATE: ADDR -> RDATA, mode=0
+[SLAVE_PORT simple_read_test.slave2.sp @595000] STATE TRANSITION: ADDR -> SREADY, mode=0, mvalid=1, smode=0
+[SLAVE_PORT simple_read_test.slave2.sp @605000] STATE TRANSITION: SREADY -> RVALID, mode=0, mvalid=0, smode=0
+[SLAVE_PORT @605000] SREADY state (READ): addr=0x000, starting read
+[SLAVE_PORT @615000] RVALID state: smemren=1, rvalid=0, smemrdata=0x00, smemaddr=0x000
+[SLAVE_PORT @625000] RVALID state: smemren=1, rvalid=0, smemrdata=0xaa, smemaddr=0x000
+[SLAVE_PORT simple_read_test.slave2.sp @635000] STATE TRANSITION: RVALID -> RDATA, mode=0, mvalid=0, smode=0
+[SLAVE_PORT @635000] RVALID state: smemren=1, rvalid=1, smemrdata=0xaa, smemaddr=0x000
+[SLAVE_PORT simple_read_test.slave2.sp @645000] RDATA transmission START, data=0xaa
+[MASTER_PORT simple_read_test.master2 @665000] RDATA receiving: bit[0]=0, current_rdata=0x00
+[MASTER_PORT simple_read_test.master2 @685000] RDATA receiving: bit[1]=1, current_rdata=0x00
+[MASTER_PORT simple_read_test.master2 @705000] RDATA receiving: bit[2]=0, current_rdata=0x02
+[MASTER_PORT simple_read_test.master2 @725000] RDATA receiving: bit[3]=1, current_rdata=0x02
+[MASTER_PORT simple_read_test.master2 @745000] RDATA receiving: bit[4]=0, current_rdata=0x0a
+[MASTER_PORT simple_read_test.master2 @765000] RDATA receiving: bit[5]=1, current_rdata=0x0a
+[MASTER_PORT simple_read_test.master2 @785000] RDATA receiving: bit[6]=0, current_rdata=0x2a
+[SLAVE_PORT simple_read_test.slave2.sp @795000] RDATA transmission END (sending last bit)
+[SLAVE_PORT simple_read_test.slave2.sp @805000] STATE TRANSITION: RDATA -> IDLE, mode=0, mvalid=0, smode=0
+[MASTER_PORT simple_read_test.master2 @805000] STATE: RDATA -> IDLE, mode=0
+[MASTER_PORT simple_read_test.master2 @805000] Transitioning RDATA->IDLE, rdata=0x2a, drdata=0x2a
+[MASTER_PORT simple_read_test.master2 @805000] RDATA receiving: bit[7]=1, current_rdata=0x2a
+[MASTER_PORT simple_read_test.master2 @805000] RDATA COMPLETE: final rdata will be 0x55 after clock edge
+[TEST @805000] d2_ready asserted (transaction complete), d2_rdata=0xaa
+[TEST @815000] After 1 clock, d2_rdata=0xaa
+[TEST @825000] After 2 clocks, d2_rdata=0xaa
+[TEST @825000] Master 2 READ complete: got data=0xaa
+
+>>> TEST 1 PASSED
+
+========== TEST 2: Write 0x55 to 0x1100, then read back ==========
+
+[TEST @825000] Master 2 WRITE: addr=0x1100, data=0x55
+[MASTER_PORT simple_read_test.master2 @835000] IDLE: Starting new transaction (addr=0x1100, mode=WRITE), current rdata=0xaa
+[MASTER_PORT simple_read_test.master2 @845000] STATE: IDLE -> REQ, mode=1
+[MASTER_PORT simple_read_test.master2 @865000] STATE: REQ -> SADDR, mode=1
+[MASTER_PORT simple_read_test.master2 @905000] STATE: SADDR -> WAIT, mode=1
+[MASTER_PORT simple_read_test.master2 @905000] SADDR complete: mode=1, mmode=1 (0=READ, 1=WRITE)
+[MASTER_PORT simple_read_test.master2 @925000] STATE: WAIT -> ADDR, mode=1
+[SLAVE_PORT simple_read_test.slave2.sp @945000] STATE TRANSITION: IDLE -> ADDR, mode=0, mvalid=1, smode=1
+[SLAVE_PORT simple_read_test.slave2.sp @945000] IDLE: Latching mode=1 (smode=1), receiving first addr bit=0
+INFO: [Common 17-206] Exiting xsim at Tue Oct 14 16:17:04 2025...

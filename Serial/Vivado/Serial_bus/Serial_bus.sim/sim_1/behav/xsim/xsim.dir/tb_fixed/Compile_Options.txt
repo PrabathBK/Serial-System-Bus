@@ -1,0 +1,1 @@
+-debug "typical" "work.master2_slave3_tb" "work.glbl" -s "tb_fixed" 

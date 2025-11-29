@@ -1,0 +1,114 @@
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+    Info: Copyright (C) 2020  Intel Corporation. All rights reserved.
+    Info: Your use of Intel Corporation's design tools, logic functions 
+    Info: and other software and tools, and any partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Intel Program License 
+    Info: Subscription Agreement, the Intel Quartus Prime License Agreement,
+    Info: the Intel FPGA IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Intel and sold by Intel or its authorized distributors.  Please
+    Info: refer to the applicable agreement for further details, at
+    Info: https://fpgasoftware.intel.com/eula.
+    Info: Processing started: Tue Oct 14 17:49:26 2025
+Info: Command: quartus_map ads_bus_system
+Info (16303): Aggressive Performance optimization mode selected -- timing performance will be prioritized at the potential cost of increased logic area and compilation time
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 8 of the 8 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v
+    Info (12023): Found entity 1: ads_bus_top File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v
+    Info (12023): Found entity 1: bus_m2_s3 File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v
+    Info (12023): Found entity 1: master_port File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 26
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v
+    Info (12023): Found entity 1: slave_port File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 26
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v
+    Info (12023): Found entity 1: slave File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v
+    Info (12023): Found entity 1: slave_memory_bram File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/arbiter.v
+    Info (12023): Found entity 1: arbiter File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/arbiter.v Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v
+    Info (12023): Found entity 1: addr_decoder File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v Line: 31
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux2.v
+    Info (12023): Found entity 1: mux2 File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux2.v Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux3.v
+    Info (12023): Found entity 1: mux3 File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux3.v Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/dec3.v
+    Info (12023): Found entity 1: dec3 File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/dec3.v Line: 16
+Info (12127): Elaborating entity "ads_bus_top" for the top level hierarchy
+Info (12128): Elaborating entity "master_port" for hierarchy "master_port:master1_port" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 326
+Warning (10230): Verilog HDL assignment warning at master_port.v(175): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 175
+Warning (10230): Verilog HDL assignment warning at master_port.v(181): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 181
+Warning (10230): Verilog HDL assignment warning at master_port.v(190): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 190
+Warning (10230): Verilog HDL assignment warning at master_port.v(205): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 205
+Warning (10230): Verilog HDL assignment warning at master_port.v(231): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 231
+Info (12128): Elaborating entity "bus_m2_s3" for hierarchy "bus_m2_s3:bus_inst" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 422
+Info (12128): Elaborating entity "arbiter" for hierarchy "bus_m2_s3:bus_inst|arbiter:bus_arbiter" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 153
+Info (10264): Verilog HDL Case Statement information at arbiter.v(126): all case item expressions in this case statement are onehot File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/arbiter.v Line: 126
+Info (12128): Elaborating entity "addr_decoder" for hierarchy "bus_m2_s3:bus_inst|addr_decoder:decoder" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 186
+Warning (10230): Verilog HDL assignment warning at addr_decoder.v(142): truncated value with size 32 to match size of target (4) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v Line: 142
+Info (12128): Elaborating entity "dec3" for hierarchy "bus_m2_s3:bus_inst|addr_decoder:decoder|dec3:mvalid_decoder" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v Line: 79
+Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:wdata_mux" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 198
+Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:mctrl_mux" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 206
+Info (12128): Elaborating entity "mux3" for hierarchy "bus_m2_s3:bus_inst|mux3:rdata_mux" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 219
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave1_inst" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 443
+Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave1_inst|slave_port:sp" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 74
+Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 147
+Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 164
+Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 194
+Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 236
+Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 260
+Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave1_inst|slave_memory_bram:sm" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 95
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave2_inst" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 464
+Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave2_inst|slave_port:sp" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 74
+Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 147
+Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 164
+Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 194
+Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 236
+Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 260
+Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave2_inst|slave_memory_bram:sm" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 95
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave3_inst" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 485
+Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave3_inst|slave_port:sp" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 74
+Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 147
+Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 164
+Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 194
+Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 236
+Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 260
+Warning (330000): Timing-Driven Synthesis is skipped because it could not initialize the timing netlist
+Info (276014): Found 3 instances of uninferred RAM logic
+    Info (276007): RAM logic "slave:slave3_inst|slave_memory_bram:sm|memory" is uninferred due to asynchronous read logic File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v Line: 44
+    Info (276007): RAM logic "slave:slave2_inst|slave_memory_bram:sm|memory" is uninferred due to asynchronous read logic File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v Line: 44
+    Info (276007): RAM logic "slave:slave1_inst|slave_memory_bram:sm|memory" is uninferred due to asynchronous read logic File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v Line: 44
+Warning (276002): Cannot convert all sets of registers into RAM megafunctions when creating nodes; therefore, the resulting number of registers remaining in design can cause longer compilation time or result in insufficient memory to complete Analysis and Synthesis
+Info (17026): Resynthesizing 0 WYSIWYG logic cells and I/Os using "speed" technology mapper which leaves 0 WYSIWYG logic cells and I/Os untouched
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LED[7]" is stuck at GND File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 31
+Info (17049): 76 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file /home/prabathbk/ads_bus/da-bus/Serial/quartus/ads_bus_system.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 8 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "GPIO_M1_WDATA" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 37
+    Warning (15610): No output dependent on input pin "GPIO_M1_MODE" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 38
+    Warning (15610): No output dependent on input pin "GPIO_M1_MVALID" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 39
+    Warning (15610): No output dependent on input pin "GPIO_M1_BREQ" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 41
+    Warning (15610): No output dependent on input pin "GPIO_M2_WDATA" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 50
+    Warning (15610): No output dependent on input pin "GPIO_M2_MODE" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 51
+    Warning (15610): No output dependent on input pin "GPIO_M2_MVALID" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 52
+    Warning (15610): No output dependent on input pin "GPIO_M2_BREQ" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 54
+Info (21057): Implemented 120405 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 10 input pins
+    Info (21059): Implemented 18 output pins
+    Info (21061): Implemented 120377 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 35 warnings
+    Info: Peak virtual memory: 870 megabytes
+    Info: Processing ended: Tue Oct 14 17:50:29 2025
+    Info: Elapsed time: 00:01:03
+    Info: Total CPU time (on all processors): 00:01:14

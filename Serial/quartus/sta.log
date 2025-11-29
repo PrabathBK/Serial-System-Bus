@@ -1,0 +1,194 @@
+Info: *******************************************************************
+Info: Running Quartus Prime Timing Analyzer
+    Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+    Info: Copyright (C) 2020  Intel Corporation. All rights reserved.
+    Info: Your use of Intel Corporation's design tools, logic functions 
+    Info: and other software and tools, and any partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Intel Program License 
+    Info: Subscription Agreement, the Intel Quartus Prime License Agreement,
+    Info: the Intel FPGA IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Intel and sold by Intel or its authorized distributors.  Please
+    Info: refer to the applicable agreement for further details, at
+    Info: https://fpgasoftware.intel.com/eula.
+    Info: Processing started: Tue Oct 14 17:55:26 2025
+Info: Command: quartus_sta ads_bus_system
+Info: qsta_default_script.tcl version: #1
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 8 of the 8 processors detected
+Info (21077): Low junction temperature is 0 degrees C
+Info (21077): High junction temperature is 85 degrees C
+Info (332104): Reading SDC File: '../constraints/ads_bus_system.sdc'
+Info (332151): Clock uncertainty is not calculated until you update the timing netlist.
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_RDATA is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
+    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -min 1.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SVALID is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BGRANT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_ACK is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SPLIT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_RDATA is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
+    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -max 3.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SVALID is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BGRANT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_ACK is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SPLIT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_RDATA is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
+    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -min 1.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SVALID is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BGRANT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_ACK is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SPLIT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_RDATA is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
+    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -max 3.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SVALID is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BGRANT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_ACK is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SPLIT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_WDATA is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
+    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -min 0.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MODE is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MVALID is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BREQ is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_WDATA is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
+    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -max 2.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MODE is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MVALID is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BREQ is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_WDATA is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
+    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -min 0.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MODE is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MVALID is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BREQ is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_WDATA is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
+    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -max 2.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MODE is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MVALID is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BREQ is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow 1100mV 85C Model
+Info (332146): Worst-case setup slack is 7.727
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     7.727               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case hold slack is 0.444
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.444               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case recovery slack is 17.191
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    17.191               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case removal slack is 1.490
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     1.490               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case minimum pulse width slack is 8.817
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     8.817               0.000 FPGA_CLK1_50 
+Info (332114): Report Metastability: Found 1 synchronizer chains.
+    Info (332114): The design MTBF is not calculated because there are no specified synchronizers in the design.
+    Info (332114): Number of Synchronizer Chains Found: 1
+    Info (332114): Shortest Synchronizer Chain: 3 Registers
+    Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+    Info (332114): Worst Case Available Settling Time: 47.169 ns
+Info: Analyzing Slow 1100mV 0C Model
+Info (334003): Started post-fitting delay annotation
+Info (334004): Delay annotation completed successfully
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info (332146): Worst-case setup slack is 7.908
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     7.908               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case hold slack is 0.417
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.417               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case recovery slack is 17.293
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    17.293               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case removal slack is 1.431
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     1.431               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case minimum pulse width slack is 8.821
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     8.821               0.000 FPGA_CLK1_50 
+Info (332114): Report Metastability: Found 1 synchronizer chains.
+    Info (332114): The design MTBF is not calculated because there are no specified synchronizers in the design.
+    Info (332114): Number of Synchronizer Chains Found: 1
+    Info (332114): Shortest Synchronizer Chain: 3 Registers
+    Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+    Info (332114): Worst Case Available Settling Time: 47.273 ns
+Info: Analyzing Fast 1100mV 85C Model
+Info (334003): Started post-fitting delay annotation
+Info (334004): Delay annotation completed successfully
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info (332146): Worst-case setup slack is 12.446
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    12.446               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case hold slack is 0.181
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.181               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case recovery slack is 18.379
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    18.379               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case removal slack is 0.736
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.736               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case minimum pulse width slack is 8.474
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     8.474               0.000 FPGA_CLK1_50 
+Info (332114): Report Metastability: Found 1 synchronizer chains.
+    Info (332114): The design MTBF is not calculated because there are no specified synchronizers in the design.
+    Info (332114): Number of Synchronizer Chains Found: 1
+    Info (332114): Shortest Synchronizer Chain: 3 Registers
+    Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+    Info (332114): Worst Case Available Settling Time: 53.174 ns
+Info: Analyzing Fast 1100mV 0C Model
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info (332146): Worst-case setup slack is 12.801
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    12.801               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case hold slack is 0.172
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.172               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case recovery slack is 18.553
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    18.553               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case removal slack is 0.671
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.671               0.000 FPGA_CLK1_50 
+Info (332146): Worst-case minimum pulse width slack is 8.429
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     8.429               0.000 FPGA_CLK1_50 
+Info (332114): Report Metastability: Found 1 synchronizer chains.
+    Info (332114): The design MTBF is not calculated because there are no specified synchronizers in the design.
+    Info (332114): Number of Synchronizer Chains Found: 1
+    Info (332114): Shortest Synchronizer Chain: 3 Registers
+    Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+    Info (332114): Worst Case Available Settling Time: 53.733 ns
+Info (332101): Design is fully constrained for setup requirements
+Info (332101): Design is fully constrained for hold requirements
+Info: Quartus Prime Timing Analyzer was successful. 0 errors, 37 warnings
+    Info: Peak virtual memory: 1214 megabytes
+    Info: Processing ended: Tue Oct 14 17:55:33 2025
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:09

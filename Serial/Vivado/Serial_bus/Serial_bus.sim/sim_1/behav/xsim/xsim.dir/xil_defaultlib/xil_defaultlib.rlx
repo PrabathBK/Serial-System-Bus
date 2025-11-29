@@ -1,0 +1,17 @@
+0.7
+2020.2
+Oct 14 2022
+05:07:14
+/home/prabathbk/ads_bus/da-bus/Serial/Vivado/Serial_bus/Serial_bus.sim/sim_1/behav/xsim/glbl.v,1764329815,verilog,,,,glbl,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v,1760436209,verilog,,/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/arbiter.v,,addr_decoder,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/arbiter.v,1764393837,verilog,,/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v,,arbiter,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v,1760435985,verilog,,/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/dec3.v,,bus_m2_s3,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/dec3.v,1760429065,verilog,,/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v,,dec3,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v,1760440815,verilog,,/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux2.v,,master_port,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux2.v,1760429065,verilog,,/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux3.v,,mux2,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux3.v,1760429065,verilog,,/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v,,mux3,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v,1760429065,verilog,,/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v,,slave,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v,1760444479,verilog,,/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v,,slave_memory_bram,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v,1760439717,verilog,,,,slave_port,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/tb/master2_slave3_tb.sv,1760440236,systemVerilog,,,,master2_slave3_tb,,uvm,,,,,,
+/home/prabathbk/ads_bus/da-bus/Serial/tb/tb_arbiter.sv,1764393626,systemVerilog,,,,tb_arbiter,,uvm,,,,,,

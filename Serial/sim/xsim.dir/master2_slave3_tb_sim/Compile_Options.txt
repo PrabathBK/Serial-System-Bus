@@ -1,0 +1,1 @@
+-debug "typical" "master2_slave3_tb" -s "master2_slave3_tb_sim" 
