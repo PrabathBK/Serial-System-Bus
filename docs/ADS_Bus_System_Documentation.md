@@ -53,116 +53,116 @@ The ADS (Address-Data Serial) Bus System is a custom serial communication bus de
 
 ### 2.1 High-Level Block Diagram
 
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                         ADS Bus System Top Level                         │
-│                         (ads_bus_top.v)                                  │
-├──────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
-│  ┌─────────────┐                  ┌──────────────────┐                  │
-│  │   Master 1  │◄────────────────►│                  │                  │
-│  │  Interface  │    Serial Bus    │                  │                  │
-│  └─────────────┘    (1-bit)       │                  │                  │
-│                                    │   Bus M2_S3      │                  │
-│  ┌─────────────┐                  │  Interconnect    │                  │
-│  │   Master 2  │◄────────────────►│                  │                  │
-│  │  Interface  │    Serial Bus    │  • Arbiter       │                  │
-│  └─────────────┘    (1-bit)       │  • Addr Decoder  │                  │
-│                                    │  • Multiplexers  │                  │
-│                                    │                  │                  │
-│                                    │                  │◄────────────────►│
-│                                    └──────────────────┘   Internal Bus   │
-│                                             │                             │
-│                                             │                             │
-│               ┌─────────────────────────────┼─────────────────────────┐  │
-│               │                             │                         │  │
-│               ▼                             ▼                         ▼  │
-│      ┌─────────────────┐          ┌─────────────────┐      ┌──────────────────┐
-│      │    Slave 1      │          │    Slave 2      │      │    Slave 3       │
-│      │   (2KB BRAM)    │          │   (4KB BRAM)    │      │  (4KB BRAM)      │
-│      │  No Split       │          │  No Split       │      │  Split Enabled   │
-│      │  Device ID: 00  │          │  Device ID: 01  │      │  Device ID: 10   │
-│      └─────────────────┘          └─────────────────┘      └──────────────────┘
-│                                                                          │
-│                                                                          │
-│  ┌──────────────────────────────────────────────────────────────────┐  │
-│  │                    Status & Control                              │  │
-│  │  • 8 LEDs: Reset, Bus Grants, Acks, Split Status                │  │
-│  │  • KEY0: System Reset (active low)                              │  │
-│  │  • 50MHz Clock: FPGA_CLK1_50                                    │  │
-│  └──────────────────────────────────────────────────────────────────┘  │
-│                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
+```         
+┌───────────────────────────────────────────────────────────────────────────────────┐
+│                         ADS Bus System Top Level                                  │
+│                         (ads_bus_top.v)                                           │
+├───────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                   │
+│  ┌─────────────┐                   ┌──────────────────┐                           │
+│  │   Master 1  │◄────────────────► │                  │                           │
+│  │  Interface  │    Serial Bus     │                  │                           │
+│  └─────────────┘    (1-bit)        │                  │                           │
+│                                    │   Bus M2_S3      │                           │
+│  ┌─────────────┐                   │  Interconnect    │                           │
+│  │   Master 2  │◄────────────────► │                  │                           │
+│  │  Interface  │    Serial Bus     │  • Arbiter       │                           │
+│  └─────────────┘    (1-bit)        │  • Addr Decoder  │                           │
+│                                    │  • Multiplexers  │                           │
+│                                    │                  │                           │
+│                                    │                  │◄─────────────────────────►│
+│                                    └──────────────────┘        Internal Bus       │
+│                                             │                                     │
+│                                             │                                     │
+│               ┌─────────────────────────────┼─────────────────────────┐           │
+│               │                             │                         │           │
+│               ▼                             ▼                         ▼           │
+│      ┌─────────────────┐          ┌─────────────────┐      ┌──────────────────┐   │
+│      │    Slave 1      │          │    Slave 2      │      │    Slave 3       │   │
+│      │   (2KB BRAM)    │          │   (4KB BRAM)    │      │  (4KB BRAM)      │   │
+│      │  No Split       │          │  No Split       │      │  Split Enabled   │   │
+│      │  Device ID: 00  │          │  Device ID: 01  │      │  Device ID: 10   │   │
+│      └─────────────────┘          └─────────────────┘      └──────────────────┘   │
+│                                                                                   │
+│                                                                                   │
+│  ┌──────────────────────────────────────────────────────────────────┐             │
+│  │                    Status & Control                              │             │
+│  │  • 8 LEDs: Reset, Bus Grants, Acks, Split Status                 │             │
+│  │  • KEY0: System Reset (active low)                               │             │
+│  │  • 50MHz Clock: FPGA_CLK1_50                                     │             │
+│  └──────────────────────────────────────────────────────────────────┘             │
+│                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### 2.2 Bus Interconnect Architecture
 
 ```
-┌────────────────────────────────────────────────────────────────────┐
-│                    bus_m2_s3 (Bus Interconnect)                    │
-├────────────────────────────────────────────────────────────────────┤
-│                                                                    │
-│  Master 1                    ┌──────────────┐                     │
-│  ─────────►                  │   Arbiter    │                     │
-│   • breq                     │  (Priority)  │                     │
-│   ◄─────── bgrant            │              │                     │
-│   ◄─────── ack               │  M1 > M2     │                     │
-│   ◄─────── split             │              │                     │
-│                              │  Split Grant │                     │
-│  Master 2                    └──────┬───────┘                     │
-│  ─────────►                         │                             │
-│   • breq                            │ m_select                    │
-│   ◄─────── bgrant                   │                             │
-│   ◄─────── ack                      ▼                             │
-│   ◄─────── split            ┌──────────────┐                     │
-│                             │   MUX2       │                     │
-│                             │ (Master Sel) │                     │
-│  M1 wdata ─────┐            │              │                     │
-│  M2 wdata ─────┴───────────►│  Select M1   │                     │
-│  M1 mode  ─────┐            │  or M2       │                     │
-│  M2 mode  ─────┴───────────►│              │                     │
-│  M1 mvalid ────┐            └──────┬───────┘                     │
-│  M2 mvalid ────┴───────────────────┤                             │
-│                                     │                             │
-│                                     │ m_wdata, m_mode, m_mvalid   │
-│                                     │                             │
-│                                     ▼                             │
-│                            ┌─────────────────┐                   │
-│                            │  Addr Decoder   │                   │
-│                            │   (4-bit addr)  │                   │
-│                            │                 │                   │
-│                            │ • Receives 4-bit│                   │
-│                            │   device addr   │                   │
-│                            │ • Validates     │                   │
-│                            │ • Routes mvalid │                   │
-│                            │ • Checks ready  │                   │
-│                            │ • Sends ack     │                   │
-│                            └────────┬────────┘                   │
-│                                     │                             │
-│                                     │ ssel[1:0]                   │
-│                                     │                             │
-│                                     ▼                             │
-│                            ┌─────────────────┐                   │
-│  S1 rdata ────┐            │     MUX3        │                   │
-│  S2 rdata ────┼───────────►│  (Slave Sel)    │                   │
-│  S3 rdata ────┘            │                 │                   │
-│               ◄────────────┤  Select S1/S2/S3├──────► M1 rdata   │
-│  S1 svalid ───┐            │                 ├──────► M2 rdata   │
-│  S2 svalid ───┼───────────►│                 │                   │
-│  S3 svalid ───┘            └─────────────────┘                   │
-│                                                                    │
-│  m_wdata ──────────────────────────────┬─────────────┬──────────┐│
-│  m_mode  ──────────────────────────────┼─────────────┼──────────┼│
-│  mvalid1 ◄──── [dec3] ◄── ssel ────────┼─────────────┼──────────┼│
-│  mvalid2 ◄──── [dec3] ◄── ssel ────────┼─────────────┼──────────┼│
-│  mvalid3 ◄──── [dec3] ◄── ssel ────────┼─────────────┼──────────┼│
-│                                         │             │          ││
-│                                         ▼             ▼          ▼│
-│                                    ┌────────┐   ┌────────┐  ┌────────┐
-│                                    │Slave 1 │   │Slave 2 │  │Slave 3 │
-│                                    │  Port  │   │  Port  │  │  Port  │
-│                                    └────────┘   └────────┘  └────────┘
-└────────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                    bus_m2_s3 (Bus Interconnect)                        │
+├────────────────────────────────────────────────────────────────────────┤
+│                                                                        │
+│  Master 1                    ┌──────────────┐                          │
+│  ─────────►                  │   Arbiter    │                          │
+│   • breq                     │  (Priority)  │                          │
+│   ◄─────── bgrant            │              │                          │
+│   ◄─────── ack               │  M1 > M2     │                          │
+│   ◄─────── split             │              │                          │
+│                              │  Split Grant │                          │
+│  Master 2                    └──────┬───────┘                          │
+│  ─────────►                         │                                  │
+│   • breq                            │ m_select                         │
+│   ◄─────── bgrant                   │                                  │
+│   ◄─────── ack                      ▼                                  │
+│   ◄─────── split            ┌──────────────┐                           │
+│                             │   MUX2       │                           │
+│                             │ (Master Sel) │                           │
+│  M1 wdata ─────┐            │              │                           │
+│  M2 wdata ─────┴───────────►│  Select M1   │                           │
+│  M1 mode  ─────┐            │  or M2       │                           │
+│  M2 mode  ─────┴───────────►│              │                           │
+│  M1 mvalid ────┐            └──────┬───────┘                           │
+│  M2 mvalid ────┴───────────────────┤                                   │
+│                                    │                                   │
+│                                    │ m_wdata, m_mode, m_mvalid         │
+│                                    │                                   │
+│                                    ▼                                   │
+│                            ┌─────────────────┐                         │
+│                            │  Addr Decoder   │                         │
+│                            │   (4-bit addr)  │                         │
+│                            │                 │                         │
+│                            │ • Receives 4-bit│                         │
+│                            │   device addr   │                         │
+│                            │ • Validates     │                         │
+│                            │ • Routes mvalid │                         │
+│                            │ • Checks ready  │                         │
+│                            │ • Sends ack     │                         │
+│                            └────────┬────────┘                         │
+│                                     │                                  │
+│                                     │ ssel[1:0]                        │
+│                                     │                                  │
+│                                     ▼                                  │
+│                            ┌─────────────────┐                         │
+│  S1 rdata ────┐            │     MUX3        │                         │
+│  S2 rdata ────┼───────────►│  (Slave Sel)    │                         │
+│  S3 rdata ────┘            │                 │                         │
+│               ◄────────────┤  Select S1/S2/S3├──────► M1 rdata         │
+│  S1 svalid ───┐            │                 ├──────► M2 rdata         │
+│  S2 svalid ───┼───────────►│                 │                         │
+│  S3 svalid ───┘            └─────────────────┘                         │
+│                                                                        │
+│  m_wdata ──────────────────────────────┬─────────────┬──────────┐      │
+│  m_mode  ──────────────────────────────┼─────────────┼──────────┼      │
+│  mvalid1 ◄──── [dec3] ◄── ssel ────────┼─────────────┼──────────┼      │
+│  mvalid2 ◄──── [dec3] ◄── ssel ────────┼─────────────┼──────────┼      │
+│  mvalid3 ◄──── [dec3] ◄── ssel ────────┼─────────────┼──────────┼      │
+│                                        │             │          │      │
+│                                        ▼             ▼          ▼      │
+│                                    ┌────────┐   ┌────────┐  ┌────────┐ │
+│                                    │Slave 1 │   │Slave 2 │  │Slave 3 │ │
+│                                    │  Port  │   │  Port  │  │  Port  │ │
+│                                    └────────┘   └────────┘  └────────┘ │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### 2.3 Master Port Architecture
@@ -206,34 +206,34 @@ Each slave port contains:
 │                  16-bit Address Space                           │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  Bits [15:12]  │  Bits [11:0]                                  │
-│  Device Addr   │  Memory Address                               │
-│  (4 bits)      │  (11-12 bits depending on slave)              │
+│  Bits [15:12]  │  Bits [11:0]                                   │
+│  Device Addr   │  Memory Address                                │
+│  (4 bits)      │  (11-12 bits depending on slave)               │
 │                                                                 │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  Device 0 (0000b) ──► Slave 1 (2KB)                            │
-│    Memory Address: [10:0] (11 bits)                            │
-│    Range: 0x0000 - 0x07FF                                      │
-│    Full Address Format: 0000_xAAA_AAAA_AAAA                    │
-│    Example: 0x0000 = Slave 1, offset 0x000                    │
-│             0x07FF = Slave 1, offset 0x7FF                     │
+│  Device 0 (0000b) ──► Slave 1 (2KB)                             │
+│    Memory Address: [10:0] (11 bits)                             │
+│    Range: 0x0000 - 0x07FF                                       │
+│    Full Address Format: 0000_xAAA_AAAA_AAAA                     │
+│    Example: 0x0000 = Slave 1, offset 0x000                      │
+│             0x07FF = Slave 1, offset 0x7FF                      │
 │                                                                 │
-│  Device 1 (0001b) ──► Slave 2 (4KB)                            │
-│    Memory Address: [11:0] (12 bits)                            │
-│    Range: 0x1000 - 0x1FFF                                      │
-│    Full Address Format: 0001_AAAA_AAAA_AAAA                    │
-│    Example: 0x1000 = Slave 2, offset 0x000                    │
-│             0x1FFF = Slave 2, offset 0xFFF                     │
+│  Device 1 (0001b) ──► Slave 2 (4KB)                             │
+│    Memory Address: [11:0] (12 bits)                             │
+│    Range: 0x1000 - 0x1FFF                                       │
+│    Full Address Format: 0001_AAAA_AAAA_AAAA                     │
+│    Example: 0x1000 = Slave 2, offset 0x000                      │
+│             0x1FFF = Slave 2, offset 0xFFF                      │
 │                                                                 │
-│  Device 2 (0010b) ──► Slave 3 (4KB, Split)                     │
-│    Memory Address: [11:0] (12 bits)                            │
-│    Range: 0x2000 - 0x2FFF                                      │
-│    Full Address Format: 0010_AAAA_AAAA_AAAA                    │
-│    Example: 0x2000 = Slave 3, offset 0x000                    │
-│             0x2FFF = Slave 3, offset 0xFFF                     │
+│  Device 2 (0010b) ──► Slave 3 (4KB, Split)                      │
+│    Memory Address: [11:0] (12 bits)                             │
+│    Range: 0x2000 - 0x2FFF                                       │
+│    Full Address Format: 0010_AAAA_AAAA_AAAA                     │
+│    Example: 0x2000 = Slave 3, offset 0x000                      │
+│             0x2FFF = Slave 3, offset 0xFFF                      │
 │                                                                 │
-│  Devices 3-15: Reserved (not implemented)                      │
+│  Devices 3-15: Reserved (not implemented)                       │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
