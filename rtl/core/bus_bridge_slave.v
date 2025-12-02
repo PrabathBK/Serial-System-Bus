@@ -167,4 +167,16 @@ module bus_bridge_slave #(
 
                 default : begin
                     u_din <= u_din;
-                    u_en <= 1'b0;`
+                    u_en <= 1'b0;
+                end
+            endcase
+        end
+    end
+
+    // rvalid is asserted when we have received data from UART during a read operation
+    assign rvalid = (state == RDATA) && rdata_received;
+    // Use latched data for read, or direct UART output if still receiving
+    assign smemrdata = (state == RDATA) ? (rdata_received ? latched_rdata : u_dout) : {DATA_WIDTH{1'b0}};
+    assign sready = spready && !smemwen && !smemren && (state == IDLE);
+
+endmodule
