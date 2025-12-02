@@ -463,24 +463,47 @@ module ads_bus_top (
     );
     
     //--------------------------------------------------------------------------
-    // Slave 3 Instantiation (4KB, Split Enabled)
+    // // Slave 3 Instantiation (4KB, Split Enabled)
+    // //--------------------------------------------------------------------------
+    // slave #(
+    //     .ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH),
+    //     .DATA_WIDTH(DATA_WIDTH),
+    //     .SPLIT_EN(1),
+    //     .MEM_SIZE(4096)
+    // ) slave3_inst (
+    //     .clk(clk),
+    //     .rstn(rstn),
+    //     .srdata(s3_rdata),
+    //     .swdata(s3_wdata),
+    //     .smode(s3_mode),
+    //     .svalid(s3_svalid),
+    //     .mvalid(s3_mvalid),
+    //     .sready(s3_ready),
+    //     .ssplit(s3_split),
+    //     .split_grant(split_grant)
+    // );
+
     //--------------------------------------------------------------------------
-    slave #(
-        .ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH),
+    // Slave 3 - Bus Bridge Slave
+    // Forwards commands via UART to external system
+    //--------------------------------------------------------------------------
+    bus_bridge_slave #(
         .DATA_WIDTH(DATA_WIDTH),
-        .SPLIT_EN(1),
-        .MEM_SIZE(4096)
-    ) slave3_inst (
+        .ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH),
+        .UART_CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE)
+    ) slave3_bridge (
         .clk(clk),
         .rstn(rstn),
-        .srdata(s3_rdata),
         .swdata(s3_wdata),
         .smode(s3_mode),
-        .svalid(s3_svalid),
         .mvalid(s3_mvalid),
+        .split_grant(split_grant),
+        .srdata(s3_rdata),
+        .svalid(s3_svalid),
         .sready(s3_ready),
         .ssplit(s3_split),
-        .split_grant(split_grant)
+        .u_tx(GPIO_0_BRIDGE_S_TX),
+        .u_rx(GPIO_0_BRIDGE_S_RX)
     );
 
 endmodule
