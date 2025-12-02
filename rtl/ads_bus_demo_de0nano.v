@@ -1,13 +1,25 @@
 //==============================================================================
 // File: ads_bus_demo_de0nano.v
 // Description: Demo wrapper for ADS Bus System targeting DE0-Nano FPGA
-//              Simplified demo with button-triggered transactions
+//              Interactive demo with switch-controlled transactions
 //
-// Demo Features:
-//   - Press KEY0 to trigger a transaction
-//   - SW[0] acts as reset (active high - directly accessible)
-//   - LEDs show: [1:0] = slave number, [7:2] = last 6 bits of data
-//   - Hardcoded master selection, slave target, and data pattern
+// Demo Controls:
+//   - KEY[0]: Trigger transaction (active low - press to send)
+//   - KEY[1]: Increment data pattern (active low - press to change data)
+//   - SW[0]:  Reset (HIGH = reset active)
+//   - SW[1]:  Master select (0 = Master1, 1 = Master2)
+//   - SW[2]:  Slave select bit 0 (see table below)
+//   - SW[3]:  Slave select bit 1 / Mode toggle
+//
+// Slave Selection (directly directly directly directly directly directly directly directly directly directly SW[3:2]):
+//   - 00: Slave 1 (2KB) + Write mode
+//   - 01: Slave 2 (4KB) + Write mode
+//   - 10: Slave 3 (4KB, SPLIT) + Write mode
+//   - 11: Slave 1 + Read mode (read back what was written)
+//
+// LED Display:
+//   - LED[1:0]: Slave number (0, 1, or 2)
+//   - LED[7:2]: Last 6 bits of data sent/received
 //
 // Target Device: Intel Cyclone IV EP4CE22F17C6 (DE0-Nano)
 // Clock Frequency: 50 MHz
@@ -22,18 +34,18 @@ module ads_bus_demo_de0nano (
     input  wire        CLOCK_50,            // 50 MHz clock from DE0-Nano
     
     //--------------------------------------------------------------------------
-    // Push Buttons (directly directly directly directly directly directly directly directly directly directly directly directly directly directly directly directly directly directly directly directly directly directly directly)
+    // Push Buttons (directly directly directly directly directly directly directly directly directly directly directly directly Active Low)
     //--------------------------------------------------------------------------
-    input  wire [1:0]  KEY,                 // KEY[0] = Trigger transaction (active low)
-                                            // KEY[1] = Reserved
+    input  wire [1:0]  KEY,                 // KEY[0] = Trigger transaction
+                                            // KEY[1] = Increment data pattern
     
     //--------------------------------------------------------------------------
     // DIP Switches
     //--------------------------------------------------------------------------
     input  wire [3:0]  SW,                  // SW[0] = Reset (active high)
                                             // SW[1] = Master select (0=M1, 1=M2)
-                                            // SW[2] = Mode (0=Write, 1=Read)  
-                                            // SW[3] = Reserved
+                                            // SW[2] = Slave select bit 0
+                                            // SW[3] = Slave select bit 1 / Read mode
     
     //--------------------------------------------------------------------------
     // LEDs for Status Display
@@ -43,23 +55,10 @@ module ads_bus_demo_de0nano (
 );
 
     //==========================================================================
-    // DEMO CONFIGURATION - EDIT THESE TO CHANGE DEMO BEHAVIOR
+    // DEMO CONFIGURATION - Default data pattern (can be incremented with KEY[1])
     //==========================================================================
-    
-    // Which master sends the transaction (0 = Master1, 1 = Master2)
-    localparam DEMO_MASTER_SELECT = 1'b0;   // Use Master 1
-    
-    // Target slave for the transaction (2'b00=Slave1, 2'b01=Slave2, 2'b10=Slave3)
-    localparam [1:0] DEMO_SLAVE_SELECT = 2'b01;  // Target Slave 2
-
-    // Data pattern to send (8 bits)
-    localparam [7:0] DEMO_DATA_PATTERN = 8'hA5;  // Test pattern 10100101
-    
-    // Memory address within the slave
-    localparam [11:0] DEMO_MEM_ADDR = 12'h010;   // Address 0x010
-    
-    // Transaction mode (0 = Read, 1 = Write)
-    localparam DEMO_MODE = 1'b1;            // Write operation
+    localparam [7:0] INITIAL_DATA_PATTERN = 8'hA5;  // Initial test pattern
+    localparam [11:0] DEMO_MEM_ADDR = 12'h010;      // Memory address within slave
     
     //==========================================================================
     // Parameters
@@ -78,10 +77,24 @@ module ads_bus_demo_de0nano (
     
     // Button edge detection
     reg [2:0] key0_sync;
+    reg [2:0] key1_sync;
     wire key0_pressed;
+    wire key1_pressed;
+    
+    // Switch synchronization
+    reg [3:0] sw_sync1, sw_sync2;
+    wire [3:0] sw_stable;
     
     // Reset synchronization
     reg [2:0] reset_sync;
+    
+    // Dynamic configuration from switches
+    wire        cfg_master_sel;    // 0=Master1, 1=Master2
+    wire [1:0]  cfg_slave_sel;     // 00=S1, 01=S2, 10=S3
+    wire        cfg_mode;          // 0=Write, 1=Read
+    
+    // Data pattern register (incremented by KEY[1])
+    reg [7:0] data_pattern;
     
     //==========================================================================
     // Clock and Reset Management
@@ -94,6 +107,24 @@ module ads_bus_demo_de0nano (
     end
     assign rstn = reset_sync[2];
     
+    // Synchronize DIP switches (double-flop)
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            sw_sync1 <= 4'b0000;
+            sw_sync2 <= 4'b0000;
+        end else begin
+            sw_sync1 <= SW;
+            sw_sync2 <= sw_sync1;
+        end
+    end
+    assign sw_stable = sw_sync2;
+    
+    // Decode switch settings
+    assign cfg_master_sel = sw_stable[1];                           // SW[1]: Master select
+    assign cfg_slave_sel  = (sw_stable[3:2] == 2'b11) ? 2'b00 :     // 11 -> Read from Slave 1
+                            sw_stable[3:2];                          // Otherwise use SW[3:2] directly
+    assign cfg_mode       = (sw_stable[3:2] == 2'b11) ? 1'b0 : 1'b1; // 11 -> Read, else Write
+    
     // Button edge detection for KEY0 (active low, detect falling edge)
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
@@ -102,8 +133,26 @@ module ads_bus_demo_de0nano (
             key0_sync <= {key0_sync[1:0], KEY[0]};
         end
     end
-    // Detect button press (falling edge)
     assign key0_pressed = (key0_sync[2:1] == 2'b10);
+    
+    // Button edge detection for KEY1 (active low, detect falling edge)
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            key1_sync <= 3'b111;
+        end else begin
+            key1_sync <= {key1_sync[1:0], KEY[1]};
+        end
+    end
+    assign key1_pressed = (key1_sync[2:1] == 2'b10);
+    
+    // Data pattern register - increments when KEY[1] is pressed
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            data_pattern <= INITIAL_DATA_PATTERN;
+        end else if (key1_pressed) begin
+            data_pattern <= data_pattern + 8'h11;  // Increment by 0x11 for visible change
+        end
+    end
     
     //==========================================================================
     // Demo Transaction Controller
@@ -120,6 +169,8 @@ module ads_bus_demo_de0nano (
     reg [7:0] display_data;
     reg [1:0] display_slave;
     reg transaction_active;
+    reg captured_master;      // Latched master selection at transaction start
+    reg captured_mode;        // Latched mode at transaction start
     
     // Master 1 device interface signals
     reg [DATA_WIDTH-1:0] m1_dwdata;
@@ -139,7 +190,7 @@ module ads_bus_demo_de0nano (
     
     // Build full address: {device_addr[3:0], mem_addr[11:0]}
     wire [15:0] full_address;
-    assign full_address = {2'b00, DEMO_SLAVE_SELECT, DEMO_MEM_ADDR};
+    assign full_address = {2'b00, cfg_slave_sel, DEMO_MEM_ADDR};
     
     // Demo FSM
     always @(posedge clk or negedge rstn) begin
@@ -149,6 +200,8 @@ module ads_bus_demo_de0nano (
             display_data <= 8'h00;
             display_slave <= 2'b00;
             transaction_active <= 1'b0;
+            captured_master <= 1'b0;
+            captured_mode <= 1'b0;
             
             m1_dwdata <= 8'h00;
             m1_daddr <= 16'h0000;
@@ -170,23 +223,26 @@ module ads_bus_demo_de0nano (
                     if (key0_pressed) begin
                         demo_state <= DEMO_START;
                         demo_counter <= 16'd0;
+                        // Capture switch settings at transaction start
+                        captured_master <= cfg_master_sel;
+                        captured_mode <= cfg_mode;
                     end
                 end
                 
                 DEMO_START: begin
                     transaction_active <= 1'b1;
-                    // Setup transaction based on configured master
-                    if (DEMO_MASTER_SELECT == 1'b0) begin
+                    // Setup transaction based on switch-selected master
+                    if (captured_master == 1'b0) begin
                         // Master 1 transaction
                         m1_daddr <= full_address;
-                        m1_dwdata <= DEMO_DATA_PATTERN;
-                        m1_dmode <= DEMO_MODE;
+                        m1_dwdata <= data_pattern;
+                        m1_dmode <= captured_mode;
                         m1_dvalid <= 1'b1;
                     end else begin
                         // Master 2 transaction
                         m2_daddr <= full_address;
-                        m2_dwdata <= DEMO_DATA_PATTERN;
-                        m2_dmode <= DEMO_MODE;
+                        m2_dwdata <= data_pattern;
+                        m2_dmode <= captured_mode;
                         m2_dvalid <= 1'b1;
                     end
                     demo_state <= DEMO_WAIT;
@@ -197,8 +253,8 @@ module ads_bus_demo_de0nano (
                     demo_counter <= demo_counter + 1'b1;
                     
                     // Check if transaction complete or timeout
-                    if ((DEMO_MASTER_SELECT == 1'b0 && m1_dready) ||
-                        (DEMO_MASTER_SELECT == 1'b1 && m2_dready) ||
+                    if ((captured_master == 1'b0 && m1_dready) ||
+                        (captured_master == 1'b1 && m2_dready) ||
                         (demo_counter > 16'd2000)) begin
                         demo_state <= DEMO_COMPLETE;
                     end
@@ -206,13 +262,13 @@ module ads_bus_demo_de0nano (
                 
                 DEMO_COMPLETE: begin
                     // Capture results for display
-                    display_slave <= DEMO_SLAVE_SELECT;
-                    if (DEMO_MODE == 1'b0) begin
+                    display_slave <= cfg_slave_sel;
+                    if (captured_mode == 1'b0) begin
                         // Read mode - display read data
-                        display_data <= (DEMO_MASTER_SELECT == 1'b0) ? m1_drdata : m2_drdata;
+                        display_data <= (captured_master == 1'b0) ? m1_drdata : m2_drdata;
                     end else begin
                         // Write mode - display written data
-                        display_data <= DEMO_DATA_PATTERN;
+                        display_data <= data_pattern;
                     end
                     demo_state <= DEMO_DISPLAY;
                     demo_counter <= 16'd0;
@@ -220,11 +276,8 @@ module ads_bus_demo_de0nano (
                 
                 DEMO_DISPLAY: begin
                     transaction_active <= 1'b0;
-                    // Hold display for a while, then return to idle
-                    demo_counter <= demo_counter + 1'b1;
-                    if (demo_counter > 16'd50000) begin  // ~1ms at 50MHz
-                        demo_state <= DEMO_IDLE;
-                    end
+                    // Hold display, ready for next transaction immediately
+                    demo_state <= DEMO_IDLE;
                 end
                 
                 default: demo_state <= DEMO_IDLE;

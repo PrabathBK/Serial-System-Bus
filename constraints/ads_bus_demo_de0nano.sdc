@@ -55,8 +55,12 @@ set_false_path -to [get_ports {LED[*]}]
 # Reset synchronizer - first two stages can be metastable
 set_false_path -to [get_registers {*reset_sync[0]*}]
 
-# Button synchronizer - first two stages can be metastable
+# Button synchronizers - first two stages can be metastable
 set_false_path -to [get_registers {*key0_sync[0]*}]
+set_false_path -to [get_registers {*key1_sync[0]*}]
+
+# Switch synchronizers - first stage can be metastable
+set_false_path -to [get_registers {*sw_sync1[*]}]
 
 #**************************************************************
 # Set Multicycle Path

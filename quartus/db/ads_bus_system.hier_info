@@ -1,11 +1,11 @@
 |ads_bus_demo_de0nano
 CLOCK_50 => clk.IN6
 KEY[0] => key0_sync[0].DATAIN
-KEY[1] => ~NO_FANOUT~
+KEY[1] => key1_sync[0].DATAIN
 SW[0] => reset_sync[0].DATAIN
-SW[1] => ~NO_FANOUT~
-SW[2] => ~NO_FANOUT~
-SW[3] => ~NO_FANOUT~
+SW[1] => sw_sync1[1].DATAIN
+SW[2] => sw_sync1[2].DATAIN
+SW[3] => sw_sync1[3].DATAIN
 LED[0] <= display_slave[0].DB_MAX_OUTPUT_PORT_TYPE
 LED[1] <= display_slave[1].DB_MAX_OUTPUT_PORT_TYPE
 LED[2] <= display_data[0].DB_MAX_OUTPUT_PORT_TYPE

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ads_bus_system
-Tue Dec  2 13:07:31 2025
+Tue Dec  2 13:17:45 2025
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -13,52 +13,61 @@ Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |ads_bus_demo_de0nano|demo_state
-  9. State Machine - |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|prev_state
- 10. State Machine - |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|state
- 11. State Machine - |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|prev_state
- 12. State Machine - |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|state
- 13. State Machine - |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|prev_state
- 14. State Machine - |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|state
- 15. State Machine - |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|state
- 16. State Machine - |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter|split_owner
- 17. State Machine - |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter|state
- 18. State Machine - |ads_bus_demo_de0nano|master_port:master2_port|prev_state
- 19. State Machine - |ads_bus_demo_de0nano|master_port:master2_port|state
- 20. State Machine - |ads_bus_demo_de0nano|master_port:master1_port|prev_state
- 21. State Machine - |ads_bus_demo_de0nano|master_port:master1_port|state
- 22. Registers Removed During Synthesis
- 23. Removed Registers Triggering Further Register Optimizations
- 24. General Register Statistics
- 25. Inverted Register Statistics
- 26. Physical Synthesis Netlist Optimizations
- 27. Multiplexer Restructuring Statistics (No Restructuring Performed)
- 28. Parameter Settings for User Entity Instance: Top-level Entity: |ads_bus_demo_de0nano
- 29. Parameter Settings for User Entity Instance: master_port:master1_port
- 30. Parameter Settings for User Entity Instance: master_port:master2_port
- 31. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst
- 32. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|addr_decoder:decoder
- 33. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|mux2:wdata_mux
- 34. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|mux2:mctrl_mux
- 35. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|mux3:rdata_mux
- 36. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|mux3:rctrl_mux
- 37. Parameter Settings for User Entity Instance: slave:slave1_inst
- 38. Parameter Settings for User Entity Instance: slave:slave1_inst|slave_port:sp
- 39. Parameter Settings for User Entity Instance: slave:slave1_inst|slave_memory_bram:sm
- 40. Parameter Settings for User Entity Instance: slave:slave2_inst
- 41. Parameter Settings for User Entity Instance: slave:slave2_inst|slave_port:sp
- 42. Parameter Settings for User Entity Instance: slave:slave2_inst|slave_memory_bram:sm
- 43. Parameter Settings for User Entity Instance: slave:slave3_inst
- 44. Parameter Settings for User Entity Instance: slave:slave3_inst|slave_port:sp
- 45. Parameter Settings for User Entity Instance: slave:slave3_inst|slave_memory_bram:sm
- 46. Port Connectivity Checks: "slave:slave2_inst"
- 47. Port Connectivity Checks: "slave:slave1_inst"
- 48. Port Connectivity Checks: "master_port:master2_port"
- 49. Port Connectivity Checks: "master_port:master1_port"
- 50. Post-Synthesis Netlist Statistics for Top Partition
- 51. Elapsed Time Per Partition
- 52. Analysis & Synthesis Messages
- 53. Analysis & Synthesis Suppressed Messages
+  8. Analysis & Synthesis RAM Summary
+  9. State Machine - |ads_bus_demo_de0nano|demo_state
+ 10. State Machine - |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|prev_state
+ 11. State Machine - |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|state
+ 12. State Machine - |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|prev_state
+ 13. State Machine - |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|state
+ 14. State Machine - |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|prev_state
+ 15. State Machine - |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|state
+ 16. State Machine - |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|state
+ 17. State Machine - |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter|split_owner
+ 18. State Machine - |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter|state
+ 19. State Machine - |ads_bus_demo_de0nano|master_port:master2_port|prev_state
+ 20. State Machine - |ads_bus_demo_de0nano|master_port:master2_port|state
+ 21. State Machine - |ads_bus_demo_de0nano|master_port:master1_port|prev_state
+ 22. State Machine - |ads_bus_demo_de0nano|master_port:master1_port|state
+ 23. Registers Removed During Synthesis
+ 24. Removed Registers Triggering Further Register Optimizations
+ 25. General Register Statistics
+ 26. Inverted Register Statistics
+ 27. Physical Synthesis Netlist Optimizations
+ 28. Registers Packed Into Inferred Megafunctions
+ 29. Multiplexer Restructuring Statistics (No Restructuring Performed)
+ 30. Source assignments for slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_kck1:auto_generated
+ 31. Source assignments for slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_jbk1:auto_generated
+ 32. Source assignments for slave:slave3_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_jbk1:auto_generated
+ 33. Parameter Settings for User Entity Instance: Top-level Entity: |ads_bus_demo_de0nano
+ 34. Parameter Settings for User Entity Instance: master_port:master1_port
+ 35. Parameter Settings for User Entity Instance: master_port:master2_port
+ 36. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst
+ 37. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|addr_decoder:decoder
+ 38. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|mux2:wdata_mux
+ 39. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|mux2:mctrl_mux
+ 40. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|mux3:rdata_mux
+ 41. Parameter Settings for User Entity Instance: bus_m2_s3:bus_inst|mux3:rctrl_mux
+ 42. Parameter Settings for User Entity Instance: slave:slave1_inst
+ 43. Parameter Settings for User Entity Instance: slave:slave1_inst|slave_port:sp
+ 44. Parameter Settings for User Entity Instance: slave:slave1_inst|slave_memory_bram:sm
+ 45. Parameter Settings for User Entity Instance: slave:slave2_inst
+ 46. Parameter Settings for User Entity Instance: slave:slave2_inst|slave_port:sp
+ 47. Parameter Settings for User Entity Instance: slave:slave2_inst|slave_memory_bram:sm
+ 48. Parameter Settings for User Entity Instance: slave:slave3_inst
+ 49. Parameter Settings for User Entity Instance: slave:slave3_inst|slave_port:sp
+ 50. Parameter Settings for User Entity Instance: slave:slave3_inst|slave_memory_bram:sm
+ 51. Parameter Settings for Inferred Entity Instance: slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0
+ 52. Parameter Settings for Inferred Entity Instance: slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0
+ 53. Parameter Settings for Inferred Entity Instance: slave:slave3_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0
+ 54. altsyncram Parameter Settings by Entity Instance
+ 55. Port Connectivity Checks: "slave:slave2_inst"
+ 56. Port Connectivity Checks: "slave:slave1_inst"
+ 57. Port Connectivity Checks: "master_port:master2_port"
+ 58. Port Connectivity Checks: "master_port:master1_port"
+ 59. Post-Synthesis Netlist Statistics for Top Partition
+ 60. Elapsed Time Per Partition
+ 61. Analysis & Synthesis Messages
+ 62. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -85,18 +94,18 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Dec  2 13:07:31 2025       ;
+; Analysis & Synthesis Status        ; Successful - Tue Dec  2 13:17:45 2025       ;
 ; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; ads_bus_system                              ;
 ; Top-level Entity Name              ; ads_bus_demo_de0nano                        ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 440                                         ;
-;     Total combinational functions  ; 431                                         ;
-;     Dedicated logic registers      ; 153                                         ;
-; Total registers                    ; 153                                         ;
+; Total logic elements               ; 846                                         ;
+;     Total combinational functions  ; 776                                         ;
+;     Dedicated logic registers      ; 435                                         ;
+; Total registers                    ; 435                                         ;
 ; Total pins                         ; 15                                          ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 0                                           ;
+; Total memory bits                  ; 81,920                                      ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
 ; Total PLLs                         ; 0                                           ;
 +------------------------------------+---------------------------------------------+
@@ -201,28 +210,46 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
-;     Processors 3-8         ;   0.0%      ;
+;     Processor 2            ;   0.1%      ;
+;     Processor 3            ;   0.1%      ;
+;     Processor 4            ;   0.0%      ;
+;     Processor 5            ;   0.0%      ;
+;     Processor 6            ;   0.0%      ;
+;     Processor 7            ;   0.0%      ;
+;     Processor 8            ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                 ;
-+----------------------------------+-----------------+------------------------+----------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                   ; Library ;
-+----------------------------------+-----------------+------------------------+----------------------------------------------------------------+---------+
-; ../rtl/ads_bus_demo_de0nano.v    ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v   ;         ;
-; ../rtl/core/bus_m2_s3.v          ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v         ;         ;
-; ../rtl/core/master_port.v        ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v       ;         ;
-; ../rtl/core/slave_port.v         ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v        ;         ;
-; ../rtl/core/slave.v              ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/slave.v             ;         ;
-; ../rtl/core/slave_memory_bram.v  ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/slave_memory_bram.v ;         ;
-; ../rtl/core/arbiter.v            ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/arbiter.v           ;         ;
-; ../rtl/core/addr_decoder.v       ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/addr_decoder.v      ;         ;
-; ../rtl/core/mux2.v               ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/mux2.v              ;         ;
-; ../rtl/core/mux3.v               ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/mux3.v              ;         ;
-; ../rtl/core/dec3.v               ; yes             ; User Verilog HDL File  ; /home/prabathbk/Serial-System-Bus/rtl/core/dec3.v              ;         ;
-+----------------------------------+-----------------+------------------------+----------------------------------------------------------------+---------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                              ;
++-----------------------------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                          ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                                        ; Library ;
++-----------------------------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------------+---------+
+; ../rtl/ads_bus_demo_de0nano.v                             ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v                                        ;         ;
+; ../rtl/core/bus_m2_s3.v                                   ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v                                              ;         ;
+; ../rtl/core/master_port.v                                 ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v                                            ;         ;
+; ../rtl/core/slave_port.v                                  ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v                                             ;         ;
+; ../rtl/core/slave.v                                       ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/slave.v                                                  ;         ;
+; ../rtl/core/slave_memory_bram.v                           ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/slave_memory_bram.v                                      ;         ;
+; ../rtl/core/arbiter.v                                     ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/arbiter.v                                                ;         ;
+; ../rtl/core/addr_decoder.v                                ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/addr_decoder.v                                           ;         ;
+; ../rtl/core/mux2.v                                        ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/mux2.v                                                   ;         ;
+; ../rtl/core/mux3.v                                        ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/mux3.v                                                   ;         ;
+; ../rtl/core/dec3.v                                        ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/dec3.v                                                   ;         ;
+; altsyncram.tdf                                            ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altsyncram.tdf                  ;         ;
+; stratix_ram_block.inc                                     ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/stratix_ram_block.inc           ;         ;
+; lpm_mux.inc                                               ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/lpm_mux.inc                     ;         ;
+; lpm_decode.inc                                            ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/lpm_decode.inc                  ;         ;
+; aglobal201.inc                                            ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/aglobal201.inc                  ;         ;
+; a_rdenreg.inc                                             ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/a_rdenreg.inc                   ;         ;
+; altrom.inc                                                ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altrom.inc                      ;         ;
+; altram.inc                                                ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altram.inc                      ;         ;
+; altdpram.inc                                              ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altdpram.inc                    ;         ;
+; db/altsyncram_kck1.tdf                                    ; yes             ; Auto-Generated Megafunction                           ; /home/prabathbk/Serial-System-Bus/quartus/db/altsyncram_kck1.tdf                                    ;         ;
+; db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; /home/prabathbk/Serial-System-Bus/quartus/db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif ;         ;
+; db/altsyncram_jbk1.tdf                                    ; yes             ; Auto-Generated Megafunction                           ; /home/prabathbk/Serial-System-Bus/quartus/db/altsyncram_jbk1.tdf                                    ;         ;
+; db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; /home/prabathbk/Serial-System-Bus/quartus/db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ;         ;
++-----------------------------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -230,56 +257,78 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 440            ;
+; Estimated Total logic elements              ; 846            ;
 ;                                             ;                ;
-; Total combinational functions               ; 431            ;
+; Total combinational functions               ; 776            ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 263            ;
-;     -- 3 input functions                    ; 74             ;
-;     -- <=2 input functions                  ; 94             ;
+;     -- 4 input functions                    ; 430            ;
+;     -- 3 input functions                    ; 130            ;
+;     -- <=2 input functions                  ; 216            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 381            ;
-;     -- arithmetic mode                      ; 50             ;
+;     -- normal mode                          ; 706            ;
+;     -- arithmetic mode                      ; 70             ;
 ;                                             ;                ;
-; Total registers                             ; 153            ;
-;     -- Dedicated logic registers            ; 153            ;
+; Total registers                             ; 435            ;
+;     -- Dedicated logic registers            ; 435            ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 15             ;
+; Total memory bits                           ; 81920          ;
 ;                                             ;                ;
 ; Embedded Multiplier 9-bit elements          ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 153            ;
-; Total fan-out                               ; 1912           ;
-; Average fan-out                             ; 3.11           ;
+; Maximum fan-out                             ; 459            ;
+; Total fan-out                               ; 4256           ;
+; Average fan-out                             ; 3.36           ;
 +---------------------------------------------+----------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                 ;
-+--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+----------------------+--------------+
-; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                               ; Entity Name          ; Library Name ;
-+--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+----------------------+--------------+
-; |ads_bus_demo_de0nano          ; 431 (53)            ; 153 (33)                  ; 0           ; 0            ; 0       ; 0         ; 15   ; 0            ; |ads_bus_demo_de0nano                                                             ; ads_bus_demo_de0nano ; work         ;
-;    |bus_m2_s3:bus_inst|        ; 71 (0)              ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst                                          ; bus_m2_s3            ; work         ;
-;       |addr_decoder:decoder|   ; 47 (44)             ; 19 (19)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder                     ; addr_decoder         ; work         ;
-;          |dec3:mvalid_decoder| ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|dec3:mvalid_decoder ; dec3                 ; work         ;
-;       |arbiter:bus_arbiter|    ; 21 (21)             ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter                      ; arbiter              ; work         ;
-;       |mux2:mctrl_mux|         ; 1 (1)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux2:mctrl_mux                           ; mux2                 ; work         ;
-;       |mux3:rctrl_mux|         ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux3:rctrl_mux                           ; mux3                 ; work         ;
-;    |master_port:master1_port|  ; 85 (85)             ; 28 (28)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|master_port:master1_port                                    ; master_port          ; work         ;
-;    |slave:slave1_inst|         ; 75 (0)              ; 22 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave1_inst                                           ; slave                ; work         ;
-;       |slave_memory_bram:sm|   ; 2 (2)               ; 2 (2)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_memory_bram:sm                      ; slave_memory_bram    ; work         ;
-;       |slave_port:sp|          ; 73 (73)             ; 20 (20)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp                             ; slave_port           ; work         ;
-;    |slave:slave2_inst|         ; 71 (0)              ; 20 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave2_inst                                           ; slave                ; work         ;
-;       |slave_memory_bram:sm|   ; 2 (2)               ; 2 (2)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_memory_bram:sm                      ; slave_memory_bram    ; work         ;
-;       |slave_port:sp|          ; 69 (69)             ; 18 (18)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp                             ; slave_port           ; work         ;
-;    |slave:slave3_inst|         ; 76 (0)              ; 22 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave3_inst                                           ; slave                ; work         ;
-;       |slave_port:sp|          ; 76 (76)             ; 22 (22)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp                             ; slave_port           ; work         ;
-+--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+----------------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                 ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------+----------------------+--------------+
+; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                 ; Entity Name          ; Library Name ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------+----------------------+--------------+
+; |ads_bus_demo_de0nano                        ; 776 (76)            ; 435 (80)                  ; 81920       ; 0            ; 0       ; 0         ; 15   ; 0            ; |ads_bus_demo_de0nano                                                                                               ; ads_bus_demo_de0nano ; work         ;
+;    |bus_m2_s3:bus_inst|                      ; 81 (0)              ; 29 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst                                                                            ; bus_m2_s3            ; work         ;
+;       |addr_decoder:decoder|                 ; 45 (42)             ; 19 (19)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder                                                       ; addr_decoder         ; work         ;
+;          |dec3:mvalid_decoder|               ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|dec3:mvalid_decoder                                   ; dec3                 ; work         ;
+;       |arbiter:bus_arbiter|                  ; 29 (29)             ; 9 (9)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter                                                        ; arbiter              ; work         ;
+;       |mux2:mctrl_mux|                       ; 2 (2)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux2:mctrl_mux                                                             ; mux2                 ; work         ;
+;       |mux2:wdata_mux|                       ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux2:wdata_mux                                                             ; mux2                 ; work         ;
+;       |mux3:rctrl_mux|                       ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux3:rctrl_mux                                                             ; mux3                 ; work         ;
+;       |mux3:rdata_mux|                       ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux3:rdata_mux                                                             ; mux3                 ; work         ;
+;    |master_port:master1_port|                ; 107 (107)           ; 50 (50)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|master_port:master1_port                                                                      ; master_port          ; work         ;
+;    |master_port:master2_port|                ; 107 (107)           ; 51 (51)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|master_port:master2_port                                                                      ; master_port          ; work         ;
+;    |slave:slave1_inst|                       ; 130 (0)             ; 73 (0)                    ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave1_inst                                                                             ; slave                ; work         ;
+;       |slave_memory_bram:sm|                 ; 2 (2)               ; 2 (2)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_memory_bram:sm                                                        ; slave_memory_bram    ; work         ;
+;          |altsyncram:memory_rtl_0|           ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0                                ; altsyncram           ; work         ;
+;             |altsyncram_kck1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_kck1:auto_generated ; altsyncram_kck1      ; work         ;
+;       |slave_port:sp|                        ; 128 (128)           ; 71 (71)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp                                                               ; slave_port           ; work         ;
+;    |slave:slave2_inst|                       ; 133 (0)             ; 75 (0)                    ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave2_inst                                                                             ; slave                ; work         ;
+;       |slave_memory_bram:sm|                 ; 2 (2)               ; 2 (2)                     ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_memory_bram:sm                                                        ; slave_memory_bram    ; work         ;
+;          |altsyncram:memory_rtl_0|           ; 0 (0)               ; 0 (0)                     ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0                                ; altsyncram           ; work         ;
+;             |altsyncram_jbk1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_jbk1:auto_generated ; altsyncram_jbk1      ; work         ;
+;       |slave_port:sp|                        ; 131 (131)           ; 73 (73)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp                                                               ; slave_port           ; work         ;
+;    |slave:slave3_inst|                       ; 142 (0)             ; 77 (0)                    ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave3_inst                                                                             ; slave                ; work         ;
+;       |slave_memory_bram:sm|                 ; 0 (0)               ; 0 (0)                     ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave3_inst|slave_memory_bram:sm                                                        ; slave_memory_bram    ; work         ;
+;          |altsyncram:memory_rtl_0|           ; 0 (0)               ; 0 (0)                     ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave3_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0                                ; altsyncram           ; work         ;
+;             |altsyncram_jbk1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave3_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_jbk1:auto_generated ; altsyncram_jbk1      ; work         ;
+;       |slave_port:sp|                        ; 142 (142)           ; 77 (77)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp                                                               ; slave_port           ; work         ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------+----------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                                   ;
++----------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+-----------------------------------------------------------+
+; Name                                                                                                     ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF                                                       ;
++----------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+-----------------------------------------------------------+
+; slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_kck1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 2048         ; 8            ; 2048         ; 8            ; 16384 ; db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif ;
+; slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_jbk1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 4096         ; 8            ; 4096         ; 8            ; 32768 ; db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ;
+; slave:slave3_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_jbk1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 4096         ; 8            ; 4096         ; 8            ; 32768 ; db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ;
++----------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+-----------------------------------------------------------+
 
 
 Encoding Type:  One-Hot
@@ -508,33 +557,14 @@ Encoding Type:  One-Hot
 +---------------------------------------------------+---------------------------------------------------------+
 ; Register name                                     ; Reason for Removal                                      ;
 +---------------------------------------------------+---------------------------------------------------------+
-; m2_dvalid                                         ; Stuck at GND due to stuck port data_in                  ;
-; display_data[1,3,4]                               ; Stuck at GND due to stuck port data_in                  ;
-; display_slave[1]                                  ; Stuck at GND due to stuck port data_in                  ;
-; m1_dwdata[1,3,4,6]                                ; Stuck at GND due to stuck port data_in                  ;
-; m1_daddr[0..3,5..11,13..15]                       ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|mode                     ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|addr[0..15]              ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|wdata[0..7]              ; Stuck at GND due to stuck port data_in                  ;
-; m1_daddr[4]                                       ; Merged with m1_daddr[12]                                ;
-; m1_daddr[12]                                      ; Merged with m1_dwdata[0]                                ;
-; m1_dwdata[0]                                      ; Merged with m1_dwdata[2]                                ;
-; m1_dwdata[2]                                      ; Merged with m1_dwdata[5]                                ;
-; m1_dwdata[5]                                      ; Merged with m1_dwdata[7]                                ;
-; m1_dwdata[7]                                      ; Merged with m1_dmode                                    ;
-; master_port:master1_port|addr[12]                 ; Merged with master_port:master1_port|mode               ;
-; master_port:master1_port|wdata[0]                 ; Merged with master_port:master1_port|mode               ;
-; master_port:master1_port|addr[4]                  ; Merged with master_port:master1_port|mode               ;
-; master_port:master1_port|wdata[2,5,7]             ; Merged with master_port:master1_port|mode               ;
-; master_port:master1_port|addr[6,10]               ; Merged with master_port:master1_port|addr[0]            ;
-; master_port:master1_port|wdata[6]                 ; Merged with master_port:master1_port|addr[0]            ;
-; master_port:master1_port|addr[8,14]               ; Merged with master_port:master1_port|addr[0]            ;
-; master_port:master1_port|wdata[4]                 ; Merged with master_port:master1_port|addr[0]            ;
-; master_port:master1_port|addr[1,7,9,11,13,15]     ; Merged with master_port:master1_port|addr[0]            ;
-; master_port:master1_port|wdata[1,3]               ; Merged with master_port:master1_port|addr[0]            ;
-; master_port:master1_port|addr[2,3,5]              ; Merged with master_port:master1_port|addr[0]            ;
+; m1_daddr[0..3,5..11,14,15]                        ; Stuck at GND due to stuck port data_in                  ;
+; m2_daddr[0..3,5..11,14,15]                        ; Stuck at GND due to stuck port data_in                  ;
+; master_port:master2_port|addr[1..3,5..11,14,15]   ; Merged with master_port:master2_port|addr[0]            ;
+; master_port:master1_port|addr[2,6,8,10,14]        ; Merged with master_port:master1_port|addr[0]            ;
+; master_port:master1_port|addr[3,5,7,9,11,15]      ; Merged with master_port:master1_port|addr[1]            ;
+; master_port:master1_port|addr[1]                  ; Merged with master_port:master1_port|addr[0]            ;
+; master_port:master2_port|addr[0]                  ; Stuck at GND due to stuck port data_in                  ;
 ; master_port:master1_port|addr[0]                  ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|mwdata                   ; Stuck at GND due to stuck port data_in                  ;
 ; slave:slave3_inst|slave_port:sp|prev_state.IDLE   ; Lost fanout                                             ;
 ; slave:slave3_inst|slave_port:sp|prev_state.RDATA  ; Lost fanout                                             ;
 ; slave:slave3_inst|slave_port:sp|prev_state.WDATA  ; Lost fanout                                             ;
@@ -611,14 +641,6 @@ Encoding Type:  One-Hot
 ; slave:slave2_inst|slave_port:sp|rcounter[2]       ; Merged with slave:slave1_inst|slave_port:sp|rcounter[2] ;
 ; slave:slave2_inst|slave_port:sp|rcounter[1]       ; Merged with slave:slave1_inst|slave_port:sp|rcounter[1] ;
 ; slave:slave2_inst|slave_port:sp|rcounter[0]       ; Merged with slave:slave1_inst|slave_port:sp|rcounter[0] ;
-; master_port:master2_port|state.WDATA              ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|state.REQ                ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|state.SADDR              ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|state.WAIT               ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|state.ADDR               ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|timeout[0..7]            ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|mvalid                   ; Stuck at GND due to stuck port data_in                  ;
-; master_port:master2_port|prev_state.ADDR          ; Stuck at GND due to stuck port data_in                  ;
 ; slave:slave1_inst|slave_port:sp|state.SPLIT       ; Stuck at GND due to stuck port data_in                  ;
 ; slave:slave1_inst|slave_port:sp|state.WAIT        ; Stuck at GND due to stuck port data_in                  ;
 ; slave:slave1_inst|slave_port:sp|rcounter[1..3]    ; Stuck at GND due to stuck port data_in                  ;
@@ -626,56 +648,22 @@ Encoding Type:  One-Hot
 ; slave:slave3_inst|slave_port:sp|state.RVALID      ; Stuck at GND due to stuck port data_in                  ;
 ; slave:slave3_inst|slave_memory_bram:sm|rvalid     ; Lost fanout                                             ;
 ; slave:slave3_inst|slave_memory_bram:sm|ren_prev   ; Lost fanout                                             ;
-; master_port:master2_port|state.IDLE               ; Stuck at GND due to stuck port data_in                  ;
-; slave:slave3_inst|slave_port:sp|smemren           ; Lost fanout                                             ;
-; master_port:master2_port|counter[0..7]            ; Lost fanout                                             ;
-; bus_m2_s3:bus_inst|arbiter:bus_arbiter|msplit2    ; Lost fanout                                             ;
-; master_port:master2_port|state.RDATA              ; Lost fanout                                             ;
-; master_port:master2_port|state.SPLIT              ; Lost fanout                                             ;
-; Total Number of Removed Registers = 192           ;                                                         ;
+; Total Number of Removed Registers = 137           ;                                                         ;
 +---------------------------------------------------+---------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                                       ;
-+-------------------------------------------+---------------------------+---------------------------------------------------------------------------+
-; Register name                             ; Reason for Removal        ; Registers Removed due to This Register                                    ;
-+-------------------------------------------+---------------------------+---------------------------------------------------------------------------+
-; m2_dvalid                                 ; Stuck at GND              ; master_port:master2_port|mode, master_port:master2_port|addr[0],          ;
-;                                           ; due to stuck port data_in ; master_port:master2_port|addr[1], master_port:master2_port|addr[2],       ;
-;                                           ;                           ; master_port:master2_port|addr[3], master_port:master2_port|addr[4],       ;
-;                                           ;                           ; master_port:master2_port|addr[5], master_port:master2_port|addr[6],       ;
-;                                           ;                           ; master_port:master2_port|addr[7], master_port:master2_port|addr[8],       ;
-;                                           ;                           ; master_port:master2_port|addr[9], master_port:master2_port|addr[10],      ;
-;                                           ;                           ; master_port:master2_port|addr[11], master_port:master2_port|addr[12],     ;
-;                                           ;                           ; master_port:master2_port|addr[13], master_port:master2_port|addr[14],     ;
-;                                           ;                           ; master_port:master2_port|addr[15], master_port:master2_port|wdata[0],     ;
-;                                           ;                           ; master_port:master2_port|wdata[1], master_port:master2_port|wdata[2],     ;
-;                                           ;                           ; master_port:master2_port|wdata[3], master_port:master2_port|wdata[4],     ;
-;                                           ;                           ; master_port:master2_port|wdata[5], master_port:master2_port|wdata[6],     ;
-;                                           ;                           ; master_port:master2_port|wdata[7], master_port:master2_port|mwdata,       ;
-;                                           ;                           ; master_port:master2_port|timeout[7], master_port:master2_port|timeout[6], ;
-;                                           ;                           ; master_port:master2_port|timeout[5], master_port:master2_port|timeout[4], ;
-;                                           ;                           ; master_port:master2_port|timeout[3], master_port:master2_port|timeout[2], ;
-;                                           ;                           ; master_port:master2_port|timeout[1], master_port:master2_port|timeout[0], ;
-;                                           ;                           ; master_port:master2_port|mvalid, master_port:master2_port|counter[0],     ;
-;                                           ;                           ; master_port:master2_port|counter[1], master_port:master2_port|counter[2], ;
-;                                           ;                           ; master_port:master2_port|counter[3], master_port:master2_port|counter[4], ;
-;                                           ;                           ; master_port:master2_port|counter[5], master_port:master2_port|counter[6], ;
-;                                           ;                           ; master_port:master2_port|counter[7],                                      ;
-;                                           ;                           ; bus_m2_s3:bus_inst|arbiter:bus_arbiter|msplit2                            ;
-; slave:slave3_inst|slave_port:sp|state~2   ; Lost Fanouts              ; slave:slave3_inst|slave_memory_bram:sm|rvalid,                            ;
-;                                           ;                           ; slave:slave3_inst|slave_memory_bram:sm|ren_prev,                          ;
-;                                           ;                           ; slave:slave3_inst|slave_port:sp|smemren                                   ;
-; m1_daddr[0]                               ; Stuck at GND              ; master_port:master1_port|addr[0]                                          ;
-;                                           ; due to stuck port data_in ;                                                                           ;
-; master_port:master2_port|prev_state.RDATA ; Lost Fanouts              ; master_port:master2_port|state.RDATA                                      ;
-; master_port:master2_port|prev_state.SPLIT ; Lost Fanouts              ; master_port:master2_port|state.SPLIT                                      ;
-; master_port:master2_port|state.WDATA      ; Stuck at GND              ; master_port:master2_port|state.IDLE                                       ;
-;                                           ; due to stuck port data_in ;                                                                           ;
-; master_port:master2_port|state.ADDR       ; Stuck at GND              ; master_port:master2_port|prev_state.ADDR                                  ;
-;                                           ; due to stuck port data_in ;                                                                           ;
-+-------------------------------------------+---------------------------+---------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                           ;
++-----------------------------------------+---------------------------+-------------------------------------------------+
+; Register name                           ; Reason for Removal        ; Registers Removed due to This Register          ;
++-----------------------------------------+---------------------------+-------------------------------------------------+
+; slave:slave3_inst|slave_port:sp|state~2 ; Lost Fanouts              ; slave:slave3_inst|slave_memory_bram:sm|rvalid,  ;
+;                                         ;                           ; slave:slave3_inst|slave_memory_bram:sm|ren_prev ;
+; m1_daddr[0]                             ; Stuck at GND              ; master_port:master1_port|addr[0]                ;
+;                                         ; due to stuck port data_in ;                                                 ;
+; m2_daddr[0]                             ; Stuck at GND              ; master_port:master2_port|addr[0]                ;
+;                                         ; due to stuck port data_in ;                                                 ;
++-----------------------------------------+---------------------------+-------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -683,118 +671,153 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 153   ;
-; Number of registers using Synchronous Clear  ; 99    ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 30    ;
+; Total registers                              ; 435   ;
+; Number of registers using Synchronous Clear  ; 286   ;
+; Number of registers using Synchronous Load   ; 6     ;
+; Number of registers using Asynchronous Clear ; 77    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 8     ;
+; Number of registers using Clock Enable       ; 95    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+--------------------------------------------------+
-; Inverted Register Statistics                     ;
-+----------------------------------------+---------+
-; Inverted Register                      ; Fan out ;
-+----------------------------------------+---------+
-; key0_sync[2]                           ; 2       ;
-; key0_sync[1]                           ; 3       ;
-; key0_sync[0]                           ; 1       ;
-; Total number of inverted registers = 3 ;         ;
-+----------------------------------------+---------+
++---------------------------------------------------+
+; Inverted Register Statistics                      ;
++-----------------------------------------+---------+
+; Inverted Register                       ; Fan out ;
++-----------------------------------------+---------+
+; data_pattern[2]                         ; 4       ;
+; data_pattern[5]                         ; 4       ;
+; data_pattern[7]                         ; 3       ;
+; data_pattern[0]                         ; 5       ;
+; key0_sync[1]                            ; 3       ;
+; key0_sync[2]                            ; 2       ;
+; key1_sync[1]                            ; 3       ;
+; key1_sync[2]                            ; 2       ;
+; key0_sync[0]                            ; 1       ;
+; key1_sync[0]                            ; 1       ;
+; Total number of inverted registers = 10 ;         ;
++-----------------------------------------+---------+
 
 
-+------------------------------------------------------------------------------------------------------+
-; Physical Synthesis Netlist Optimizations                                                             ;
-+-------------------------------------------------------------+------------------+---------------------+
-; Node                                                        ; Action           ; Reason              ;
-+-------------------------------------------------------------+------------------+---------------------+
-; Add0~1                                                      ; Modified         ; Timing optimization ;
-; Selector4~0                                                 ; Deleted          ; Timing optimization ;
-; Selector4~1                                                 ; Modified         ; Timing optimization ;
-; Selector4~1_RESYN95_BDD96                                   ; Created          ; Timing optimization ;
-; Selector4~1_RESYN97_BDD98                                   ; Created          ; Timing optimization ;
-; Selector20~0                                                ; Modified         ; Timing optimization ;
-; bus_m2_s3:bus_inst|addr_decoder:decoder|ssel[0]_OTERM15     ; Retimed Register ; Timing optimization ;
-; bus_m2_s3:bus_inst|addr_decoder:decoder|ssel[1]_OTERM17     ; Retimed Register ; Timing optimization ;
-; bus_m2_s3:bus_inst|mux2:mctrl_mux|out[0]~0_OTERM1           ; Retimed Register ; Timing optimization ;
-; bus_m2_s3:bus_inst|mux3:rctrl_mux|Mux0~0                    ; Deleted          ; Timing optimization ;
-; bus_m2_s3:bus_inst|mux3:rctrl_mux|Mux0~1                    ; Modified         ; Timing optimization ;
-; bus_m2_s3:bus_inst|mux3:rctrl_mux|Mux0~1_RESYN75_BDD76      ; Created          ; Timing optimization ;
-; master_port:master1_port|Add1~1                             ; Modified         ; Timing optimization ;
-; master_port:master1_port|Add2~1                             ; Modified         ; Timing optimization ;
-; master_port:master1_port|Add2~23                            ; Modified         ; Timing optimization ;
-; master_port:master1_port|Equal1~1                           ; Modified         ; Timing optimization ;
-; master_port:master1_port|Equal1~1_RESYN91_BDD92             ; Created          ; Timing optimization ;
-; master_port:master1_port|Equal3~0                           ; Modified         ; Timing optimization ;
-; master_port:master1_port|Equal3~0_RESYN93_BDD94             ; Created          ; Timing optimization ;
-; master_port:master1_port|Selector0~0                        ; Deleted          ; Timing optimization ;
-; master_port:master1_port|Selector12~4                       ; Deleted          ; Timing optimization ;
-; master_port:master1_port|Selector12~5                       ; Deleted          ; Timing optimization ;
-; master_port:master1_port|Selector12~6                       ; Deleted          ; Timing optimization ;
-; master_port:master1_port|Selector12~7                       ; Modified         ; Timing optimization ;
-; master_port:master1_port|Selector12~7_RESYN99_BDD100        ; Created          ; Timing optimization ;
-; master_port:master1_port|Selector12~7_RESYN101_BDD102       ; Created          ; Timing optimization ;
-; master_port:master1_port|Selector12~7_RESYN103_BDD104       ; Created          ; Timing optimization ;
-; master_port:master1_port|Selector12~7_RESYN105_BDD106       ; Created          ; Timing optimization ;
-; master_port:master1_port|Selector12~7_RESYN107_BDD108       ; Created          ; Timing optimization ;
-; master_port:master1_port|Selector12~8                       ; Deleted          ; Timing optimization ;
-; master_port:master1_port|Selector15~4                       ; Modified         ; Timing optimization ;
-; master_port:master1_port|state~13                           ; Deleted          ; Timing optimization ;
-; master_port:master1_port|state~14                           ; Deleted          ; Timing optimization ;
-; master_port:master1_port|state~15                           ; Deleted          ; Timing optimization ;
-; master_port:master1_port|state~16                           ; Modified         ; Timing optimization ;
-; master_port:master1_port|state~16_RESYN77_BDD78             ; Created          ; Timing optimization ;
-; master_port:master1_port|state~16_RESYN79_BDD80             ; Created          ; Timing optimization ;
-; master_port:master1_port|state~16_RESYN81_BDD82             ; Created          ; Timing optimization ;
-; master_port:master1_port|state~16_RESYN83_BDD84             ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Add0~0                      ; Modified         ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Add0~1                      ; Modified         ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Equal1~0                    ; Deleted          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Equal1~1                    ; Modified         ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Equal1~1_RESYN85_BDD86      ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector7~3                 ; Deleted          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector7~4                 ; Modified         ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector7~4_RESYN87_BDD88   ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector7~4_RESYN89_BDD90   ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector7~5                 ; Deleted          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~0                 ; Deleted          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~1                 ; Deleted          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~2                 ; Deleted          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~3                 ; Deleted          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~4                 ; Modified         ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~4_RESYN109_BDD110 ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~4_RESYN111_BDD112 ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~4_RESYN113_BDD114 ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~4_RESYN115_BDD116 ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector9~4_RESYN117_BDD118 ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector14~1                ; Modified         ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|Selector14~3                ; Modified         ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|always2~1                   ; Modified         ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|always2~1_RESYN119_BDD120   ; Created          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|counter[3]                  ; Deleted          ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|counter[3]_OTERM3           ; Retimed Register ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|counter[3]_OTERM5           ; Retimed Register ; Timing optimization ;
-; slave:slave1_inst|slave_port:sp|counter[3]_OTERM7           ; Retimed Register ; Timing optimization ;
-; slave:slave2_inst|slave_port:sp|Add0~0                      ; Modified         ; Timing optimization ;
-; slave:slave2_inst|slave_port:sp|Add0~1                      ; Modified         ; Timing optimization ;
-; slave:slave2_inst|slave_port:sp|Selector7~2                 ; Deleted          ; Timing optimization ;
-; slave:slave2_inst|slave_port:sp|Selector14~0                ; Modified         ; Timing optimization ;
-; slave:slave2_inst|slave_port:sp|Selector14~2                ; Modified         ; Timing optimization ;
-; slave:slave2_inst|slave_port:sp|Selector14~3                ; Modified         ; Timing optimization ;
-; slave:slave2_inst|slave_port:sp|svalid_NEW11_RTM013         ; Modified         ; Timing optimization ;
-; slave:slave2_inst|slave_port:sp|svalid_OTERM12              ; Retimed Register ; Timing optimization ;
-; slave:slave3_inst|slave_port:sp|Add0~0                      ; Modified         ; Timing optimization ;
-; slave:slave3_inst|slave_port:sp|Add0~1                      ; Modified         ; Timing optimization ;
-; slave:slave3_inst|slave_port:sp|Selector7~2                 ; Deleted          ; Timing optimization ;
-; slave:slave3_inst|slave_port:sp|Selector14~0                ; Modified         ; Timing optimization ;
-; slave:slave3_inst|slave_port:sp|Selector14~2                ; Modified         ; Timing optimization ;
-; slave:slave3_inst|slave_port:sp|Selector14~3                ; Modified         ; Timing optimization ;
-; slave:slave3_inst|slave_port:sp|Selector15~1                ; Deleted          ; Timing optimization ;
-; slave:slave3_inst|slave_port:sp|svalid_NEW8_RTM010          ; Modified         ; Timing optimization ;
-; slave:slave3_inst|slave_port:sp|svalid_OTERM9               ; Retimed Register ; Timing optimization ;
-+-------------------------------------------------------------+------------------+---------------------+
++------------------------------------------------------------------------------------------------------------------+
+; Physical Synthesis Netlist Optimizations                                                                         ;
++-------------------------------------------------------------------------+------------------+---------------------+
+; Node                                                                    ; Action           ; Reason              ;
++-------------------------------------------------------------------------+------------------+---------------------+
+; Add1~1                                                                  ; Modified         ; Timing optimization ;
+; Selector20~0                                                            ; Modified         ; Timing optimization ;
+; bus_m2_s3:bus_inst|mux2:mctrl_mux|out[0]~0_OTERM145                     ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|Add1~1                                         ; Modified         ; Timing optimization ;
+; master_port:master1_port|Add2~1                                         ; Modified         ; Timing optimization ;
+; master_port:master1_port|Add2~23                                        ; Modified         ; Timing optimization ;
+; master_port:master1_port|Selector15~3                                   ; Modified         ; Timing optimization ;
+; master_port:master1_port|rdata[0]                                       ; Deleted          ; Timing optimization ;
+; master_port:master1_port|rdata[0]_OTERM133                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[1]                                       ; Deleted          ; Timing optimization ;
+; master_port:master1_port|rdata[1]_OTERM131                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[2]                                       ; Deleted          ; Timing optimization ;
+; master_port:master1_port|rdata[2]_OTERM129                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[3]                                       ; Deleted          ; Timing optimization ;
+; master_port:master1_port|rdata[3]_OTERM117                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[3]_OTERM119                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[3]_OTERM121                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[4]                                       ; Deleted          ; Timing optimization ;
+; master_port:master1_port|rdata[4]_OTERM113                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[4]_OTERM115                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[5]                                       ; Deleted          ; Timing optimization ;
+; master_port:master1_port|rdata[5]_OTERM107                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[5]_OTERM109                              ; Retimed Register ; Timing optimization ;
+; master_port:master1_port|rdata[5]_OTERM111                              ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|Add1~1                                         ; Modified         ; Timing optimization ;
+; master_port:master2_port|Add2~1                                         ; Modified         ; Timing optimization ;
+; master_port:master2_port|Add2~23                                        ; Modified         ; Timing optimization ;
+; master_port:master2_port|Selector15~3                                   ; Modified         ; Timing optimization ;
+; master_port:master2_port|rdata[0]                                       ; Deleted          ; Timing optimization ;
+; master_port:master2_port|rdata[0]_OTERM127                              ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[1]                                       ; Deleted          ; Timing optimization ;
+; master_port:master2_port|rdata[1]_OTERM125                              ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[2]                                       ; Deleted          ; Timing optimization ;
+; master_port:master2_port|rdata[2]_OTERM123                              ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[3]                                       ; Deleted          ; Timing optimization ;
+; master_port:master2_port|rdata[3]_OTERM101                              ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[3]_OTERM103                              ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[3]_OTERM105                              ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[4]                                       ; Deleted          ; Timing optimization ;
+; master_port:master2_port|rdata[4]_OTERM97                               ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[4]_OTERM99                               ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[5]                                       ; Deleted          ; Timing optimization ;
+; master_port:master2_port|rdata[5]_OTERM89                               ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[5]_OTERM91                               ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[5]_OTERM93                               ; Retimed Register ; Timing optimization ;
+; master_port:master2_port|rdata[5]_OTERM95                               ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|Add0~1                                  ; Modified         ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|Selector14~3                            ; Modified         ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata                                  ; Deleted          ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM1                           ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM3                           ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM25                   ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM27_OTERM51           ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM27_OTERM53           ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM27_OTERM55_OTERM141  ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM27_OTERM55_OTERM143  ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM29_OTERM43           ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM29_OTERM45           ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM29_OTERM47           ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM29_OTERM49_OTERM135  ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM29_OTERM49_OTERM137  ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM5_OTERM29_OTERM49_OTERM139  ; Retimed Register ; Timing optimization ;
+; slave:slave1_inst|slave_port:sp|srdata_OTERM7                           ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|Add0~0                                  ; Modified         ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|Add0~1                                  ; Modified         ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|Selector14~0                            ; Modified         ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|Selector14~2                            ; Modified         ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|Selector14~3                            ; Modified         ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata                                  ; Deleted          ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM9                           ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM11                          ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM31                  ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM33_OTERM65          ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM33_OTERM67          ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM33_OTERM69          ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM33_OTERM71_OTERM157 ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM33_OTERM71_OTERM159 ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM35_OTERM57          ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM35_OTERM59          ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM35_OTERM61          ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM35_OTERM63_OTERM147 ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM13_OTERM35_OTERM63_OTERM149 ; Retimed Register ; Timing optimization ;
+; slave:slave2_inst|slave_port:sp|srdata_OTERM15                          ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|Add0~0                                  ; Modified         ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|Add0~1                                  ; Modified         ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|Mux0~1_OTERM151_OTERM161                ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|Mux0~1_OTERM151_OTERM163                ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|Mux0~1_OTERM151_OTERM165                ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|Selector14~0                            ; Modified         ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|Selector14~1                            ; Modified         ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata                                  ; Deleted          ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM17                          ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM19                          ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM21_OTERM37                  ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM21_OTERM39_OTERM83          ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM21_OTERM41_OTERM73          ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM21_OTERM41_OTERM75          ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM21_OTERM41_OTERM77          ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM21_OTERM41_OTERM79_OTERM153 ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM21_OTERM41_OTERM79_OTERM155 ; Retimed Register ; Timing optimization ;
+; slave:slave3_inst|slave_port:sp|srdata_OTERM23                          ; Retimed Register ; Timing optimization ;
++-------------------------------------------------------------------------+------------------+---------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Registers Packed Into Inferred Megafunctions                                                                    ;
++----------------------------------------------------+-----------------------------------------------------+------+
+; Register Name                                      ; Megafunction                                        ; Type ;
++----------------------------------------------------+-----------------------------------------------------+------+
+; slave:slave1_inst|slave_memory_bram:sm|rdata[0..7] ; slave:slave1_inst|slave_memory_bram:sm|memory_rtl_0 ; RAM  ;
+; slave:slave2_inst|slave_memory_bram:sm|rdata[0..7] ; slave:slave2_inst|slave_memory_bram:sm|memory_rtl_0 ; RAM  ;
+; slave:slave3_inst|slave_memory_bram:sm|rdata[0..7] ; slave:slave3_inst|slave_memory_bram:sm|memory_rtl_0 ; RAM  ;
++----------------------------------------------------+-----------------------------------------------------+------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -802,18 +825,53 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                        ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------------+
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|ssel[1]             ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|smemaddr[7]                 ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|smemaddr[10]                ;
+; 3:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|smemaddr[3]                 ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |ads_bus_demo_de0nano|master_port:master2_port|mode                               ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |ads_bus_demo_de0nano|master_port:master1_port|mode                               ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|ssel[0]             ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|split_slave_addr[3] ;
-; 5:1                ; 16 bits   ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |ads_bus_demo_de0nano|demo_counter[1]                                             ;
-; 12:1               ; 8 bits    ; 64 LEs        ; 8 LEs                ; 56 LEs                 ; Yes        ; |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|counter[4]                  ;
-; 12:1               ; 8 bits    ; 64 LEs        ; 8 LEs                ; 56 LEs                 ; Yes        ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|counter[0]                  ;
-; 12:1               ; 8 bits    ; 64 LEs        ; 8 LEs                ; 56 LEs                 ; Yes        ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|counter[0]                  ;
-; 11:1               ; 8 bits    ; 56 LEs        ; 8 LEs                ; 48 LEs                 ; Yes        ; |ads_bus_demo_de0nano|master_port:master2_port|counter[5]                         ;
-; 11:1               ; 8 bits    ; 56 LEs        ; 8 LEs                ; 48 LEs                 ; Yes        ; |ads_bus_demo_de0nano|master_port:master1_port|counter[1]                         ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 9 LEs                ; 3 LEs                  ; No         ; |ads_bus_demo_de0nano|Selector0                                                   ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|smemwdata[7]                ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|smemwdata[5]                ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|smemwdata[2]                ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; Yes        ; |ads_bus_demo_de0nano|display_data[4]                                             ;
+; 5:1                ; 16 bits   ; 48 LEs        ; 16 LEs               ; 32 LEs                 ; Yes        ; |ads_bus_demo_de0nano|demo_counter[13]                                            ;
+; 12:1               ; 8 bits    ; 64 LEs        ; 8 LEs                ; 56 LEs                 ; Yes        ; |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|counter[0]                  ;
+; 12:1               ; 8 bits    ; 64 LEs        ; 8 LEs                ; 56 LEs                 ; Yes        ; |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|counter[6]                  ;
+; 12:1               ; 8 bits    ; 64 LEs        ; 8 LEs                ; 56 LEs                 ; Yes        ; |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|counter[7]                  ;
+; 11:1               ; 8 bits    ; 56 LEs        ; 8 LEs                ; 48 LEs                 ; Yes        ; |ads_bus_demo_de0nano|master_port:master2_port|counter[0]                         ;
+; 11:1               ; 8 bits    ; 56 LEs        ; 8 LEs                ; 48 LEs                 ; Yes        ; |ads_bus_demo_de0nano|master_port:master1_port|counter[2]                         ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux3:rctrl_mux|Mux0                      ;
 ; 8:1                ; 3 bits    ; 15 LEs        ; 9 LEs                ; 6 LEs                  ; No         ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter|split_owner          ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |ads_bus_demo_de0nano|Selector4                                                   ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Source assignments for slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_kck1:auto_generated ;
++---------------------------------+--------------------+------+--------------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                     ;
++---------------------------------+--------------------+------+--------------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                      ;
++---------------------------------+--------------------+------+--------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Source assignments for slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_jbk1:auto_generated ;
++---------------------------------+--------------------+------+--------------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                     ;
++---------------------------------+--------------------+------+--------------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                      ;
++---------------------------------+--------------------+------+--------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Source assignments for slave:slave3_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0|altsyncram_jbk1:auto_generated ;
++---------------------------------+--------------------+------+--------------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                     ;
++---------------------------------+--------------------+------+--------------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                      ;
++---------------------------------+--------------------+------+--------------------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------+
@@ -1030,6 +1088,231 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
++-----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0 ;
++------------------------------------+-----------------------------------------------------------+----------------+
+; Parameter Name                     ; Value                                                     ; Type           ;
++------------------------------------+-----------------------------------------------------------+----------------+
+; BYTE_SIZE_BLOCK                    ; 8                                                         ; Untyped        ;
+; AUTO_CARRY_CHAINS                  ; ON                                                        ; AUTO_CARRY     ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                                       ; IGNORE_CARRY   ;
+; AUTO_CASCADE_CHAINS                ; ON                                                        ; AUTO_CASCADE   ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                                       ; IGNORE_CASCADE ;
+; WIDTH_BYTEENA                      ; 1                                                         ; Untyped        ;
+; OPERATION_MODE                     ; DUAL_PORT                                                 ; Untyped        ;
+; WIDTH_A                            ; 8                                                         ; Untyped        ;
+; WIDTHAD_A                          ; 11                                                        ; Untyped        ;
+; NUMWORDS_A                         ; 2048                                                      ; Untyped        ;
+; OUTDATA_REG_A                      ; UNREGISTERED                                              ; Untyped        ;
+; ADDRESS_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; OUTDATA_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; WRCONTROL_ACLR_A                   ; NONE                                                      ; Untyped        ;
+; INDATA_ACLR_A                      ; NONE                                                      ; Untyped        ;
+; BYTEENA_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; WIDTH_B                            ; 8                                                         ; Untyped        ;
+; WIDTHAD_B                          ; 11                                                        ; Untyped        ;
+; NUMWORDS_B                         ; 2048                                                      ; Untyped        ;
+; INDATA_REG_B                       ; CLOCK1                                                    ; Untyped        ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                    ; Untyped        ;
+; RDCONTROL_REG_B                    ; CLOCK1                                                    ; Untyped        ;
+; ADDRESS_REG_B                      ; CLOCK1                                                    ; Untyped        ;
+; OUTDATA_REG_B                      ; UNREGISTERED                                              ; Untyped        ;
+; BYTEENA_REG_B                      ; CLOCK1                                                    ; Untyped        ;
+; INDATA_ACLR_B                      ; NONE                                                      ; Untyped        ;
+; WRCONTROL_ACLR_B                   ; NONE                                                      ; Untyped        ;
+; ADDRESS_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; OUTDATA_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; RDCONTROL_ACLR_B                   ; NONE                                                      ; Untyped        ;
+; BYTEENA_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; WIDTH_BYTEENA_A                    ; 1                                                         ; Untyped        ;
+; WIDTH_BYTEENA_B                    ; 1                                                         ; Untyped        ;
+; RAM_BLOCK_TYPE                     ; AUTO                                                      ; Untyped        ;
+; BYTE_SIZE                          ; 8                                                         ; Untyped        ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                 ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                                      ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                      ; Untyped        ;
+; INIT_FILE                          ; db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif ; Untyped        ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                                    ; Untyped        ;
+; MAXIMUM_DEPTH                      ; 0                                                         ; Untyped        ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                           ; Untyped        ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                           ; Untyped        ;
+; ENABLE_ECC                         ; FALSE                                                     ; Untyped        ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                     ; Untyped        ;
+; WIDTH_ECCSTATUS                    ; 3                                                         ; Untyped        ;
+; DEVICE_FAMILY                      ; Cyclone IV E                                              ; Untyped        ;
+; CBXI_PARAMETER                     ; altsyncram_kck1                                           ; Untyped        ;
++------------------------------------+-----------------------------------------------------------+----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0 ;
++------------------------------------+-----------------------------------------------------------+----------------+
+; Parameter Name                     ; Value                                                     ; Type           ;
++------------------------------------+-----------------------------------------------------------+----------------+
+; BYTE_SIZE_BLOCK                    ; 8                                                         ; Untyped        ;
+; AUTO_CARRY_CHAINS                  ; ON                                                        ; AUTO_CARRY     ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                                       ; IGNORE_CARRY   ;
+; AUTO_CASCADE_CHAINS                ; ON                                                        ; AUTO_CASCADE   ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                                       ; IGNORE_CASCADE ;
+; WIDTH_BYTEENA                      ; 1                                                         ; Untyped        ;
+; OPERATION_MODE                     ; DUAL_PORT                                                 ; Untyped        ;
+; WIDTH_A                            ; 8                                                         ; Untyped        ;
+; WIDTHAD_A                          ; 12                                                        ; Untyped        ;
+; NUMWORDS_A                         ; 4096                                                      ; Untyped        ;
+; OUTDATA_REG_A                      ; UNREGISTERED                                              ; Untyped        ;
+; ADDRESS_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; OUTDATA_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; WRCONTROL_ACLR_A                   ; NONE                                                      ; Untyped        ;
+; INDATA_ACLR_A                      ; NONE                                                      ; Untyped        ;
+; BYTEENA_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; WIDTH_B                            ; 8                                                         ; Untyped        ;
+; WIDTHAD_B                          ; 12                                                        ; Untyped        ;
+; NUMWORDS_B                         ; 4096                                                      ; Untyped        ;
+; INDATA_REG_B                       ; CLOCK1                                                    ; Untyped        ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                    ; Untyped        ;
+; RDCONTROL_REG_B                    ; CLOCK1                                                    ; Untyped        ;
+; ADDRESS_REG_B                      ; CLOCK1                                                    ; Untyped        ;
+; OUTDATA_REG_B                      ; UNREGISTERED                                              ; Untyped        ;
+; BYTEENA_REG_B                      ; CLOCK1                                                    ; Untyped        ;
+; INDATA_ACLR_B                      ; NONE                                                      ; Untyped        ;
+; WRCONTROL_ACLR_B                   ; NONE                                                      ; Untyped        ;
+; ADDRESS_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; OUTDATA_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; RDCONTROL_ACLR_B                   ; NONE                                                      ; Untyped        ;
+; BYTEENA_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; WIDTH_BYTEENA_A                    ; 1                                                         ; Untyped        ;
+; WIDTH_BYTEENA_B                    ; 1                                                         ; Untyped        ;
+; RAM_BLOCK_TYPE                     ; AUTO                                                      ; Untyped        ;
+; BYTE_SIZE                          ; 8                                                         ; Untyped        ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                 ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                                      ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                      ; Untyped        ;
+; INIT_FILE                          ; db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ; Untyped        ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                                    ; Untyped        ;
+; MAXIMUM_DEPTH                      ; 0                                                         ; Untyped        ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                           ; Untyped        ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                           ; Untyped        ;
+; ENABLE_ECC                         ; FALSE                                                     ; Untyped        ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                     ; Untyped        ;
+; WIDTH_ECCSTATUS                    ; 3                                                         ; Untyped        ;
+; DEVICE_FAMILY                      ; Cyclone IV E                                              ; Untyped        ;
+; CBXI_PARAMETER                     ; altsyncram_jbk1                                           ; Untyped        ;
++------------------------------------+-----------------------------------------------------------+----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: slave:slave3_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0 ;
++------------------------------------+-----------------------------------------------------------+----------------+
+; Parameter Name                     ; Value                                                     ; Type           ;
++------------------------------------+-----------------------------------------------------------+----------------+
+; BYTE_SIZE_BLOCK                    ; 8                                                         ; Untyped        ;
+; AUTO_CARRY_CHAINS                  ; ON                                                        ; AUTO_CARRY     ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                                       ; IGNORE_CARRY   ;
+; AUTO_CASCADE_CHAINS                ; ON                                                        ; AUTO_CASCADE   ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                                       ; IGNORE_CASCADE ;
+; WIDTH_BYTEENA                      ; 1                                                         ; Untyped        ;
+; OPERATION_MODE                     ; DUAL_PORT                                                 ; Untyped        ;
+; WIDTH_A                            ; 8                                                         ; Untyped        ;
+; WIDTHAD_A                          ; 12                                                        ; Untyped        ;
+; NUMWORDS_A                         ; 4096                                                      ; Untyped        ;
+; OUTDATA_REG_A                      ; UNREGISTERED                                              ; Untyped        ;
+; ADDRESS_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; OUTDATA_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; WRCONTROL_ACLR_A                   ; NONE                                                      ; Untyped        ;
+; INDATA_ACLR_A                      ; NONE                                                      ; Untyped        ;
+; BYTEENA_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; WIDTH_B                            ; 8                                                         ; Untyped        ;
+; WIDTHAD_B                          ; 12                                                        ; Untyped        ;
+; NUMWORDS_B                         ; 4096                                                      ; Untyped        ;
+; INDATA_REG_B                       ; CLOCK1                                                    ; Untyped        ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                    ; Untyped        ;
+; RDCONTROL_REG_B                    ; CLOCK1                                                    ; Untyped        ;
+; ADDRESS_REG_B                      ; CLOCK1                                                    ; Untyped        ;
+; OUTDATA_REG_B                      ; UNREGISTERED                                              ; Untyped        ;
+; BYTEENA_REG_B                      ; CLOCK1                                                    ; Untyped        ;
+; INDATA_ACLR_B                      ; NONE                                                      ; Untyped        ;
+; WRCONTROL_ACLR_B                   ; NONE                                                      ; Untyped        ;
+; ADDRESS_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; OUTDATA_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; RDCONTROL_ACLR_B                   ; NONE                                                      ; Untyped        ;
+; BYTEENA_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; WIDTH_BYTEENA_A                    ; 1                                                         ; Untyped        ;
+; WIDTH_BYTEENA_B                    ; 1                                                         ; Untyped        ;
+; RAM_BLOCK_TYPE                     ; AUTO                                                      ; Untyped        ;
+; BYTE_SIZE                          ; 8                                                         ; Untyped        ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                 ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                                      ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                      ; Untyped        ;
+; INIT_FILE                          ; db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ; Untyped        ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                                    ; Untyped        ;
+; MAXIMUM_DEPTH                      ; 0                                                         ; Untyped        ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                           ; Untyped        ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                           ; Untyped        ;
+; ENABLE_ECC                         ; FALSE                                                     ; Untyped        ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                     ; Untyped        ;
+; WIDTH_ECCSTATUS                    ; 3                                                         ; Untyped        ;
+; DEVICE_FAMILY                      ; Cyclone IV E                                              ; Untyped        ;
+; CBXI_PARAMETER                     ; altsyncram_jbk1                                           ; Untyped        ;
++------------------------------------+-----------------------------------------------------------+----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                                           ;
++-------------------------------------------+----------------------------------------------------------------+
+; Name                                      ; Value                                                          ;
++-------------------------------------------+----------------------------------------------------------------+
+; Number of entity instances                ; 3                                                              ;
+; Entity Instance                           ; slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                                      ;
+;     -- WIDTH_A                            ; 8                                                              ;
+;     -- NUMWORDS_A                         ; 2048                                                           ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                                   ;
+;     -- WIDTH_B                            ; 8                                                              ;
+;     -- NUMWORDS_B                         ; 2048                                                           ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                                         ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                                   ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                           ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                      ;
+; Entity Instance                           ; slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                                      ;
+;     -- WIDTH_A                            ; 8                                                              ;
+;     -- NUMWORDS_A                         ; 4096                                                           ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                                   ;
+;     -- WIDTH_B                            ; 8                                                              ;
+;     -- NUMWORDS_B                         ; 4096                                                           ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                                         ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                                   ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                           ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                      ;
+; Entity Instance                           ; slave:slave3_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                                      ;
+;     -- WIDTH_A                            ; 8                                                              ;
+;     -- NUMWORDS_A                         ; 4096                                                           ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                                   ;
+;     -- WIDTH_B                            ; 8                                                              ;
+;     -- NUMWORDS_B                         ; 4096                                                           ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                                         ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                                   ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                           ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                      ;
++-------------------------------------------+----------------------------------------------------------------+
+
+
 +----------------------------------------------------------+
 ; Port Connectivity Checks: "slave:slave2_inst"            ;
 +-------------+--------+----------+------------------------+
@@ -1050,26 +1333,22 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------+--------+----------+------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "master_port:master2_port"                                                             ;
-+--------+--------+----------+-------------------------------------------------------------------------------------+
-; Port   ; Type   ; Severity ; Details                                                                             ;
-+--------+--------+----------+-------------------------------------------------------------------------------------+
-; dwdata ; Input  ; Info     ; Stuck at GND                                                                        ;
-; drdata ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; daddr  ; Input  ; Info     ; Stuck at GND                                                                        ;
-; dready ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; dmode  ; Input  ; Info     ; Stuck at GND                                                                        ;
-+--------+--------+----------+-------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "master_port:master2_port"                                                                   ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port         ; Type   ; Severity ; Details                                                                             ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; drdata[7..6] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "master_port:master1_port"                                                             ;
-+--------+--------+----------+-------------------------------------------------------------------------------------+
-; Port   ; Type   ; Severity ; Details                                                                             ;
-+--------+--------+----------+-------------------------------------------------------------------------------------+
-; drdata ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+--------+--------+----------+-------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "master_port:master1_port"                                                                   ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port         ; Type   ; Severity ; Details                                                                             ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; drdata[7..6] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -1078,24 +1357,26 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 15                          ;
-; cycloneiii_ff         ; 153                         ;
-;     CLR               ; 26                          ;
-;     ENA               ; 4                           ;
-;     ENA CLR           ; 4                           ;
-;     SCLR              ; 99                          ;
-;     plain             ; 20                          ;
-; cycloneiii_lcell_comb ; 432                         ;
-;     arith             ; 50                          ;
-;         2 data inputs ; 50                          ;
-;     normal            ; 382                         ;
-;         0 data inputs ; 1                           ;
-;         1 data inputs ; 8                           ;
-;         2 data inputs ; 36                          ;
-;         3 data inputs ; 74                          ;
-;         4 data inputs ; 263                         ;
+; cycloneiii_ff         ; 435                         ;
+;     CLR               ; 36                          ;
+;     ENA               ; 54                          ;
+;     ENA CLR           ; 35                          ;
+;     ENA CLR SLD       ; 6                           ;
+;     SCLR              ; 286                         ;
+;     plain             ; 18                          ;
+; cycloneiii_lcell_comb ; 776                         ;
+;     arith             ; 70                          ;
+;         2 data inputs ; 69                          ;
+;         3 data inputs ; 1                           ;
+;     normal            ; 706                         ;
+;         1 data inputs ; 23                          ;
+;         2 data inputs ; 124                         ;
+;         3 data inputs ; 129                         ;
+;         4 data inputs ; 430                         ;
+; cycloneiii_ram_block  ; 24                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 5.00                        ;
-; Average LUT depth     ; 3.34                        ;
+; Max LUT depth         ; 6.00                        ;
+; Average LUT depth     ; 2.79                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1104,7 +1385,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:02     ;
 +----------------+--------------+
 
 
@@ -1114,13 +1395,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-    Info: Processing started: Tue Dec  2 13:07:25 2025
+    Info: Processing started: Tue Dec  2 13:17:38 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ads_bus_system -c ads_bus_system
 Info (16303): Aggressive Performance optimization mode selected -- timing performance will be prioritized at the potential cost of increased logic area and compilation time
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 8 of the 8 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v
-    Info (12023): Found entity 1: ads_bus_demo_de0nano File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 18
+    Info (12023): Found entity 1: ads_bus_demo_de0nano File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 30
 Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v
     Info (12023): Found entity 1: bus_m2_s3 File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 24
 Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v
@@ -1142,42 +1423,14 @@ Info (12021): Found 1 design units, including 1 entities, in source file /home/p
 Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/dec3.v
     Info (12023): Found entity 1: dec3 File: /home/prabathbk/Serial-System-Bus/rtl/core/dec3.v Line: 15
 Info (12127): Elaborating entity "ads_bus_demo_de0nano" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at ads_bus_demo_de0nano.v(122): object "transaction_active" assigned a value but never read File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 122
-Warning (10240): Verilog HDL Always Construct warning at ads_bus_demo_de0nano.v(145): inferring latch(es) for variable "m2_dwdata", which holds its previous value in one or more paths through the always construct File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Warning (10240): Verilog HDL Always Construct warning at ads_bus_demo_de0nano.v(145): inferring latch(es) for variable "m2_daddr", which holds its previous value in one or more paths through the always construct File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Warning (10240): Verilog HDL Always Construct warning at ads_bus_demo_de0nano.v(145): inferring latch(es) for variable "m2_dmode", which holds its previous value in one or more paths through the always construct File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_dmode" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[0]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[1]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[2]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[3]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[4]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[5]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[6]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[7]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[8]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[9]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[10]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[11]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[12]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[13]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[14]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_daddr[15]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_dwdata[0]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_dwdata[1]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_dwdata[2]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_dwdata[3]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_dwdata[4]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_dwdata[5]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_dwdata[6]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (10041): Inferred latch for "m2_dwdata[7]" at ads_bus_demo_de0nano.v(145) File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 145
-Info (12128): Elaborating entity "master_port" for hierarchy "master_port:master1_port" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 290
+Warning (10036): Verilog HDL or VHDL warning at ads_bus_demo_de0nano.v(171): object "transaction_active" assigned a value but never read File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 171
+Info (12128): Elaborating entity "master_port" for hierarchy "master_port:master1_port" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 343
 Warning (10230): Verilog HDL assignment warning at master_port.v(175): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 175
 Warning (10230): Verilog HDL assignment warning at master_port.v(181): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 181
 Warning (10230): Verilog HDL assignment warning at master_port.v(190): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 190
 Warning (10230): Verilog HDL assignment warning at master_port.v(205): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 205
 Warning (10230): Verilog HDL assignment warning at master_port.v(231): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 231
-Info (12128): Elaborating entity "bus_m2_s3" for hierarchy "bus_m2_s3:bus_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 384
+Info (12128): Elaborating entity "bus_m2_s3" for hierarchy "bus_m2_s3:bus_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 437
 Info (12128): Elaborating entity "arbiter" for hierarchy "bus_m2_s3:bus_inst|arbiter:bus_arbiter" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 153
 Info (10264): Verilog HDL Case Statement information at arbiter.v(130): all case item expressions in this case statement are onehot File: /home/prabathbk/Serial-System-Bus/rtl/core/arbiter.v Line: 130
 Info (12128): Elaborating entity "addr_decoder" for hierarchy "bus_m2_s3:bus_inst|addr_decoder:decoder" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 186
@@ -1186,7 +1439,7 @@ Info (12128): Elaborating entity "dec3" for hierarchy "bus_m2_s3:bus_inst|addr_d
 Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:wdata_mux" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 198
 Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:mctrl_mux" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 206
 Info (12128): Elaborating entity "mux3" for hierarchy "bus_m2_s3:bus_inst|mux3:rdata_mux" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 219
-Info (12128): Elaborating entity "slave" for hierarchy "slave:slave1_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 405
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave1_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 458
 Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave1_inst|slave_port:sp" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 74
 Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 147
 Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 164
@@ -1194,7 +1447,7 @@ Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated 
 Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 236
 Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 260
 Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave1_inst|slave_memory_bram:sm" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 95
-Info (12128): Elaborating entity "slave" for hierarchy "slave:slave2_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 426
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave2_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 479
 Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave2_inst|slave_port:sp" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 74
 Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 147
 Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 164
@@ -1202,23 +1455,108 @@ Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated 
 Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 236
 Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 260
 Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave2_inst|slave_memory_bram:sm" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 95
-Info (12128): Elaborating entity "slave" for hierarchy "slave:slave3_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 447
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave3_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 500
 Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave3_inst|slave_port:sp" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 74
 Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 147
 Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 164
 Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 194
 Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 236
 Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 260
+Warning (276027): Inferred dual-clock RAM node "slave:slave1_inst|slave_memory_bram:sm|memory_rtl_0" from synchronous design logic.  The read-during-write behavior of a dual-clock RAM is undefined and may not match the behavior of the original design.
+Warning (276027): Inferred dual-clock RAM node "slave:slave2_inst|slave_memory_bram:sm|memory_rtl_0" from synchronous design logic.  The read-during-write behavior of a dual-clock RAM is undefined and may not match the behavior of the original design.
+Warning (276027): Inferred dual-clock RAM node "slave:slave3_inst|slave_memory_bram:sm|memory_rtl_0" from synchronous design logic.  The read-during-write behavior of a dual-clock RAM is undefined and may not match the behavior of the original design.
+Info (19000): Inferred 3 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "slave:slave1_inst|slave_memory_bram:sm|memory_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 8
+        Info (286033): Parameter WIDTHAD_A set to 11
+        Info (286033): Parameter NUMWORDS_A set to 2048
+        Info (286033): Parameter WIDTH_B set to 8
+        Info (286033): Parameter WIDTHAD_B set to 11
+        Info (286033): Parameter NUMWORDS_B set to 2048
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK1
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter INIT_FILE set to db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "slave:slave2_inst|slave_memory_bram:sm|memory_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 8
+        Info (286033): Parameter WIDTHAD_A set to 12
+        Info (286033): Parameter NUMWORDS_A set to 4096
+        Info (286033): Parameter WIDTH_B set to 8
+        Info (286033): Parameter WIDTHAD_B set to 12
+        Info (286033): Parameter NUMWORDS_B set to 4096
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK1
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter INIT_FILE set to db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "slave:slave3_inst|slave_memory_bram:sm|memory_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 8
+        Info (286033): Parameter WIDTHAD_A set to 12
+        Info (286033): Parameter NUMWORDS_A set to 4096
+        Info (286033): Parameter WIDTH_B set to 8
+        Info (286033): Parameter WIDTHAD_B set to 12
+        Info (286033): Parameter NUMWORDS_B set to 4096
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK1
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter INIT_FILE set to db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif
+Info (12130): Elaborated megafunction instantiation "slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0"
+Info (12133): Instantiated megafunction "slave:slave1_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "8"
+    Info (12134): Parameter "WIDTHAD_A" = "11"
+    Info (12134): Parameter "NUMWORDS_A" = "2048"
+    Info (12134): Parameter "WIDTH_B" = "8"
+    Info (12134): Parameter "WIDTHAD_B" = "11"
+    Info (12134): Parameter "NUMWORDS_B" = "2048"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK1"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+    Info (12134): Parameter "INIT_FILE" = "db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_kck1.tdf
+    Info (12023): Found entity 1: altsyncram_kck1 File: /home/prabathbk/Serial-System-Bus/quartus/db/altsyncram_kck1.tdf Line: 28
+Info (12130): Elaborated megafunction instantiation "slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0"
+Info (12133): Instantiated megafunction "slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "8"
+    Info (12134): Parameter "WIDTHAD_A" = "12"
+    Info (12134): Parameter "NUMWORDS_A" = "4096"
+    Info (12134): Parameter "WIDTH_B" = "8"
+    Info (12134): Parameter "WIDTHAD_B" = "12"
+    Info (12134): Parameter "NUMWORDS_B" = "4096"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK1"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+    Info (12134): Parameter "INIT_FILE" = "db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_jbk1.tdf
+    Info (12023): Found entity 1: altsyncram_jbk1 File: /home/prabathbk/Serial-System-Bus/quartus/db/altsyncram_jbk1.tdf Line: 28
 Info (17026): Resynthesizing 0 WYSIWYG logic cells and I/Os using "balanced" technology mapper which leaves 0 WYSIWYG logic cells and I/Os untouched
-Info (13000): Registers with preset signals will power-up high File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 102
+Info (13000): Registers with preset signals will power-up high File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 152
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LED[1]" is stuck at GND File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 43
-    Warning (13410): Pin "LED[3]" is stuck at GND File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 43
-    Warning (13410): Pin "LED[5]" is stuck at GND File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 43
-    Warning (13410): Pin "LED[6]" is stuck at GND File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 43
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 85 registers lost all their fanouts during netlist optimizations.
+Info (17049): 73 registers lost all their fanouts during netlist optimizations.
 Info (128000): Starting physical synthesis optimizations for speed
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'ads_bus_system.sdc'. A Synopsys Design Constraints File is required by the Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Info (332144): No user constrained base clocks found in the design
@@ -1231,27 +1569,23 @@ Info (332111): Found 1 clocks
     Info (332111): ======== ============
     Info (332111):    1.000     CLOCK_50
 Info (128002): Starting physical synthesis algorithm register retiming
-Info (128003): Physical synthesis algorithm register retiming complete: estimated slack improvement of 413 ps
+Info (128003): Physical synthesis algorithm register retiming complete: estimated slack improvement of 1453 ps
 Info (128002): Starting physical synthesis algorithm combinational resynthesis using boolean division
-Info (128003): Physical synthesis algorithm combinational resynthesis using boolean division complete: estimated slack improvement of 90 ps
-Info (128001): Physical synthesis optimizations for speed complete: elapsed time is 00:00:00
+Info (128003): Physical synthesis algorithm combinational resynthesis using boolean division complete: estimated slack improvement of 0 ps
+Info (128001): Physical synthesis optimizations for speed complete: elapsed time is 00:00:01
 Info (144001): Generated suppressed messages file /home/prabathbk/Serial-System-Bus/quartus/ads_bus_system.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 4 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "KEY[1]" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 27
-    Warning (15610): No output dependent on input pin "SW[1]" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 33
-    Warning (15610): No output dependent on input pin "SW[2]" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 33
-    Warning (15610): No output dependent on input pin "SW[3]" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 33
-Info (21057): Implemented 461 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 914 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 7 input pins
     Info (21059): Implemented 8 output pins
-    Info (21061): Implemented 446 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 37 warnings
-    Info: Peak virtual memory: 546 megabytes
-    Info: Processing ended: Tue Dec  2 13:07:31 2025
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:16
+    Info (21061): Implemented 875 logic cells
+    Info (21064): Implemented 24 RAM segments
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 27 warnings
+    Info: Peak virtual memory: 555 megabytes
+    Info: Processing ended: Tue Dec  2 13:17:45 2025
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:17
 
 
 +------------------------------------------+
