@@ -1,5 +1,5 @@
 Assembler report for ads_bus_system
-Tue Dec  2 10:29:18 2025
+Tue Dec  2 17:31:57 2025
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -38,9 +38,9 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Tue Dec  2 10:29:18 2025 ;
+; Assembler Status      ; Successful - Tue Dec  2 17:31:57 2025 ;
 ; Revision Name         ; ads_bus_system                        ;
-; Top-level Entity Name ; ads_bus_top                           ;
+; Top-level Entity Name ; demo_uart_bridge                      ;
 ; Family                ; Cyclone IV E                          ;
 ; Device                ; EP4CE22F17C6                          ;
 +-----------------------+---------------------------------------+
@@ -67,8 +67,8 @@ https://fpgasoftware.intel.com/eula.
 +----------------+-----------------------------+
 ; Option         ; Setting                     ;
 +----------------+-----------------------------+
-; JTAG usercode  ; 0x001A8A71                  ;
-; Checksum       ; 0x001A8A71                  ;
+; JTAG usercode  ; 0x00204B0B                  ;
+; Checksum       ; 0x00204B0B                  ;
 +----------------+-----------------------------+
 
 
@@ -78,14 +78,14 @@ https://fpgasoftware.intel.com/eula.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-    Info: Processing started: Tue Dec  2 10:29:17 2025
+    Info: Processing started: Tue Dec  2 17:31:56 2025
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off ads_bus_system -c ads_bus_system
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus Prime Assembler was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 357 megabytes
-    Info: Processing ended: Tue Dec  2 10:29:18 2025
+    Info: Peak virtual memory: 356 megabytes
+    Info: Processing ended: Tue Dec  2 17:31:57 2025
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 

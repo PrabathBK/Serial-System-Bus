@@ -1,5 +1,5 @@
 Flow report for ads_bus_system
-Tue Dec  2 10:29:21 2025
+Tue Dec  2 17:31:59 2025
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -41,20 +41,20 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Tue Dec  2 10:29:21 2025       ;
+; Flow Status                        ; Successful - Tue Dec  2 17:31:59 2025       ;
 ; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; ads_bus_system                              ;
-; Top-level Entity Name              ; ads_bus_top                                 ;
+; Top-level Entity Name              ; demo_uart_bridge                            ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE22F17C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 770 / 22,320 ( 3 % )                        ;
-;     Total combinational functions  ; 759 / 22,320 ( 3 % )                        ;
-;     Dedicated logic registers      ; 348 / 22,320 ( 2 % )                        ;
-; Total registers                    ; 348                                         ;
-; Total pins                         ; 28 / 154 ( 18 % )                           ;
+; Total logic elements               ; 1,463 / 22,320 ( 7 % )                      ;
+;     Total combinational functions  ; 1,380 / 22,320 ( 6 % )                      ;
+;     Dedicated logic registers      ; 838 / 22,320 ( 4 % )                        ;
+; Total registers                    ; 838                                         ;
+; Total pins                         ; 19 / 154 ( 12 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 81,920 / 608,256 ( 13 % )                   ;
+; Total memory bits                  ; 65,536 / 608,256 ( 11 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 0 / 132 ( 0 % )                             ;
 ; Total PLLs                         ; 0 / 4 ( 0 % )                               ;
 +------------------------------------+---------------------------------------------+
@@ -65,37 +65,39 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 12/02/2025 10:28:58 ;
+; Start date & time ; 12/02/2025 17:31:38 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; ads_bus_system      ;
 +-------------------+---------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                 ;
-+-----------------------------------------+----------------------------------------+----------------+-------------+----------------+
-; Assignment Name                         ; Value                                  ; Default Value  ; Entity Name ; Section Id     ;
-+-----------------------------------------+----------------------------------------+----------------+-------------+----------------+
-; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP     ; On                                     ; Off            ; --          ; --             ;
-; COMPILER_SIGNATURE_ID                   ; 268446079514813.176465153853745        ; --             ; --          ; --             ;
-; EDA_OUTPUT_DATA_FORMAT                  ; Verilog Hdl                            ; --             ; --          ; eda_simulation ;
-; EDA_SIMULATION_TOOL                     ; ModelSim-Altera (Verilog)              ; <None>         ; --          ; --             ;
-; EDA_TIME_SCALE                          ; 1 ps                                   ; --             ; --          ; eda_simulation ;
-; FITTER_EFFORT                           ; Standard Fit                           ; Auto Fit       ; --          ; --             ;
-; MAX_CORE_JUNCTION_TEMP                  ; 85                                     ; --             ; --          ; --             ;
-; MIN_CORE_JUNCTION_TEMP                  ; 0                                      ; --             ; --          ; --             ;
-; MUX_RESTRUCTURE                         ; Off                                    ; Auto           ; --          ; --             ;
-; OPTIMIZATION_MODE                       ; Aggressive Performance                 ; Balanced       ; --          ; --             ;
-; PARTITION_COLOR                         ; -- (Not supported for targeted family) ; --             ; ads_bus_top ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL     ; -- (Not supported for targeted family) ; --             ; ads_bus_top ; Top            ;
-; PARTITION_NETLIST_TYPE                  ; -- (Not supported for targeted family) ; --             ; ads_bus_top ; Top            ;
-; PHYSICAL_SYNTHESIS_COMBO_LOGIC          ; On                                     ; Off            ; --          ; --             ;
-; PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION ; On                                     ; Off            ; --          ; --             ;
-; PHYSICAL_SYNTHESIS_REGISTER_RETIMING    ; On                                     ; Off            ; --          ; --             ;
-; PLACEMENT_EFFORT_MULTIPLIER             ; 4.0                                    ; 1.0            ; --          ; --             ;
-; ROUTER_TIMING_OPTIMIZATION_LEVEL        ; MAXIMUM                                ; Normal         ; --          ; --             ;
-; TOP_LEVEL_ENTITY                        ; ads_bus_top                            ; ads_bus_system ; --          ; --             ;
-+-----------------------------------------+----------------------------------------+----------------+-------------+----------------+
++---------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                      ;
++-----------------------------------------+----------------------------------------+----------------+------------------+----------------+
+; Assignment Name                         ; Value                                  ; Default Value  ; Entity Name      ; Section Id     ;
++-----------------------------------------+----------------------------------------+----------------+------------------+----------------+
+; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP     ; On                                     ; Off            ; --               ; --             ;
+; COMPILER_SIGNATURE_ID                   ; 268446079514813.176467689808613        ; --             ; --               ; --             ;
+; EDA_OUTPUT_DATA_FORMAT                  ; Verilog Hdl                            ; --             ; --               ; eda_simulation ;
+; EDA_SIMULATION_TOOL                     ; ModelSim-Altera (Verilog)              ; <None>         ; --               ; --             ;
+; EDA_TIME_SCALE                          ; 1 ps                                   ; --             ; --               ; eda_simulation ;
+; FITTER_EFFORT                           ; Standard Fit                           ; Auto Fit       ; --               ; --             ;
+; MAX_CORE_JUNCTION_TEMP                  ; 85                                     ; --             ; --               ; --             ;
+; MIN_CORE_JUNCTION_TEMP                  ; 0                                      ; --             ; --               ; --             ;
+; MUX_RESTRUCTURE                         ; Off                                    ; Auto           ; --               ; --             ;
+; OPTIMIZATION_MODE                       ; Aggressive Performance                 ; Balanced       ; --               ; --             ;
+; PARTITION_COLOR                         ; -- (Not supported for targeted family) ; --             ; demo_uart_bridge ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL     ; -- (Not supported for targeted family) ; --             ; demo_uart_bridge ; Top            ;
+; PARTITION_NETLIST_TYPE                  ; -- (Not supported for targeted family) ; --             ; demo_uart_bridge ; Top            ;
+; PHYSICAL_SYNTHESIS_COMBO_LOGIC          ; On                                     ; Off            ; --               ; --             ;
+; PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION ; On                                     ; Off            ; --               ; --             ;
+; PHYSICAL_SYNTHESIS_REGISTER_RETIMING    ; On                                     ; Off            ; --               ; --             ;
+; PLACEMENT_EFFORT_MULTIPLIER             ; 4.0                                    ; 1.0            ; --               ; --             ;
+; POWER_BOARD_THERMAL_MODEL               ; None (CONSERVATIVE)                    ; --             ; --               ; --             ;
+; POWER_PRESET_COOLING_SOLUTION           ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --             ; --               ; --             ;
+; ROUTER_TIMING_OPTIMIZATION_LEVEL        ; MAXIMUM                                ; Normal         ; --               ; --             ;
+; TOP_LEVEL_ENTITY                        ; demo_uart_bridge                       ; ads_bus_system ; --               ; --             ;
++-----------------------------------------+----------------------------------------+----------------+------------------+----------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -103,12 +105,12 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:10     ; 1.0                     ; 555 MB              ; 00:00:21                           ;
-; Fitter               ; 00:00:08     ; 1.1                     ; 1302 MB             ; 00:00:14                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 357 MB              ; 00:00:01                           ;
-; Timing Analyzer      ; 00:00:01     ; 1.1                     ; 528 MB              ; 00:00:01                           ;
-; EDA Netlist Writer   ; 00:00:00     ; 1.0                     ; 603 MB              ; 00:00:00                           ;
-; Total                ; 00:00:20     ; --                      ; --                  ; 00:00:37                           ;
+; Analysis & Synthesis ; 00:00:09     ; 1.0                     ; 529 MB              ; 00:00:18                           ;
+; Fitter               ; 00:00:08     ; 1.1                     ; 1340 MB             ; 00:00:15                           ;
+; Assembler            ; 00:00:01     ; 1.0                     ; 356 MB              ; 00:00:01                           ;
+; Timing Analyzer      ; 00:00:01     ; 1.2                     ; 536 MB              ; 00:00:01                           ;
+; EDA Netlist Writer   ; 00:00:00     ; 1.0                     ; 606 MB              ; 00:00:00                           ;
+; Total                ; 00:00:19     ; --                      ; --                  ; 00:00:35                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
