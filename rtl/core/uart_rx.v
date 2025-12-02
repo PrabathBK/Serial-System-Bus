@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module uart_rx #(
 	parameter CLOCKS_PER_PULSE = 16,
               DATA_WIDTH  =  8

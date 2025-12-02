@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module uart #(
 	parameter CLOCKS_PER_PULSE = 5208,
     parameter TX_DATA_WIDTH = 8,

@@ -1,7 +1,0 @@
-#==============================================================================
-# Quartus Project File for ADS Bus System Demo on DE0-Nano
-# Target: Terasic DE0-Nano (Cyclone IV EP4CE22F17C6N)
-# Date: 2025-12-02
-#==============================================================================
-
-PROJECT_REVISION = "de0_nano_demo"

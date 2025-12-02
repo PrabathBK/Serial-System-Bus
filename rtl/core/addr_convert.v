@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 
 module addr_convert #(
     parameter BB_ADDR_WIDTH = 12,

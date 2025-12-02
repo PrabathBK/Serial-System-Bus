@@ -1,7 +1,0 @@
-Running: xsim.dir/tb_arbiter_behav/xsimk -simmode gui -wdb tb_arbiter_behav.wdb -simrunnum 0 -socket 51601
-Design successfully loaded
-Design Loading Memory Usage: 29168 KB (Peak: 29740 KB)
-Design Loading CPU Usage: 10 ms
-Simulation completed
-Simulation Memory Usage: 111164 KB (Peak: 168436 KB)
-Simulation CPU Usage: 10 ms

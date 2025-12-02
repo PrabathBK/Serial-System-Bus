@@ -1,0 +1,154 @@
+#==============================================================================
+# Serial-System-Bus .gitignore
+# Ignores build artifacts, simulation outputs, and IDE-specific files
+#==============================================================================
+
+#------------------------------------------------------------------------------
+# Quartus II / Prime Build Artifacts
+#------------------------------------------------------------------------------
+# Database folders
+quartus/db/
+quartus/incremental_db/
+quartus/simulation/
+
+# Report and log files
+quartus/*.rpt
+quartus/*.smsg
+quartus/*.summary
+quartus/*.log
+
+# Programming files (keep .sof if you want to share bitstreams, remove if not)
+quartus/*.sof
+quartus/*.pof
+quartus/*.jic
+quartus/*.rbf
+quartus/*.ttf
+quartus/*.sld
+
+# Temporary/intermediate files
+quartus/*.done
+quartus/*.jdi
+quartus/*.pin
+quartus/c5_pin_model_dump.txt
+
+# Backup files
+quartus/*.bak
+quartus/*.qws
+
+#------------------------------------------------------------------------------
+# Xilinx Vivado Build Artifacts
+#------------------------------------------------------------------------------
+# Vivado project directories (keep .xpr project file if needed)
+Vivado/**/Serial_bus.cache/
+Vivado/**/Serial_bus.hw/
+Vivado/**/Serial_bus.ip_user_files/
+Vivado/**/Serial_bus.runs/
+Vivado/**/Serial_bus.sim/
+Vivado/**/.Xil/
+
+# Vivado logs and journals
+Vivado/**/*.log
+Vivado/**/*.jou
+Vivado/**/*.str
+Vivado/**/*.pb
+Vivado/**/*.wdb
+Vivado/**/*.vcd
+
+# Vivado simulation directories
+Vivado/**/xsim.dir/
+
+#------------------------------------------------------------------------------
+# Simulation Output Files (sim/ folder)
+#------------------------------------------------------------------------------
+# Waveform database files
+sim/*.wdb
+sim/*.vcd
+sim/*.vpd
+sim/*.fsdb
+
+# Simulation logs
+sim/*.log
+sim/*.pb
+sim/*.jou
+
+# XSim directories
+sim/xsim.dir/
+
+# Keep shell scripts but ignore generated files
+!sim/*.sh
+
+#------------------------------------------------------------------------------
+# General Simulation Artifacts (any location)
+#------------------------------------------------------------------------------
+*.wdb
+*.vcd
+*.vpd
+*.fsdb
+*.shm/
+*.trn
+*.dsn
+
+# Xilinx simulation
+xsim.dir/
+.Xil/
+xelab.pb
+xvlog.pb
+xsim.jou
+
+#------------------------------------------------------------------------------
+# Log Files (root and general)
+#------------------------------------------------------------------------------
+simulation.log
+*.log
+!docs/*.log
+
+#------------------------------------------------------------------------------
+# Backup Files
+#------------------------------------------------------------------------------
+*.bak
+*.orig
+*~
+*.swp
+*.swo
+
+#------------------------------------------------------------------------------
+# IDE and Editor Files
+#------------------------------------------------------------------------------
+# VS Code
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# Eclipse
+.project
+.cproject
+.settings/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+#------------------------------------------------------------------------------
+# Python (if any scripts use Python)
+#------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+env/
+venv/
+
+#------------------------------------------------------------------------------
+# Temporary and Miscellaneous
+#------------------------------------------------------------------------------
+*.tmp
+*.temp
+*.cache
+.cache/
+
+# Don't ignore important documentation
+!docs/requirement.txt
