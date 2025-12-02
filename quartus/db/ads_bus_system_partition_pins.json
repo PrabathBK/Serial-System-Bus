@@ -32,51 +32,51 @@
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M1_RDATA",
+					"name" : "LED[7]",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M1_SVALID",
+					"name" : "GPIO_0_BRIDGE_M_TX",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M1_BGRANT",
+					"name" : "GPIO_0_BRIDGE_S_TX",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M1_ACK",
+					"name" : "CLOCK_50",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M1_SPLIT",
+					"name" : "SW[2]",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M2_RDATA",
+					"name" : "SW[3]",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M2_SVALID",
+					"name" : "SW[0]",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M2_BGRANT",
+					"name" : "KEY[1]",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M2_ACK",
+					"name" : "KEY[0]",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_M2_SPLIT",
+					"name" : "SW[1]",
 					"strict" : false
 				},
 				{
-					"name" : "FPGA_CLK1_50",
+					"name" : "GPIO_0_BRIDGE_S_RX",
 					"strict" : false
 				},
 				{
-					"name" : "KEY0",
+					"name" : "GPIO_0_BRIDGE_M_RX",
 					"strict" : false
 				}
 			]
