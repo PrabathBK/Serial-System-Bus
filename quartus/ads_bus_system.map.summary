@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Tue Dec  2 13:17:45 2025
+Analysis & Synthesis Status : Successful - Tue Dec  2 13:31:44 2025
 Quartus Prime Version : 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 Revision Name : ads_bus_system
 Top-level Entity Name : ads_bus_demo_de0nano
 Family : Cyclone IV E
-Total logic elements : 846
-    Total combinational functions : 776
+Total logic elements : 843
+    Total combinational functions : 765
     Dedicated logic registers : 435
 Total registers : 435
 Total pins : 15

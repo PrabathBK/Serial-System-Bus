@@ -57,7 +57,9 @@ module ads_bus_demo_de0nano (
     //==========================================================================
     // DEMO CONFIGURATION - Default data pattern (can be incremented with KEY[1])
     //==========================================================================
-    localparam [7:0] INITIAL_DATA_PATTERN = 8'hA5;  // Initial test pattern
+    localparam [7:0] INITIAL_DATA_PATTERN = 8'h00;  // Initial test pattern
+    // localparam [7:0] INITIAL_DATA_PATTERN = 8'hA5;  // Initial test pattern
+
     localparam [11:0] DEMO_MEM_ADDR = 12'h010;      // Memory address within slave
     
     //==========================================================================
@@ -150,7 +152,7 @@ module ads_bus_demo_de0nano (
         if (!rstn) begin
             data_pattern <= INITIAL_DATA_PATTERN;
         end else if (key1_pressed) begin
-            data_pattern <= data_pattern + 8'h11;  // Increment by 0x11 for visible change
+            data_pattern <= data_pattern + 8'h01;  // Increment by 1
         end
     end
     

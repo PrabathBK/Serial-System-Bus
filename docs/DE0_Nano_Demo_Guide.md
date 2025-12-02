@@ -11,7 +11,7 @@
 | Button | Function |
 |--------|----------|
 | **KEY[0]** | Trigger transaction (press to send) |
-| **KEY[1]** | Increment data pattern (+0x11 each press) |
+| **KEY[1]** | Increment data pattern (+1 each press) |
 
 ### DIP Switches
 | Switch | Function |
@@ -75,10 +75,10 @@
 
 ### Data Pattern Increment
 
-- Initial data: **0xA5**
-- Press KEY[1] once: **0xB6** (+0x11)
-- Press KEY[1] again: **0xC7** (+0x11)
-- And so on...
+- Initial data: **0x00**
+- Press KEY[1] once: **0x01** (+1)
+- Press KEY[1] again: **0x02** (+1)
+- And so on... (wraps at 0xFF → 0x00)
 
 ---
 

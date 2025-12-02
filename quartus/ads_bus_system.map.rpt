@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ads_bus_system
-Tue Dec  2 13:17:45 2025
+Tue Dec  2 13:31:44 2025
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -94,13 +94,13 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Dec  2 13:17:45 2025       ;
+; Analysis & Synthesis Status        ; Successful - Tue Dec  2 13:31:44 2025       ;
 ; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; ads_bus_system                              ;
 ; Top-level Entity Name              ; ads_bus_demo_de0nano                        ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 846                                         ;
-;     Total combinational functions  ; 776                                         ;
+; Total logic elements               ; 843                                         ;
+;     Total combinational functions  ; 765                                         ;
 ;     Dedicated logic registers      ; 435                                         ;
 ; Total registers                    ; 435                                         ;
 ; Total pins                         ; 15                                          ;
@@ -257,16 +257,16 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 846            ;
+; Estimated Total logic elements              ; 843            ;
 ;                                             ;                ;
-; Total combinational functions               ; 776            ;
+; Total combinational functions               ; 765            ;
 ; Logic element usage by number of LUT inputs ;                ;
 ;     -- 4 input functions                    ; 430            ;
 ;     -- 3 input functions                    ; 130            ;
-;     -- <=2 input functions                  ; 216            ;
+;     -- <=2 input functions                  ; 205            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 706            ;
+;     -- normal mode                          ; 695            ;
 ;     -- arithmetic mode                      ; 70             ;
 ;                                             ;                ;
 ; Total registers                             ; 435            ;
@@ -280,8 +280,8 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
 ; Maximum fan-out                             ; 459            ;
-; Total fan-out                               ; 4256           ;
-; Average fan-out                             ; 3.36           ;
+; Total fan-out                               ; 4245           ;
+; Average fan-out                             ; 3.39           ;
 +---------------------------------------------+----------------+
 
 
@@ -290,7 +290,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------+----------------------+--------------+
 ; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                 ; Entity Name          ; Library Name ;
 +----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------+----------------------+--------------+
-; |ads_bus_demo_de0nano                        ; 776 (76)            ; 435 (80)                  ; 81920       ; 0            ; 0       ; 0         ; 15   ; 0            ; |ads_bus_demo_de0nano                                                                                               ; ads_bus_demo_de0nano ; work         ;
+; |ads_bus_demo_de0nano                        ; 765 (65)            ; 435 (80)                  ; 81920       ; 0            ; 0       ; 0         ; 15   ; 0            ; |ads_bus_demo_de0nano                                                                                               ; ads_bus_demo_de0nano ; work         ;
 ;    |bus_m2_s3:bus_inst|                      ; 81 (0)              ; 29 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst                                                                            ; bus_m2_s3            ; work         ;
 ;       |addr_decoder:decoder|                 ; 45 (42)             ; 19 (19)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder                                                       ; addr_decoder         ; work         ;
 ;          |dec3:mvalid_decoder|               ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|dec3:mvalid_decoder                                   ; dec3                 ; work         ;
@@ -681,23 +681,19 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 
 
-+---------------------------------------------------+
-; Inverted Register Statistics                      ;
-+-----------------------------------------+---------+
-; Inverted Register                       ; Fan out ;
-+-----------------------------------------+---------+
-; data_pattern[2]                         ; 4       ;
-; data_pattern[5]                         ; 4       ;
-; data_pattern[7]                         ; 3       ;
-; data_pattern[0]                         ; 5       ;
-; key0_sync[1]                            ; 3       ;
-; key0_sync[2]                            ; 2       ;
-; key1_sync[1]                            ; 3       ;
-; key1_sync[2]                            ; 2       ;
-; key0_sync[0]                            ; 1       ;
-; key1_sync[0]                            ; 1       ;
-; Total number of inverted registers = 10 ;         ;
-+-----------------------------------------+---------+
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; key0_sync[1]                           ; 3       ;
+; key0_sync[2]                           ; 2       ;
+; key1_sync[2]                           ; 2       ;
+; key1_sync[1]                           ; 3       ;
+; key0_sync[0]                           ; 1       ;
+; key1_sync[0]                           ; 1       ;
+; Total number of inverted registers = 6 ;         ;
++----------------------------------------+---------+
 
 
 +------------------------------------------------------------------------------------------------------------------+
@@ -1364,19 +1360,19 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA CLR SLD       ; 6                           ;
 ;     SCLR              ; 286                         ;
 ;     plain             ; 18                          ;
-; cycloneiii_lcell_comb ; 776                         ;
+; cycloneiii_lcell_comb ; 765                         ;
 ;     arith             ; 70                          ;
 ;         2 data inputs ; 69                          ;
 ;         3 data inputs ; 1                           ;
-;     normal            ; 706                         ;
-;         1 data inputs ; 23                          ;
+;     normal            ; 695                         ;
+;         1 data inputs ; 12                          ;
 ;         2 data inputs ; 124                         ;
 ;         3 data inputs ; 129                         ;
 ;         4 data inputs ; 430                         ;
 ; cycloneiii_ram_block  ; 24                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 6.00                        ;
-; Average LUT depth     ; 2.79                        ;
+; Average LUT depth     ; 2.80                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1395,7 +1391,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-    Info: Processing started: Tue Dec  2 13:17:38 2025
+    Info: Processing started: Tue Dec  2 13:31:37 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ads_bus_system -c ads_bus_system
 Info (16303): Aggressive Performance optimization mode selected -- timing performance will be prioritized at the potential cost of increased logic area and compilation time
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
@@ -1423,14 +1419,14 @@ Info (12021): Found 1 design units, including 1 entities, in source file /home/p
 Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/dec3.v
     Info (12023): Found entity 1: dec3 File: /home/prabathbk/Serial-System-Bus/rtl/core/dec3.v Line: 15
 Info (12127): Elaborating entity "ads_bus_demo_de0nano" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at ads_bus_demo_de0nano.v(171): object "transaction_active" assigned a value but never read File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 171
-Info (12128): Elaborating entity "master_port" for hierarchy "master_port:master1_port" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 343
+Warning (10036): Verilog HDL or VHDL warning at ads_bus_demo_de0nano.v(173): object "transaction_active" assigned a value but never read File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 173
+Info (12128): Elaborating entity "master_port" for hierarchy "master_port:master1_port" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 345
 Warning (10230): Verilog HDL assignment warning at master_port.v(175): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 175
 Warning (10230): Verilog HDL assignment warning at master_port.v(181): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 181
 Warning (10230): Verilog HDL assignment warning at master_port.v(190): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 190
 Warning (10230): Verilog HDL assignment warning at master_port.v(205): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 205
 Warning (10230): Verilog HDL assignment warning at master_port.v(231): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 231
-Info (12128): Elaborating entity "bus_m2_s3" for hierarchy "bus_m2_s3:bus_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 437
+Info (12128): Elaborating entity "bus_m2_s3" for hierarchy "bus_m2_s3:bus_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 439
 Info (12128): Elaborating entity "arbiter" for hierarchy "bus_m2_s3:bus_inst|arbiter:bus_arbiter" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 153
 Info (10264): Verilog HDL Case Statement information at arbiter.v(130): all case item expressions in this case statement are onehot File: /home/prabathbk/Serial-System-Bus/rtl/core/arbiter.v Line: 130
 Info (12128): Elaborating entity "addr_decoder" for hierarchy "bus_m2_s3:bus_inst|addr_decoder:decoder" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 186
@@ -1439,7 +1435,7 @@ Info (12128): Elaborating entity "dec3" for hierarchy "bus_m2_s3:bus_inst|addr_d
 Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:wdata_mux" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 198
 Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:mctrl_mux" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 206
 Info (12128): Elaborating entity "mux3" for hierarchy "bus_m2_s3:bus_inst|mux3:rdata_mux" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 219
-Info (12128): Elaborating entity "slave" for hierarchy "slave:slave1_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 458
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave1_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 460
 Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave1_inst|slave_port:sp" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 74
 Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 147
 Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 164
@@ -1447,7 +1443,7 @@ Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated 
 Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 236
 Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 260
 Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave1_inst|slave_memory_bram:sm" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 95
-Info (12128): Elaborating entity "slave" for hierarchy "slave:slave2_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 479
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave2_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 481
 Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave2_inst|slave_port:sp" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 74
 Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 147
 Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 164
@@ -1455,7 +1451,7 @@ Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated 
 Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 236
 Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 260
 Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave2_inst|slave_memory_bram:sm" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 95
-Info (12128): Elaborating entity "slave" for hierarchy "slave:slave3_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 500
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave3_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 502
 Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave3_inst|slave_port:sp" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 74
 Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 147
 Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 164
@@ -1553,7 +1549,7 @@ Info (12133): Instantiated megafunction "slave:slave2_inst|slave_memory_bram:sm|
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_jbk1.tdf
     Info (12023): Found entity 1: altsyncram_jbk1 File: /home/prabathbk/Serial-System-Bus/quartus/db/altsyncram_jbk1.tdf Line: 28
 Info (17026): Resynthesizing 0 WYSIWYG logic cells and I/Os using "balanced" technology mapper which leaves 0 WYSIWYG logic cells and I/Os untouched
-Info (13000): Registers with preset signals will power-up high File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 152
+Info (13000): Registers with preset signals will power-up high File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_demo_de0nano.v Line: 135
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 73 registers lost all their fanouts during netlist optimizations.
@@ -1576,14 +1572,14 @@ Info (128001): Physical synthesis optimizations for speed complete: elapsed time
 Info (144001): Generated suppressed messages file /home/prabathbk/Serial-System-Bus/quartus/ads_bus_system.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 914 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 911 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 7 input pins
     Info (21059): Implemented 8 output pins
-    Info (21061): Implemented 875 logic cells
+    Info (21061): Implemented 872 logic cells
     Info (21064): Implemented 24 RAM segments
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 27 warnings
-    Info: Peak virtual memory: 555 megabytes
-    Info: Processing ended: Tue Dec  2 13:17:45 2025
+    Info: Peak virtual memory: 558 megabytes
+    Info: Processing ended: Tue Dec  2 13:31:44 2025
     Info: Elapsed time: 00:00:07
     Info: Total CPU time (on all processors): 00:00:17
 
