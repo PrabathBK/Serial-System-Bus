@@ -1,35 +1,22 @@
-|ads_bus_top
-FPGA_CLK1_50 => clk.IN6
-KEY0 => reset_sync[0].DATAIN
-LED[0] <= rstn.DB_MAX_OUTPUT_PORT_TYPE
-LED[1] <= m1_bgrant.DB_MAX_OUTPUT_PORT_TYPE
-LED[2] <= m2_bgrant.DB_MAX_OUTPUT_PORT_TYPE
-LED[3] <= m1_ack.DB_MAX_OUTPUT_PORT_TYPE
-LED[4] <= m2_ack.DB_MAX_OUTPUT_PORT_TYPE
-LED[5] <= m1_split.DB_MAX_OUTPUT_PORT_TYPE
-LED[6] <= m2_split.DB_MAX_OUTPUT_PORT_TYPE
-LED[7] <= <GND>
-GPIO_M1_RDATA <= m1_rdata.DB_MAX_OUTPUT_PORT_TYPE
-GPIO_M1_WDATA => ~NO_FANOUT~
-GPIO_M1_MODE => ~NO_FANOUT~
-GPIO_M1_MVALID => ~NO_FANOUT~
-GPIO_M1_SVALID <= m1_svalid.DB_MAX_OUTPUT_PORT_TYPE
-GPIO_M1_BREQ => ~NO_FANOUT~
-GPIO_M1_BGRANT <= m1_bgrant.DB_MAX_OUTPUT_PORT_TYPE
-GPIO_M1_ACK <= m1_ack.DB_MAX_OUTPUT_PORT_TYPE
-GPIO_M1_SPLIT <= m1_split.DB_MAX_OUTPUT_PORT_TYPE
-GPIO_M2_RDATA <= m2_rdata.DB_MAX_OUTPUT_PORT_TYPE
-GPIO_M2_WDATA => ~NO_FANOUT~
-GPIO_M2_MODE => ~NO_FANOUT~
-GPIO_M2_MVALID => ~NO_FANOUT~
-GPIO_M2_SVALID <= m2_svalid.DB_MAX_OUTPUT_PORT_TYPE
-GPIO_M2_BREQ => ~NO_FANOUT~
-GPIO_M2_BGRANT <= m2_bgrant.DB_MAX_OUTPUT_PORT_TYPE
-GPIO_M2_ACK <= m2_ack.DB_MAX_OUTPUT_PORT_TYPE
-GPIO_M2_SPLIT <= m2_split.DB_MAX_OUTPUT_PORT_TYPE
+|ads_bus_demo_de0nano
+CLOCK_50 => clk.IN6
+KEY[0] => key0_sync[0].DATAIN
+KEY[1] => ~NO_FANOUT~
+SW[0] => reset_sync[0].DATAIN
+SW[1] => ~NO_FANOUT~
+SW[2] => ~NO_FANOUT~
+SW[3] => ~NO_FANOUT~
+LED[0] <= display_slave[0].DB_MAX_OUTPUT_PORT_TYPE
+LED[1] <= display_slave[1].DB_MAX_OUTPUT_PORT_TYPE
+LED[2] <= display_data[0].DB_MAX_OUTPUT_PORT_TYPE
+LED[3] <= display_data[1].DB_MAX_OUTPUT_PORT_TYPE
+LED[4] <= display_data[2].DB_MAX_OUTPUT_PORT_TYPE
+LED[5] <= display_data[3].DB_MAX_OUTPUT_PORT_TYPE
+LED[6] <= display_data[4].DB_MAX_OUTPUT_PORT_TYPE
+LED[7] <= display_data[5].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|master_port:master1_port
+|ads_bus_demo_de0nano|master_port:master1_port
 clk => timeout[0].CLK
 clk => timeout[1].CLK
 clk => timeout[2].CLK
@@ -252,7 +239,7 @@ ack => next_state.OUTPUTSELECT
 ack => Selector1.IN3
 
 
-|ads_bus_top|master_port:master2_port
+|ads_bus_demo_de0nano|master_port:master2_port
 clk => timeout[0].CLK
 clk => timeout[1].CLK
 clk => timeout[2].CLK
@@ -475,7 +462,7 @@ ack => next_state.OUTPUTSELECT
 ack => Selector1.IN3
 
 
-|ads_bus_top|bus_m2_s3:bus_inst
+|ads_bus_demo_de0nano|bus_m2_s3:bus_inst
 clk => clk.IN2
 rstn => rstn.IN2
 m1_rdata <= mux3:rdata_mux.out
@@ -518,7 +505,7 @@ s3_split => s_split.IN2
 split_grant <= split_grant.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|bus_m2_s3:bus_inst|arbiter:bus_arbiter
+|ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter
 clk => split_grant~reg0.CLK
 clk => msplit2~reg0.CLK
 clk => msplit1~reg0.CLK
@@ -556,7 +543,7 @@ msplit2 <= msplit2~reg0.DB_MAX_OUTPUT_PORT_TYPE
 split_grant <= split_grant~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|bus_m2_s3:bus_inst|addr_decoder:decoder
+|ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder
 clk => split_slave_addr[0].CLK
 clk => split_slave_addr[1].CLK
 clk => split_slave_addr[2].CLK
@@ -630,7 +617,7 @@ ssel[1] <= ssel[1].DB_MAX_OUTPUT_PORT_TYPE
 ack <= ack.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|bus_m2_s3:bus_inst|addr_decoder:decoder|dec3:mvalid_decoder
+|ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|dec3:mvalid_decoder
 sel[0] => Equal0.IN1
 sel[0] => Equal1.IN0
 sel[0] => Equal2.IN1
@@ -645,14 +632,14 @@ out2 <= out2.DB_MAX_OUTPUT_PORT_TYPE
 out3 <= out3.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|bus_m2_s3:bus_inst|mux2:wdata_mux
+|ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux2:wdata_mux
 in0[0] => out.DATAA
 in1[0] => out.DATAB
 sel => out.OUTPUTSELECT
 out[0] <= out.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|bus_m2_s3:bus_inst|mux2:mctrl_mux
+|ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux2:mctrl_mux
 in0[0] => out.DATAA
 in0[1] => out.DATAA
 in1[0] => out.DATAB
@@ -663,7 +650,7 @@ out[0] <= out.DB_MAX_OUTPUT_PORT_TYPE
 out[1] <= out.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|bus_m2_s3:bus_inst|mux3:rdata_mux
+|ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux3:rdata_mux
 in0[0] => Mux0.IN0
 in0[0] => Mux0.IN1
 in1[0] => Mux0.IN2
@@ -673,7 +660,7 @@ sel[1] => Mux0.IN4
 out[0] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|bus_m2_s3:bus_inst|mux3:rctrl_mux
+|ads_bus_demo_de0nano|bus_m2_s3:bus_inst|mux3:rctrl_mux
 in0[0] => Mux0.IN0
 in0[0] => Mux0.IN1
 in1[0] => Mux0.IN2
@@ -683,7 +670,7 @@ sel[1] => Mux0.IN4
 out[0] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|slave:slave1_inst
+|ads_bus_demo_de0nano|slave:slave1_inst
 clk => clk.IN2
 rstn => rstn.IN2
 swdata => swdata.IN1
@@ -696,7 +683,7 @@ sready <= slave_port:sp.sready
 ssplit <= slave_port:sp.ssplit
 
 
-|ads_bus_top|slave:slave1_inst|slave_port:sp
+|ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp
 clk => rcounter[0].CLK
 clk => rcounter[1].CLK
 clk => rcounter[2].CLK
@@ -915,7 +902,7 @@ sready <= sready.DB_MAX_OUTPUT_PORT_TYPE
 ssplit <= ssplit.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|slave:slave1_inst|slave_memory_bram:sm
+|ads_bus_demo_de0nano|slave:slave1_inst|slave_memory_bram:sm
 clk => memory.we_a.CLK
 clk => memory.waddr_a[10].CLK
 clk => memory.waddr_a[9].CLK
@@ -1022,7 +1009,7 @@ rdata[7] <= rdata[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 rvalid <= rvalid~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|slave:slave2_inst
+|ads_bus_demo_de0nano|slave:slave2_inst
 clk => clk.IN2
 rstn => rstn.IN2
 swdata => swdata.IN1
@@ -1035,7 +1022,7 @@ sready <= slave_port:sp.sready
 ssplit <= slave_port:sp.ssplit
 
 
-|ads_bus_top|slave:slave2_inst|slave_port:sp
+|ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp
 clk => rcounter[0].CLK
 clk => rcounter[1].CLK
 clk => rcounter[2].CLK
@@ -1261,7 +1248,7 @@ sready <= sready.DB_MAX_OUTPUT_PORT_TYPE
 ssplit <= ssplit.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|slave:slave2_inst|slave_memory_bram:sm
+|ads_bus_demo_de0nano|slave:slave2_inst|slave_memory_bram:sm
 clk => memory.we_a.CLK
 clk => memory.waddr_a[11].CLK
 clk => memory.waddr_a[10].CLK
@@ -1372,7 +1359,7 @@ rdata[7] <= rdata[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 rvalid <= rvalid~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|slave:slave3_inst
+|ads_bus_demo_de0nano|slave:slave3_inst
 clk => clk.IN2
 rstn => rstn.IN2
 swdata => swdata.IN1
@@ -1385,7 +1372,7 @@ sready <= slave_port:sp.sready
 ssplit <= slave_port:sp.ssplit
 
 
-|ads_bus_top|slave:slave3_inst|slave_port:sp
+|ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp
 clk => rcounter[0].CLK
 clk => rcounter[1].CLK
 clk => rcounter[2].CLK
@@ -1611,7 +1598,7 @@ sready <= sready.DB_MAX_OUTPUT_PORT_TYPE
 ssplit <= ssplit.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|ads_bus_top|slave:slave3_inst|slave_memory_bram:sm
+|ads_bus_demo_de0nano|slave:slave3_inst|slave_memory_bram:sm
 clk => memory.we_a.CLK
 clk => memory.waddr_a[11].CLK
 clk => memory.waddr_a[10].CLK

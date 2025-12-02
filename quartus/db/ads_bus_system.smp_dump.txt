@@ -1,18 +1,13 @@
 
-State Machine - |ads_bus_top|test_state
-Name test_state.TP_DONE test_state.TP_M2_RWAIT test_state.TP_M2_READ test_state.TP_M2_WAIT test_state.TP_M2_WRITE test_state.TP_M1_RWAIT test_state.TP_M1_READ test_state.TP_M1_WAIT test_state.TP_M1_WRITE test_state.TP_IDLE 
-test_state.TP_IDLE 0 0 0 0 0 0 0 0 0 0 
-test_state.TP_M1_WRITE 0 0 0 0 0 0 0 0 1 1 
-test_state.TP_M1_WAIT 0 0 0 0 0 0 0 1 0 1 
-test_state.TP_M1_READ 0 0 0 0 0 0 1 0 0 1 
-test_state.TP_M1_RWAIT 0 0 0 0 0 1 0 0 0 1 
-test_state.TP_M2_WRITE 0 0 0 0 1 0 0 0 0 1 
-test_state.TP_M2_WAIT 0 0 0 1 0 0 0 0 0 1 
-test_state.TP_M2_READ 0 0 1 0 0 0 0 0 0 1 
-test_state.TP_M2_RWAIT 0 1 0 0 0 0 0 0 0 1 
-test_state.TP_DONE 1 0 0 0 0 0 0 0 0 1 
+State Machine - |ads_bus_demo_de0nano|demo_state
+Name demo_state.DEMO_COMPLETE demo_state.DEMO_WAIT demo_state.DEMO_START demo_state.DEMO_IDLE demo_state.DEMO_DISPLAY 
+demo_state.DEMO_IDLE 0 0 0 0 0 
+demo_state.DEMO_START 0 0 1 1 0 
+demo_state.DEMO_WAIT 0 1 0 1 0 
+demo_state.DEMO_COMPLETE 1 0 0 1 0 
+demo_state.DEMO_DISPLAY 0 0 0 1 1 
 
-State Machine - |ads_bus_top|slave:slave3_inst|slave_port:sp|prev_state
+State Machine - |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|prev_state
 Name prev_state.RVALID prev_state.WAIT prev_state.SREADY prev_state.SPLIT prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
 prev_state.IDLE 0 0 0 0 0 0 0 0 
 prev_state.ADDR 0 0 0 0 0 0 1 1 
@@ -23,7 +18,7 @@ prev_state.SREADY 0 0 1 0 0 0 0 1
 prev_state.WAIT 0 1 0 0 0 0 0 1 
 prev_state.RVALID 1 0 0 0 0 0 0 1 
 
-State Machine - |ads_bus_top|slave:slave3_inst|slave_port:sp|state
+State Machine - |ads_bus_demo_de0nano|slave:slave3_inst|slave_port:sp|state
 Name state.RVALID state.WAIT state.SREADY state.SPLIT state.WDATA state.RDATA state.ADDR state.IDLE 
 state.IDLE 0 0 0 0 0 0 0 0 
 state.ADDR 0 0 0 0 0 0 1 1 
@@ -34,7 +29,7 @@ state.SREADY 0 0 1 0 0 0 0 1
 state.WAIT 0 1 0 0 0 0 0 1 
 state.RVALID 1 0 0 0 0 0 0 1 
 
-State Machine - |ads_bus_top|slave:slave2_inst|slave_port:sp|prev_state
+State Machine - |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|prev_state
 Name prev_state.RVALID prev_state.WAIT prev_state.SREADY prev_state.SPLIT prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
 prev_state.IDLE 0 0 0 0 0 0 0 0 
 prev_state.ADDR 0 0 0 0 0 0 1 1 
@@ -45,7 +40,7 @@ prev_state.SREADY 0 0 1 0 0 0 0 1
 prev_state.WAIT 0 1 0 0 0 0 0 1 
 prev_state.RVALID 1 0 0 0 0 0 0 1 
 
-State Machine - |ads_bus_top|slave:slave2_inst|slave_port:sp|state
+State Machine - |ads_bus_demo_de0nano|slave:slave2_inst|slave_port:sp|state
 Name state.RVALID state.WAIT state.SREADY state.SPLIT state.WDATA state.RDATA state.ADDR state.IDLE 
 state.IDLE 0 0 0 0 0 0 0 0 
 state.ADDR 0 0 0 0 0 0 1 1 
@@ -56,7 +51,7 @@ state.SREADY 0 0 1 0 0 0 0 1
 state.WAIT 0 1 0 0 0 0 0 1 
 state.RVALID 1 0 0 0 0 0 0 1 
 
-State Machine - |ads_bus_top|slave:slave1_inst|slave_port:sp|prev_state
+State Machine - |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|prev_state
 Name prev_state.RVALID prev_state.WAIT prev_state.SREADY prev_state.SPLIT prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
 prev_state.IDLE 0 0 0 0 0 0 0 0 
 prev_state.ADDR 0 0 0 0 0 0 1 1 
@@ -67,7 +62,7 @@ prev_state.SREADY 0 0 1 0 0 0 0 1
 prev_state.WAIT 0 1 0 0 0 0 0 1 
 prev_state.RVALID 1 0 0 0 0 0 0 1 
 
-State Machine - |ads_bus_top|slave:slave1_inst|slave_port:sp|state
+State Machine - |ads_bus_demo_de0nano|slave:slave1_inst|slave_port:sp|state
 Name state.RVALID state.WAIT state.SREADY state.SPLIT state.WDATA state.RDATA state.ADDR state.IDLE 
 state.IDLE 0 0 0 0 0 0 0 0 
 state.ADDR 0 0 0 0 0 0 1 1 
@@ -78,26 +73,26 @@ state.SREADY 0 0 1 0 0 0 0 1
 state.WAIT 0 1 0 0 0 0 0 1 
 state.RVALID 1 0 0 0 0 0 0 1 
 
-State Machine - |ads_bus_top|bus_m2_s3:bus_inst|addr_decoder:decoder|state
+State Machine - |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|addr_decoder:decoder|state
 Name state.WAIT state.CONNECT state.ADDR state.IDLE 
 state.IDLE 0 0 0 0 
 state.ADDR 0 0 1 1 
 state.CONNECT 0 1 0 1 
 state.WAIT 1 0 0 1 
 
-State Machine - |ads_bus_top|bus_m2_s3:bus_inst|arbiter:bus_arbiter|split_owner
+State Machine - |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter|split_owner
 Name split_owner.NONE split_owner.SM2 split_owner.SM1 
 split_owner.NONE 0 0 0 
 split_owner.SM1 1 0 1 
 split_owner.SM2 1 1 0 
 
-State Machine - |ads_bus_top|bus_m2_s3:bus_inst|arbiter:bus_arbiter|state
+State Machine - |ads_bus_demo_de0nano|bus_m2_s3:bus_inst|arbiter:bus_arbiter|state
 Name state.IDLE state.M2 state.M1 
 state.IDLE 0 0 0 
 state.M1 1 0 1 
 state.M2 1 1 0 
 
-State Machine - |ads_bus_top|master_port:master2_port|prev_state
+State Machine - |ads_bus_demo_de0nano|master_port:master2_port|prev_state
 Name prev_state.SPLIT prev_state.WAIT prev_state.SADDR prev_state.REQ prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
 prev_state.IDLE 0 0 0 0 0 0 0 0 
 prev_state.ADDR 0 0 0 0 0 0 1 1 
@@ -108,7 +103,7 @@ prev_state.SADDR 0 0 1 0 0 0 0 1
 prev_state.WAIT 0 1 0 0 0 0 0 1 
 prev_state.SPLIT 1 0 0 0 0 0 0 1 
 
-State Machine - |ads_bus_top|master_port:master2_port|state
+State Machine - |ads_bus_demo_de0nano|master_port:master2_port|state
 Name state.SPLIT state.WAIT state.SADDR state.REQ state.WDATA state.RDATA state.ADDR state.IDLE 
 state.IDLE 0 0 0 0 0 0 0 0 
 state.ADDR 0 0 0 0 0 0 1 1 
@@ -119,7 +114,7 @@ state.SADDR 0 0 1 0 0 0 0 1
 state.WAIT 0 1 0 0 0 0 0 1 
 state.SPLIT 1 0 0 0 0 0 0 1 
 
-State Machine - |ads_bus_top|master_port:master1_port|prev_state
+State Machine - |ads_bus_demo_de0nano|master_port:master1_port|prev_state
 Name prev_state.SPLIT prev_state.WAIT prev_state.SADDR prev_state.REQ prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
 prev_state.IDLE 0 0 0 0 0 0 0 0 
 prev_state.ADDR 0 0 0 0 0 0 1 1 
@@ -130,7 +125,7 @@ prev_state.SADDR 0 0 1 0 0 0 0 1
 prev_state.WAIT 0 1 0 0 0 0 0 1 
 prev_state.SPLIT 1 0 0 0 0 0 0 1 
 
-State Machine - |ads_bus_top|master_port:master1_port|state
+State Machine - |ads_bus_demo_de0nano|master_port:master1_port|state
 Name state.SPLIT state.WAIT state.SADDR state.REQ state.WDATA state.RDATA state.ADDR state.IDLE 
 state.IDLE 0 0 0 0 0 0 0 0 
 state.ADDR 0 0 0 0 0 0 1 1 

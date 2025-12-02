@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="61" Path="/home/prabathbk/ads_bus/da-bus/Serial/Vivado/Serial_bus/Serial_bus.xpr">
+<Project Version="7" Minor="61" Path="/home/prabathbk/Serial-System-Bus/Vivado/Serial_bus/Serial_bus.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="a98630d8b70f4cf38068dd8012e7b597"/>
@@ -161,6 +161,14 @@
       </File>
       <File Path="$PPRDIR/../../rtl/ads_bus_top.v">
         <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../rtl/ads_bus_demo_de0nano.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
