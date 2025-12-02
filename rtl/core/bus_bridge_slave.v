@@ -41,6 +41,14 @@ module bus_bridge_slave #(
     wire u_rx_ready;
     wire [UART_RX_DATA_WIDTH-1:0] u_dout;
 
+    // Signals connecting to FIFO (for buffering read responses from UART)
+    reg fifo_enq;
+    reg fifo_deq;
+    reg [UART_RX_DATA_WIDTH-1:0] fifo_din;
+    wire [UART_RX_DATA_WIDTH-1:0] fifo_dout;
+    wire fifo_empty;
+
+    reg prev_u_rx_ready;
 
     // Instantiate modules
 
@@ -86,6 +94,20 @@ module bus_bridge_slave #(
         .data_output(u_dout)
     );
 
+    // FIFO module for buffering read responses from UART
+    fifo #(
+        .DATA_WIDTH(UART_RX_DATA_WIDTH),
+        .DEPTH(8)
+    ) fifo_queue (
+        .clk(clk),
+        .rstn(rstn),
+        .enq(fifo_enq),
+        .deq(fifo_deq),
+        .data_in(fifo_din),
+        .data_out(fifo_dout),
+        .empty(fifo_empty)
+    );
+
     localparam IDLE  = 2'b00,    //0
                WSEND  = 2'b01, 	// Write data
                RSEND = 2'b10,    // Read data
@@ -99,7 +121,8 @@ module bus_bridge_slave #(
 			IDLE   : next_state = (smemwen) ? WSEND : ((smemren) ? RSEND : IDLE);
 			WSEND  : next_state = (u_tx_busy) ? WSEND : IDLE;
             RSEND  : next_state = (u_tx_busy) ? RSEND : RDATA;
-            RDATA  : next_state = (!smemren) ? IDLE : RDATA;
+            // Stay in RDATA until FIFO has data, then transition to IDLE
+            RDATA  : next_state = (!fifo_empty) ? IDLE : RDATA;
 			default: next_state = IDLE;
 		endcase
 	end
@@ -108,6 +131,44 @@ module bus_bridge_slave #(
 	always @(posedge clk) begin
 		state <= (!rstn) ? IDLE : next_state;
 	end
+
+    // Send UART received data to FIFO (same pattern as bus_bridge_master)
+    always @(posedge clk) begin
+        if (!rstn) begin
+            fifo_din <= 'b0;
+            fifo_enq <= 1'b0;
+            prev_u_rx_ready <= 1'b0;
+        end
+        else begin
+            prev_u_rx_ready <= u_rx_ready;
+
+            if (u_rx_ready && !prev_u_rx_ready) begin
+                fifo_din <= u_dout;
+                fifo_enq <= 1'b1;
+            end
+            else begin
+                fifo_din <= fifo_din;
+                fifo_enq <= 1'b0;
+            end
+        end
+    end
+
+    // Dequeue from FIFO when we have data and are in RDATA state
+    always @(posedge clk) begin
+        if (!rstn) begin
+            fifo_deq <= 1'b0;
+        end
+        else begin
+            // Dequeue when FIFO has data and we're waiting for read response
+            if (!fifo_empty && (state == RDATA)) begin
+                fifo_deq <= 1'b1;
+            end
+            else begin
+                fifo_deq <= 1'b0;
+            end
+        end
+    end
+
     // Send write data from slave port to UART TX 
     always @(posedge clk) begin
         if (!rstn) begin
@@ -145,8 +206,10 @@ module bus_bridge_slave #(
         end
     end
 
-    assign rvalid = (state == RDATA) && (!u_tx_busy) && (u_rx_ready);
-    assign smemrdata = (smemren) ? u_dout : {DATA_WIDTH{1'b0}};
+    // rvalid is asserted when FIFO has data during read operation
+    assign rvalid = (state == RDATA) && (!fifo_empty);
+    // Read data comes from FIFO output
+    assign smemrdata = fifo_dout;
     assign sready = spready && !smemwen && !smemren && (state == IDLE);
 
 endmodule
