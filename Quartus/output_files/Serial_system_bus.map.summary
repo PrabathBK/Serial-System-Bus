@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Tue Dec  2 18:17:21 2025
+Quartus Prime Version : 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+Revision Name : Serial_system_bus
+Top-level Entity Name : demo_uart_bridge
+Family : Cyclone IV E
+Total logic elements : 1,339
+    Total combinational functions : 1,109
+    Dedicated logic registers : 792
+Total registers : 792
+Total pins : 19
+Total virtual pins : 0
+Total memory bits : 65,536
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
