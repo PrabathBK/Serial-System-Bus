@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ads_bus_system
-Tue Oct 14 18:29:08 2025
+Tue Dec  2 10:29:08 2025
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -92,7 +92,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Oct 14 18:29:08 2025       ;
+; Analysis & Synthesis Status        ; Successful - Tue Dec  2 10:29:08 2025       ;
 ; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; ads_bus_system                              ;
 ; Top-level Entity Name              ; ads_bus_top                                 ;
@@ -208,7 +208,7 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
+;     Processor 2            ;   0.1%      ;
 ;     Processor 3            ;   0.0%      ;
 ;     Processor 4            ;   0.0%      ;
 ;     Processor 5            ;   0.0%      ;
@@ -218,36 +218,36 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                  ;
-+-----------------------------------------------------------+-----------------+-------------------------------------------------------+---------------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path                          ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                                            ; Library ;
-+-----------------------------------------------------------+-----------------+-------------------------------------------------------+---------------------------------------------------------------------------------------------------------+---------+
-; ../rtl/ads_bus_top.v                                      ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v                                                 ;         ;
-; ../rtl/core/bus_m2_s3.v                                   ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v                                              ;         ;
-; ../rtl/core/master_port.v                                 ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v                                            ;         ;
-; ../rtl/core/slave_port.v                                  ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v                                             ;         ;
-; ../rtl/core/slave.v                                       ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v                                                  ;         ;
-; ../rtl/core/slave_memory_bram.v                           ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v                                      ;         ;
-; ../rtl/core/arbiter.v                                     ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/arbiter.v                                                ;         ;
-; ../rtl/core/addr_decoder.v                                ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v                                           ;         ;
-; ../rtl/core/mux2.v                                        ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux2.v                                                   ;         ;
-; ../rtl/core/mux3.v                                        ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux3.v                                                   ;         ;
-; ../rtl/core/dec3.v                                        ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/dec3.v                                                   ;         ;
-; altsyncram.tdf                                            ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altsyncram.tdf                      ;         ;
-; stratix_ram_block.inc                                     ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/stratix_ram_block.inc               ;         ;
-; lpm_mux.inc                                               ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/lpm_mux.inc                         ;         ;
-; lpm_decode.inc                                            ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/lpm_decode.inc                      ;         ;
-; aglobal201.inc                                            ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/aglobal201.inc                      ;         ;
-; a_rdenreg.inc                                             ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/a_rdenreg.inc                       ;         ;
-; altrom.inc                                                ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altrom.inc                          ;         ;
-; altram.inc                                                ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altram.inc                          ;         ;
-; altdpram.inc                                              ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altdpram.inc                        ;         ;
-; db/altsyncram_kck1.tdf                                    ; yes             ; Auto-Generated Megafunction                           ; /home/prabathbk/ads_bus/da-bus/Serial/quartus/db/altsyncram_kck1.tdf                                    ;         ;
-; db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; /home/prabathbk/ads_bus/da-bus/Serial/quartus/db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif ;         ;
-; db/altsyncram_jbk1.tdf                                    ; yes             ; Auto-Generated Megafunction                           ; /home/prabathbk/ads_bus/da-bus/Serial/quartus/db/altsyncram_jbk1.tdf                                    ;         ;
-; db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; /home/prabathbk/ads_bus/da-bus/Serial/quartus/db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ;         ;
-+-----------------------------------------------------------+-----------------+-------------------------------------------------------+---------------------------------------------------------------------------------------------------------+---------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                              ;
++-----------------------------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                          ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                                        ; Library ;
++-----------------------------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------------+---------+
+; ../rtl/ads_bus_top.v                                      ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v                                                 ;         ;
+; ../rtl/core/bus_m2_s3.v                                   ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v                                              ;         ;
+; ../rtl/core/master_port.v                                 ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v                                            ;         ;
+; ../rtl/core/slave_port.v                                  ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v                                             ;         ;
+; ../rtl/core/slave.v                                       ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/slave.v                                                  ;         ;
+; ../rtl/core/slave_memory_bram.v                           ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/slave_memory_bram.v                                      ;         ;
+; ../rtl/core/arbiter.v                                     ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/arbiter.v                                                ;         ;
+; ../rtl/core/addr_decoder.v                                ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/addr_decoder.v                                           ;         ;
+; ../rtl/core/mux2.v                                        ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/mux2.v                                                   ;         ;
+; ../rtl/core/mux3.v                                        ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/mux3.v                                                   ;         ;
+; ../rtl/core/dec3.v                                        ; yes             ; User Verilog HDL File                                 ; /home/prabathbk/Serial-System-Bus/rtl/core/dec3.v                                                   ;         ;
+; altsyncram.tdf                                            ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altsyncram.tdf                  ;         ;
+; stratix_ram_block.inc                                     ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/stratix_ram_block.inc           ;         ;
+; lpm_mux.inc                                               ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/lpm_mux.inc                     ;         ;
+; lpm_decode.inc                                            ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/lpm_decode.inc                  ;         ;
+; aglobal201.inc                                            ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/aglobal201.inc                  ;         ;
+; a_rdenreg.inc                                             ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/a_rdenreg.inc                   ;         ;
+; altrom.inc                                                ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altrom.inc                      ;         ;
+; altram.inc                                                ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altram.inc                      ;         ;
+; altdpram.inc                                              ; yes             ; Megafunction                                          ; /home/prabathbk/intelFPGA_lite/20.1/quartus/libraries/megafunctions/altdpram.inc                    ;         ;
+; db/altsyncram_kck1.tdf                                    ; yes             ; Auto-Generated Megafunction                           ; /home/prabathbk/Serial-System-Bus/quartus/db/altsyncram_kck1.tdf                                    ;         ;
+; db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; /home/prabathbk/Serial-System-Bus/quartus/db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif ;         ;
+; db/altsyncram_jbk1.tdf                                    ; yes             ; Auto-Generated Megafunction                           ; /home/prabathbk/Serial-System-Bus/quartus/db/altsyncram_jbk1.tdf                                    ;         ;
+; db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; /home/prabathbk/Serial-System-Bus/quartus/db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif ;         ;
++-----------------------------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------------+---------+
 
 
 +------------------------------------------------------------------+
@@ -1279,72 +1279,72 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-    Info: Processing started: Tue Oct 14 18:29:00 2025
+    Info: Processing started: Tue Dec  2 10:28:58 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ads_bus_system -c ads_bus_system
 Info (16303): Aggressive Performance optimization mode selected -- timing performance will be prioritized at the potential cost of increased logic area and compilation time
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 8 of the 8 processors detected
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v
-    Info (12023): Found entity 1: ads_bus_top File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 21
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v
-    Info (12023): Found entity 1: bus_m2_s3 File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 24
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v
-    Info (12023): Found entity 1: master_port File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 26
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v
-    Info (12023): Found entity 1: slave_port File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 26
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v
-    Info (12023): Found entity 1: slave File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 14
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v
-    Info (12023): Found entity 1: slave_memory_bram File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_memory_bram.v Line: 14
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/arbiter.v
-    Info (12023): Found entity 1: arbiter File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/arbiter.v Line: 22
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v
-    Info (12023): Found entity 1: addr_decoder File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v Line: 31
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux2.v
-    Info (12023): Found entity 1: mux2 File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux2.v Line: 24
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux3.v
-    Info (12023): Found entity 1: mux3 File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/mux3.v Line: 25
-Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/dec3.v
-    Info (12023): Found entity 1: dec3 File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/dec3.v Line: 16
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v
+    Info (12023): Found entity 1: ads_bus_top File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 20
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v
+    Info (12023): Found entity 1: bus_m2_s3 File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v
+    Info (12023): Found entity 1: master_port File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 26
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v
+    Info (12023): Found entity 1: slave_port File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 26
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/slave.v
+    Info (12023): Found entity 1: slave File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/slave_memory_bram.v
+    Info (12023): Found entity 1: slave_memory_bram File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_memory_bram.v Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/arbiter.v
+    Info (12023): Found entity 1: arbiter File: /home/prabathbk/Serial-System-Bus/rtl/core/arbiter.v Line: 26
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/addr_decoder.v
+    Info (12023): Found entity 1: addr_decoder File: /home/prabathbk/Serial-System-Bus/rtl/core/addr_decoder.v Line: 30
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/mux2.v
+    Info (12023): Found entity 1: mux2 File: /home/prabathbk/Serial-System-Bus/rtl/core/mux2.v Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/mux3.v
+    Info (12023): Found entity 1: mux3 File: /home/prabathbk/Serial-System-Bus/rtl/core/mux3.v Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file /home/prabathbk/Serial-System-Bus/rtl/core/dec3.v
+    Info (12023): Found entity 1: dec3 File: /home/prabathbk/Serial-System-Bus/rtl/core/dec3.v Line: 15
 Info (12127): Elaborating entity "ads_bus_top" for the top level hierarchy
-Info (12128): Elaborating entity "master_port" for hierarchy "master_port:master1_port" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 326
-Warning (10230): Verilog HDL assignment warning at master_port.v(175): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 175
-Warning (10230): Verilog HDL assignment warning at master_port.v(181): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 181
-Warning (10230): Verilog HDL assignment warning at master_port.v(190): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 190
-Warning (10230): Verilog HDL assignment warning at master_port.v(205): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 205
-Warning (10230): Verilog HDL assignment warning at master_port.v(231): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/master_port.v Line: 231
-Info (12128): Elaborating entity "bus_m2_s3" for hierarchy "bus_m2_s3:bus_inst" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 422
-Info (12128): Elaborating entity "arbiter" for hierarchy "bus_m2_s3:bus_inst|arbiter:bus_arbiter" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 153
-Info (10264): Verilog HDL Case Statement information at arbiter.v(126): all case item expressions in this case statement are onehot File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/arbiter.v Line: 126
-Info (12128): Elaborating entity "addr_decoder" for hierarchy "bus_m2_s3:bus_inst|addr_decoder:decoder" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 186
-Warning (10230): Verilog HDL assignment warning at addr_decoder.v(142): truncated value with size 32 to match size of target (4) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v Line: 142
-Info (12128): Elaborating entity "dec3" for hierarchy "bus_m2_s3:bus_inst|addr_decoder:decoder|dec3:mvalid_decoder" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/addr_decoder.v Line: 79
-Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:wdata_mux" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 198
-Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:mctrl_mux" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 206
-Info (12128): Elaborating entity "mux3" for hierarchy "bus_m2_s3:bus_inst|mux3:rdata_mux" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/bus_m2_s3.v Line: 219
-Info (12128): Elaborating entity "slave" for hierarchy "slave:slave1_inst" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 443
-Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave1_inst|slave_port:sp" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 74
-Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 147
-Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 164
-Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 194
-Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 236
-Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 260
-Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave1_inst|slave_memory_bram:sm" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 95
-Info (12128): Elaborating entity "slave" for hierarchy "slave:slave2_inst" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 464
-Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave2_inst|slave_port:sp" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 74
-Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 147
-Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 164
-Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 194
-Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 236
-Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 260
-Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave2_inst|slave_memory_bram:sm" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 95
-Info (12128): Elaborating entity "slave" for hierarchy "slave:slave3_inst" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 485
-Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave3_inst|slave_port:sp" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave.v Line: 74
-Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 147
-Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 164
-Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 194
-Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 236
-Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/core/slave_port.v Line: 260
+Info (12128): Elaborating entity "master_port" for hierarchy "master_port:master1_port" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 325
+Warning (10230): Verilog HDL assignment warning at master_port.v(175): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 175
+Warning (10230): Verilog HDL assignment warning at master_port.v(181): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 181
+Warning (10230): Verilog HDL assignment warning at master_port.v(190): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 190
+Warning (10230): Verilog HDL assignment warning at master_port.v(205): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 205
+Warning (10230): Verilog HDL assignment warning at master_port.v(231): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 231
+Info (12128): Elaborating entity "bus_m2_s3" for hierarchy "bus_m2_s3:bus_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 421
+Info (12128): Elaborating entity "arbiter" for hierarchy "bus_m2_s3:bus_inst|arbiter:bus_arbiter" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 153
+Info (10264): Verilog HDL Case Statement information at arbiter.v(130): all case item expressions in this case statement are onehot File: /home/prabathbk/Serial-System-Bus/rtl/core/arbiter.v Line: 130
+Info (12128): Elaborating entity "addr_decoder" for hierarchy "bus_m2_s3:bus_inst|addr_decoder:decoder" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 186
+Warning (10230): Verilog HDL assignment warning at addr_decoder.v(141): truncated value with size 32 to match size of target (4) File: /home/prabathbk/Serial-System-Bus/rtl/core/addr_decoder.v Line: 141
+Info (12128): Elaborating entity "dec3" for hierarchy "bus_m2_s3:bus_inst|addr_decoder:decoder|dec3:mvalid_decoder" File: /home/prabathbk/Serial-System-Bus/rtl/core/addr_decoder.v Line: 78
+Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:wdata_mux" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 198
+Info (12128): Elaborating entity "mux2" for hierarchy "bus_m2_s3:bus_inst|mux2:mctrl_mux" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 206
+Info (12128): Elaborating entity "mux3" for hierarchy "bus_m2_s3:bus_inst|mux3:rdata_mux" File: /home/prabathbk/Serial-System-Bus/rtl/core/bus_m2_s3.v Line: 219
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave1_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 442
+Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave1_inst|slave_port:sp" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 74
+Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 147
+Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 164
+Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 194
+Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 236
+Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 260
+Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave1_inst|slave_memory_bram:sm" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 95
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave2_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 463
+Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave2_inst|slave_port:sp" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 74
+Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 147
+Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 164
+Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 194
+Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 236
+Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 260
+Info (12128): Elaborating entity "slave_memory_bram" for hierarchy "slave:slave2_inst|slave_memory_bram:sm" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 95
+Info (12128): Elaborating entity "slave" for hierarchy "slave:slave3_inst" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 484
+Info (12128): Elaborating entity "slave_port" for hierarchy "slave:slave3_inst|slave_port:sp" File: /home/prabathbk/Serial-System-Bus/rtl/core/slave.v Line: 74
+Warning (10230): Verilog HDL assignment warning at slave_port.v(147): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 147
+Warning (10230): Verilog HDL assignment warning at slave_port.v(164): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 164
+Warning (10230): Verilog HDL assignment warning at slave_port.v(194): truncated value with size 32 to match size of target (4) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 194
+Warning (10230): Verilog HDL assignment warning at slave_port.v(236): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 236
+Warning (10230): Verilog HDL assignment warning at slave_port.v(260): truncated value with size 32 to match size of target (8) File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 260
 Warning (276027): Inferred dual-clock RAM node "slave:slave1_inst|slave_memory_bram:sm|memory_rtl_0" from synchronous design logic.  The read-during-write behavior of a dual-clock RAM is undefined and may not match the behavior of the original design.
 Warning (276027): Inferred dual-clock RAM node "slave:slave2_inst|slave_memory_bram:sm|memory_rtl_0" from synchronous design logic.  The read-during-write behavior of a dual-clock RAM is undefined and may not match the behavior of the original design.
 Warning (276027): Inferred dual-clock RAM node "slave:slave3_inst|slave_memory_bram:sm|memory_rtl_0" from synchronous design logic.  The read-during-write behavior of a dual-clock RAM is undefined and may not match the behavior of the original design.
@@ -1415,7 +1415,7 @@ Info (12133): Instantiated megafunction "slave:slave1_inst|slave_memory_bram:sm|
     Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
     Info (12134): Parameter "INIT_FILE" = "db/ads_bus_system.ram0_slave_memory_bram_b1862b5f.hdl.mif"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_kck1.tdf
-    Info (12023): Found entity 1: altsyncram_kck1 File: /home/prabathbk/ads_bus/da-bus/Serial/quartus/db/altsyncram_kck1.tdf Line: 28
+    Info (12023): Found entity 1: altsyncram_kck1 File: /home/prabathbk/Serial-System-Bus/quartus/db/altsyncram_kck1.tdf Line: 28
 Info (12130): Elaborated megafunction instantiation "slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0"
 Info (12133): Instantiated megafunction "slave:slave2_inst|slave_memory_bram:sm|altsyncram:memory_rtl_0" with the following parameter:
     Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
@@ -1434,59 +1434,59 @@ Info (12133): Instantiated megafunction "slave:slave2_inst|slave_memory_bram:sm|
     Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
     Info (12134): Parameter "INIT_FILE" = "db/ads_bus_system.ram0_slave_memory_bram_8f0a6464.hdl.mif"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_jbk1.tdf
-    Info (12023): Found entity 1: altsyncram_jbk1 File: /home/prabathbk/ads_bus/da-bus/Serial/quartus/db/altsyncram_jbk1.tdf Line: 28
+    Info (12023): Found entity 1: altsyncram_jbk1 File: /home/prabathbk/Serial-System-Bus/quartus/db/altsyncram_jbk1.tdf Line: 28
 Info (17026): Resynthesizing 0 WYSIWYG logic cells and I/Os using "balanced" technology mapper which leaves 0 WYSIWYG logic cells and I/Os untouched
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LED[7]" is stuck at GND File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 31
+    Warning (13410): Pin "LED[7]" is stuck at GND File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 30
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 75 registers lost all their fanouts during netlist optimizations.
 Info (128000): Starting physical synthesis optimizations for speed
 Info (332104): Reading SDC File: '../constraints/ads_bus_system.sdc'
 Info (332151): Clock uncertainty is not calculated until you update the timing netlist.
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_RDATA is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
-    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -min 1.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SVALID is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BGRANT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_ACK is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SPLIT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 37
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_RDATA is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
-    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -max 3.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SVALID is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BGRANT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_ACK is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SPLIT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 38
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_RDATA is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
-    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -min 1.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SVALID is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BGRANT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_ACK is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SPLIT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 39
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_RDATA is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
-    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -max 3.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SVALID is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BGRANT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_ACK is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
-Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SPLIT is not an input port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 40
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_WDATA is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
-    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -min 0.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MODE is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MVALID is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BREQ is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 49
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_WDATA is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
-    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -max 2.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MODE is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MVALID is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BREQ is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 50
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_WDATA is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
-    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -min 0.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MODE is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MVALID is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BREQ is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 51
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_WDATA is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
-    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -max 2.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MODE is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MVALID is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
-Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BREQ is not an output port. File: /home/prabathbk/ads_bus/da-bus/Serial/constraints/ads_bus_system.sdc Line: 52
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_RDATA is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 37
+    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -min 1.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SVALID is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BGRANT is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_ACK is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(37): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SPLIT is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 37
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_RDATA is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 38
+    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -max 3.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SVALID is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BGRANT is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_ACK is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(38): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_SPLIT is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 38
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_RDATA is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 39
+    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -min 1.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SVALID is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BGRANT is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_ACK is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(39): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SPLIT is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 39
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_RDATA is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 40
+    Info (332050): set_input_delay -clock [get_clocks {FPGA_CLK1_50}] -max 3.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SVALID is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BGRANT is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_ACK is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_input_delay is accepted but has some problems at ads_bus_system.sdc(40): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_SPLIT is not an input port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 40
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_WDATA is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 49
+    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -min 0.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 49
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MODE is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 49
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MVALID is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 49
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(49): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BREQ is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 49
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_WDATA is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 50
+    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -max 2.000 [get_ports {GPIO_M1_*}] File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 50
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MODE is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 50
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_MVALID is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 50
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(50): Positional argument <targets> with value [get_ports {GPIO_M1_*}]: Port GPIO_M1_BREQ is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 50
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_WDATA is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 51
+    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -min 0.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 51
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MODE is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 51
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MVALID is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 51
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(51): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BREQ is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 51
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_WDATA is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 52
+    Info (332050): set_output_delay -clock [get_clocks {FPGA_CLK1_50}] -max 2.000 [get_ports {GPIO_M2_*}] File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 52
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MODE is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 52
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_MVALID is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 52
+Warning (332054): Assignment set_output_delay is accepted but has some problems at ads_bus_system.sdc(52): Positional argument <targets> with value [get_ports {GPIO_M2_*}]: Port GPIO_M2_BREQ is not an output port. File: /home/prabathbk/Serial-System-Bus/constraints/ads_bus_system.sdc Line: 52
 Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
 Info (332129): Detected timing requirements -- optimizing circuit to achieve only the specified requirements
 Info (332111): Found 1 clocks
@@ -1498,33 +1498,33 @@ Info (128003): Physical synthesis algorithm register retiming complete: estimate
 Info (128002): Starting physical synthesis algorithm combinational resynthesis using boolean division
 Info (128003): Physical synthesis algorithm combinational resynthesis using boolean division complete: estimated slack improvement of 0 ps
 Info (128001): Physical synthesis optimizations for speed complete: elapsed time is 00:00:00
-Info (144001): Generated suppressed messages file /home/prabathbk/ads_bus/da-bus/Serial/quartus/ads_bus_system.map.smsg
+Info (144001): Generated suppressed messages file /home/prabathbk/Serial-System-Bus/quartus/ads_bus_system.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 8 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "GPIO_M1_WDATA" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 37
-    Warning (15610): No output dependent on input pin "GPIO_M1_MODE" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 38
-    Warning (15610): No output dependent on input pin "GPIO_M1_MVALID" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 39
-    Warning (15610): No output dependent on input pin "GPIO_M1_BREQ" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 41
-    Warning (15610): No output dependent on input pin "GPIO_M2_WDATA" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 50
-    Warning (15610): No output dependent on input pin "GPIO_M2_MODE" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 51
-    Warning (15610): No output dependent on input pin "GPIO_M2_MVALID" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 52
-    Warning (15610): No output dependent on input pin "GPIO_M2_BREQ" File: /home/prabathbk/ads_bus/da-bus/Serial/rtl/ads_bus_top.v Line: 54
+    Warning (15610): No output dependent on input pin "GPIO_M1_WDATA" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 36
+    Warning (15610): No output dependent on input pin "GPIO_M1_MODE" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 37
+    Warning (15610): No output dependent on input pin "GPIO_M1_MVALID" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 38
+    Warning (15610): No output dependent on input pin "GPIO_M1_BREQ" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 40
+    Warning (15610): No output dependent on input pin "GPIO_M2_WDATA" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 49
+    Warning (15610): No output dependent on input pin "GPIO_M2_MODE" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 50
+    Warning (15610): No output dependent on input pin "GPIO_M2_MVALID" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 51
+    Warning (15610): No output dependent on input pin "GPIO_M2_BREQ" File: /home/prabathbk/Serial-System-Bus/rtl/ads_bus_top.v Line: 53
 Info (21057): Implemented 836 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 10 input pins
     Info (21059): Implemented 18 output pins
     Info (21061): Implemented 784 logic cells
     Info (21064): Implemented 24 RAM segments
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 72 warnings
-    Info: Peak virtual memory: 529 megabytes
-    Info: Processing ended: Tue Oct 14 18:29:08 2025
-    Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:17
+    Info: Peak virtual memory: 555 megabytes
+    Info: Processing ended: Tue Dec  2 10:29:08 2025
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:22
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in /home/prabathbk/ads_bus/da-bus/Serial/quartus/ads_bus_system.map.smsg.
+The suppressed messages can be found in /home/prabathbk/Serial-System-Bus/quartus/ads_bus_system.map.smsg.
 
 

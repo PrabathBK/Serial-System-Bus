@@ -1,5 +1,5 @@
 Flow report for ads_bus_system
-Tue Oct 14 18:29:18 2025
+Tue Dec  2 10:29:21 2025
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -41,7 +41,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Tue Oct 14 18:29:18 2025       ;
+; Flow Status                        ; Successful - Tue Dec  2 10:29:21 2025       ;
 ; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; ads_bus_system                              ;
 ; Top-level Entity Name              ; ads_bus_top                                 ;
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 10/14/2025 18:29:00 ;
+; Start date & time ; 12/02/2025 10:28:58 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; ads_bus_system      ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ https://fpgasoftware.intel.com/eula.
 ; Assignment Name                         ; Value                                  ; Default Value  ; Entity Name ; Section Id     ;
 +-----------------------------------------+----------------------------------------+----------------+-------------+----------------+
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP     ; On                                     ; Off            ; --          ; --             ;
-; COMPILER_SIGNATURE_ID                   ; 268446079514813.176044674060565        ; --             ; --          ; --             ;
+; COMPILER_SIGNATURE_ID                   ; 268446079514813.176465153853745        ; --             ; --          ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                  ; Verilog Hdl                            ; --             ; --          ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                     ; ModelSim-Altera (Verilog)              ; <None>         ; --          ; --             ;
 ; EDA_TIME_SCALE                          ; 1 ps                                   ; --             ; --          ; eda_simulation ;
@@ -103,12 +103,12 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:08     ; 1.0                     ; 529 MB              ; 00:00:17                           ;
-; Fitter               ; 00:00:06     ; 1.1                     ; 1336 MB             ; 00:00:12                           ;
-; Assembler            ; 00:00:00     ; 1.0                     ; 352 MB              ; 00:00:01                           ;
-; Timing Analyzer      ; 00:00:02     ; 1.1                     ; 530 MB              ; 00:00:01                           ;
+; Analysis & Synthesis ; 00:00:10     ; 1.0                     ; 555 MB              ; 00:00:21                           ;
+; Fitter               ; 00:00:08     ; 1.1                     ; 1302 MB             ; 00:00:14                           ;
+; Assembler            ; 00:00:01     ; 1.0                     ; 357 MB              ; 00:00:01                           ;
+; Timing Analyzer      ; 00:00:01     ; 1.1                     ; 528 MB              ; 00:00:01                           ;
 ; EDA Netlist Writer   ; 00:00:00     ; 1.0                     ; 603 MB              ; 00:00:00                           ;
-; Total                ; 00:00:16     ; --                      ; --                  ; 00:00:31                           ;
+; Total                ; 00:00:20     ; --                      ; --                  ; 00:00:37                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
