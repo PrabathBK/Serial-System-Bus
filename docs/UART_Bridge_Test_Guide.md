@@ -272,6 +272,122 @@ For testing external mode without a second FPGA, you can connect the bridge TX t
 
 ---
 
+## 7 Test Cases (Matching tb_demo_uart_bridge.sv)
+
+These test cases match the simulation testbench for hardware verification.
+
+### Test Configuration Table
+
+| Test | Description | SW[3] | SW[2] | SW[1] | SW[0] | FPGA |
+|------|-------------|-------|-------|-------|-------|------|
+| 1 | Internal Write: A:M1 → A:S1 | 0 | X | 0 | 0 | A |
+| 2 | Internal Write: A:M1 → A:S2 | 0 | X | 1 | 0 | A |
+| 3 | External Write: A:M1 → B:S1 | 1 | 0 | X | 0 | A |
+| 4 | External Write: A:M1 → B:S2 | 1 | 1 | X | 0 | A |
+| 5 | Bridge Path: A:M1 → A:S3 | 1 | 0 | X | 0 | A |
+| 6 | Reverse: B:M1 → A:S1 | 1 | 0 | X | 0 | B |
+| 7 | External: A:M1 → B:S3 | 1 | 1 | X | 0 | A |
+
+**X** = Don't care (ignored in that mode)
+
+---
+
+### Test 1: Internal Write to Slave 1
+```
+FPGA A: SW[3:0] = 0000
+  SW[3]=0 (Internal mode)
+  SW[1]=0 (Select Slave 1)
+Press KEY[1] once, then KEY[0] to trigger
+Expected: LED[7:2] = 0x01, LED[1] = OFF
+```
+
+### Test 2: Internal Write to Slave 2
+```
+FPGA A: SW[3:0] = 0010
+  SW[3]=0 (Internal mode)
+  SW[1]=1 (Select Slave 2)
+Press KEY[1] twice, then KEY[0] to trigger
+Expected: LED[7:2] = 0x02, LED[1] = OFF
+```
+
+### Test 3: External Write to Remote S1 (via bridge)
+```
+FPGA A: SW[3:0] = 1000
+  SW[3]=1 (External mode)
+  SW[2]=0 (Remote Slave 1)
+Press KEY[1] 3x, then KEY[0] to trigger
+Expected: LED[7:2] = 0x03, LED[1] = ON
+Data arrives at FPGA B's Slave 1
+```
+
+### Test 4: External Write to Remote S2 (via bridge)
+```
+FPGA A: SW[3:0] = 1100
+  SW[3]=1 (External mode)
+  SW[2]=1 (Remote Slave 2)
+Press KEY[1] 4x, then KEY[0] to trigger
+Expected: LED[7:2] = 0x04, LED[1] = ON
+Data arrives at FPGA B's Slave 2
+```
+
+### Test 5: Bridge Path Test (A:M1 → A:S3)
+```
+FPGA A: SW[3:0] = 1000
+  SW[3]=1 (External mode)
+  SW[2]=0 (Remote Slave 1)
+Press KEY[1] 5x, then KEY[0] to trigger
+Expected: LED[7:2] = 0x05, LED[1] = ON
+Tests the bridge slave path
+```
+
+### Test 6: Reverse Direction (B:M1 → A:S1)
+```
+FPGA B: SW[3:0] = 1000
+  SW[3]=1 (External mode)
+  SW[2]=0 (Remote Slave 1 on FPGA A)
+Press KEY[1] 6x on FPGA B, then KEY[0]
+Expected: FPGA B LED[7:2] = 0x06, LED[1] = ON
+Data arrives at FPGA A's Slave 1
+```
+
+### Test 7: External Write to Remote S3
+```
+FPGA A: SW[3:0] = 1100
+  SW[3]=1 (External mode)
+  SW[2]=1 (Remote Slave 2 → routes to S3)
+Press KEY[1] 7x, then KEY[0] to trigger
+Expected: LED[7:2] = 0x07, LED[1] = ON
+Data arrives at FPGA B's Bridge Slave (S3)
+```
+
+---
+
+## Dual FPGA Wiring for All 7 Tests
+
+For bidirectional communication, connect both bridge TX/RX pairs:
+
+```
+FPGA A                              FPGA B
+───────────────────────────────────────────────
+GPIO_0_BRIDGE_S_TX (B8)  ────────►  GPIO_0_BRIDGE_M_RX (D3)
+GPIO_0_BRIDGE_M_TX (A8)  ◄────────  GPIO_0_BRIDGE_S_RX (C3)
+GPIO_0_BRIDGE_M_RX (D3)  ◄────────  GPIO_0_BRIDGE_S_TX (B8)
+GPIO_0_BRIDGE_S_RX (C3)  ────────►  GPIO_0_BRIDGE_M_TX (A8)
+GND                      ──────────  GND
+```
+
+**Simplified (4 wires + GND):**
+```
+FPGA A          FPGA B
+  B8  ──────────  D3    (A's Bridge Slave TX → B's Bridge Master RX)
+  C3  ──────────  A8    (A's Bridge Slave RX ← B's Bridge Master TX)
+  A8  ──────────  C3    (A's Bridge Master TX → B's Bridge Slave RX)
+  D3  ──────────  B8    (A's Bridge Master RX ← B's Bridge Slave TX)
+  GND ──────────  GND
+```
+
+---
+
 ## Quick Reference Card
 
 ```
@@ -287,3 +403,16 @@ For testing external mode without a second FPGA, you can connect the bridge TX t
 │  LED[0]: TX Active    LED[1]: Ext Mode    LED[7:2]: Data    │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## Test Procedure Summary
+
+1. **Reset**: Set SW[0]=1 briefly, then SW[0]=0
+2. **Configure**: Set SW[3:1] per test table above
+3. **Set Data**: Press KEY[1] N times for data pattern N
+4. **Trigger**: Press KEY[0] to send transaction
+5. **Verify**: 
+   - LED[0] goes ON then OFF (transaction complete)
+   - LED[1] shows mode (OFF=internal, ON=external)
+   - LED[7:2] shows data pattern
