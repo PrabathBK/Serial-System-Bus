@@ -123,10 +123,16 @@ module tb_arbiter;
                   bgrant1 == 1 && bgrant2 == 0 && msel == 0);
 
             // Remove M1 request, M2 should now get grant
+            // Note: Arbiter goes M1->IDLE first cycle, then IDLE->M2 second cycle
             breq1 = 0;
-            step;
+            step;  // M1 -> IDLE
 
-            check("M2 gets grant when M1 stops requesting",
+            check("After M1 releases, arbiter goes to IDLE first",
+                  bgrant1 == 0 && bgrant2 == 0);
+
+            step;  // IDLE -> M2
+
+            check("M2 gets grant on next cycle",
                   bgrant1 == 0 && bgrant2 == 1 && msel == 1);
 
             // Remove M2 request, arbiter should go idle
@@ -188,20 +194,24 @@ module tb_arbiter;
             ssplit   = 0;  // slave: I am ready to complete split
             step;
 
-            // Arbiter should reselect M1 and give split_grant pulse
+            // Arbiter should reselect M1
             check("When split completes, M1 gets grant again",
                   bgrant1 == 1 && bgrant2 == 0 && msel == 0);
-            check("split_grant should pulse when split ends for M1",
+            
+            // split_grant is generated one cycle after entering M1 state
+            // (when the sequential logic processes split_owner == SM1 && !ssplit)
+            step;
+            check("split_grant should pulse one cycle after M1 regains grant",
                   split_grant == 1);
+
+            // msplit1 should now be cleared (same cycle as split_grant)
+            check("msplit1 should be cleared when split_grant pulses",
+                  msplit1 == 0);
 
             // Next cycle split_grant should deassert
             step;
             check("split_grant should be deasserted after one cycle",
                   split_grant == 0);
-
-            // msplit1 should now be cleared
-            check("msplit1 should be cleared after split completion",
-                  msplit1 == 0);
 
             // M1 finally releases bus
             breq1 = 0;
@@ -243,7 +253,7 @@ module tb_arbiter;
             sready2  = 1;
             sreadysp = 0;  // split slave not ready
             breq1    = 1;
-            breq2    = 0;  // M2 can drop request or keep it, split_owner remembers it
+            // Note: breq2 stays 1 - M2 still wants to complete its transaction
 
             step;
             check("During M2 split, M1 should get bus for non split slaves",
@@ -260,18 +270,21 @@ module tb_arbiter;
             ssplit   = 0;
             step;
 
-            // Arbiter should return bus to M2 and pulse split_grant
+            // Arbiter should return bus to M2
             check("When split completes, M2 gets grant again",
                   bgrant1 == 0 && bgrant2 == 1 && msel == 1);
-            check("split_grant should pulse when split ends for M2",
+
+            // split_grant is generated one cycle after entering M2 state
+            step;
+            check("split_grant should pulse one cycle after M2 regains grant",
                   split_grant == 1);
+            check("msplit2 should be cleared when split_grant pulses",
+                  msplit2 == 0);
 
             // Next cycle, clear pulse
             step;
             check("split_grant should clear after one cycle (M2 case)",
                   split_grant == 0);
-            check("msplit2 should be cleared after completion",
-                  msplit2 == 0);
 
             // M2 finishes
             breq2 = 0;

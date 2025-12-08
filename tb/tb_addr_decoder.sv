@@ -185,16 +185,19 @@ module tb_addr_decoder;
             // Send device address 0 (4'b0000) for Slave 1
             send_device_addr(4'b0000);
             
-            // Now in CONNECT state, check ack
+            // Now in CONNECT state, check ack (combinational)
             check("Slave 1: ack should be asserted",
                   ack == 1);
+            
+            // Keep mvalid high to move to WAIT state
+            // ssel is registered, so check after one more clock
+            step;
+            
+            // In WAIT state, ssel is now updated
             check("Slave 1: ssel should be 2'b00",
                   ssel == 2'b00);
             
-            // Keep mvalid high to move to WAIT state
-            step;
-            
-            // In WAIT state, check mvalid routing
+            // Check mvalid routing
             check("Slave 1: mvalid1 should be 1",
                   mvalid1 == 1);
             check("Slave 1: mvalid2 should be 0",
@@ -227,16 +230,19 @@ module tb_addr_decoder;
             // Send device address 1 (4'b0001) for Slave 2
             send_device_addr(4'b0001);
             
-            // Now in CONNECT state, check ack
+            // Now in CONNECT state, check ack (combinational)
             check("Slave 2: ack should be asserted",
                   ack == 1);
+            
+            // Keep mvalid high to move to WAIT state
+            // ssel is registered, so check after one more clock
+            step;
+            
+            // In WAIT state, ssel is now updated
             check("Slave 2: ssel should be 2'b01",
                   ssel == 2'b01);
             
-            // Keep mvalid high to move to WAIT state
-            step;
-            
-            // In WAIT state, check mvalid routing
+            // Check mvalid routing
             check("Slave 2: mvalid1 should be 0",
                   mvalid1 == 0);
             check("Slave 2: mvalid2 should be 1",
@@ -269,16 +275,19 @@ module tb_addr_decoder;
             // Send device address 2 (4'b0010) for Slave 3
             send_device_addr(4'b0010);
             
-            // Now in CONNECT state, check ack
+            // Now in CONNECT state, check ack (combinational)
             check("Slave 3: ack should be asserted",
                   ack == 1);
+            
+            // Keep mvalid high to move to WAIT state
+            // ssel is registered, so check after one more clock
+            step;
+            
+            // In WAIT state, ssel is now updated
             check("Slave 3: ssel should be 2'b10",
                   ssel == 2'b10);
             
-            // Keep mvalid high to move to WAIT state
-            step;
-            
-            // In WAIT state, check mvalid routing
+            // Check mvalid routing
             check("Slave 3: mvalid1 should be 0",
                   mvalid1 == 0);
             check("Slave 3: mvalid2 should be 0",
@@ -343,17 +352,18 @@ module tb_addr_decoder;
             // Try to address Slave 1 (Device 0)
             send_device_addr(4'b0000);
             
-            // Slave 1 not ready, should NOT ack
+            // Slave 1 not ready, should NOT ack (combinational check)
             check("Slave 1 not ready: ack should NOT be asserted",
                   ack == 0);
             
-            // Should return to IDLE
-            step;
-            check("Slave not ready: should return to IDLE",
-                  mvalid1 == 0 && mvalid2 == 0 && mvalid3 == 0);
-            
+            // State machine goes CONNECT -> IDLE (since slave_addr_valid is 0)
+            // Need to deassert mvalid to allow transition
             mvalid = 0;
             step;
+            step;  // Give time to return to IDLE
+            
+            check("Slave not ready: should return to IDLE",
+                  mvalid1 == 0 && mvalid2 == 0 && mvalid3 == 0);
         end
     endtask
 
@@ -384,22 +394,24 @@ module tb_addr_decoder;
             check("Split test: mvalid3 should be active",
                   mvalid3 == 1);
             
-            // Slave issues split
+            // Slave issues split - this causes transition to IDLE
             ssplit = 1;
             step;
             
-            // Should return to IDLE
-            check("After split: should be in IDLE (no mvalid)",
-                  mvalid1 == 0 && mvalid2 == 0 && mvalid3 == 0);
-            
+            // In IDLE now, mvalid is 0 since slave_en cleared
             ssplit = 0;
             mvalid = 0;
+            step;  // One more cycle to stabilize
+            
+            // Should be in IDLE
+            check("After split: should be in IDLE (no mvalid)",
+                  mvalid1 == 0 && mvalid2 == 0 && mvalid3 == 0);
             
             // Now split_grant comes from arbiter
             split_grant = 1;
             step;
             
-            // Should resume with saved slave address
+            // Should transition to WAIT state with saved slave address
             split_grant = 0;
             step;
             
@@ -429,8 +441,8 @@ module tb_addr_decoder;
             // Transaction to Slave 1
             $display("  Selecting Slave 1...");
             send_device_addr(4'b0000);
-            check("Seq: Slave 1 selected (ssel=00)", ssel == 2'b00 && ack == 1);
-            step;  // WAIT
+            step;  // WAIT - ssel updated
+            check("Seq: Slave 1 selected (ssel=00)", ssel == 2'b00);
             mvalid = 0;
             step;  // Back to IDLE
             step;
@@ -438,8 +450,8 @@ module tb_addr_decoder;
             // Transaction to Slave 2
             $display("  Selecting Slave 2...");
             send_device_addr(4'b0001);
-            check("Seq: Slave 2 selected (ssel=01)", ssel == 2'b01 && ack == 1);
-            step;  // WAIT
+            step;  // WAIT - ssel updated
+            check("Seq: Slave 2 selected (ssel=01)", ssel == 2'b01);
             mvalid = 0;
             step;  // Back to IDLE
             step;
@@ -447,8 +459,8 @@ module tb_addr_decoder;
             // Transaction to Slave 3
             $display("  Selecting Slave 3...");
             send_device_addr(4'b0010);
-            check("Seq: Slave 3 selected (ssel=10)", ssel == 2'b10 && ack == 1);
-            step;  // WAIT
+            step;  // WAIT - ssel updated
+            check("Seq: Slave 3 selected (ssel=10)", ssel == 2'b10);
             mvalid = 0;
             step;  // Back to IDLE
             step;

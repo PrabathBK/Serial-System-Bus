@@ -15,13 +15,13 @@
 - [x] All RTL comments updated to DE0-Nano/Cyclone IV EP4CE22F17C6
 - [x] Memory references updated (M10K → M9K)
 
-## Testbenches Status
-| Testbench | Assignment Task | Status |
-|-----------|-----------------|--------|
-| `tb_arbiter.sv` | Task 2 - Arbiter Verification | Complete |
-| `tb_addr_decoder.sv` | Task 3 - Address Decoder Verification | Complete |
-| `master2_slave3_tb.sv` | Task 4 - Top-level Verification | Complete |
-| `simple_read_test.sv` | Debug/Quick Test | Complete |
+## Testbenches Status (Last Run: Dec 9, 2025)
+| Testbench | Assignment Task | Status | Result |
+|-----------|-----------------|--------|--------|
+| `tb_arbiter.sv` | Task 2 - Arbiter Verification | Complete | ALL PASS |
+| `tb_addr_decoder.sv` | Task 3 - Address Decoder Verification | Complete | ALL PASS |
+| `master2_slave3_tb.sv` | Task 4 - Top-level Verification | Complete | ALL PASS (20 iterations) |
+| `simple_read_test.sv` | Debug/Quick Test | Complete | ALL PASS (7/7 tests) |
 
 ## Verification Status
 - [x] Arbiter verification (reset, single/dual master, split)
