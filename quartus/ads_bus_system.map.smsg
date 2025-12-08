@@ -1,8 +1,0 @@
-Info (10281): Verilog HDL Declaration information at master_port.v(64): object "addr" differs only in case from object "ADDR" in the same scope File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 64
-Info (10281): Verilog HDL Declaration information at master_port.v(66): object "rdata" differs only in case from object "RDATA" in the same scope File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 66
-Info (10281): Verilog HDL Declaration information at master_port.v(63): object "wdata" differs only in case from object "WDATA" in the same scope File: /home/prabathbk/Serial-System-Bus/rtl/core/master_port.v Line: 63
-Info (10281): Verilog HDL Declaration information at slave_port.v(56): object "addr" differs only in case from object "ADDR" in the same scope File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 56
-Info (10281): Verilog HDL Declaration information at slave_port.v(57): object "rdata" differs only in case from object "RDATA" in the same scope File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 57
-Info (10281): Verilog HDL Declaration information at slave_port.v(55): object "wdata" differs only in case from object "WDATA" in the same scope File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 55
-Info (10281): Verilog HDL Declaration information at slave_port.v(49): object "sready" differs only in case from object "SREADY" in the same scope File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 49
-Info (10281): Verilog HDL Declaration information at slave_port.v(36): object "rvalid" differs only in case from object "RVALID" in the same scope File: /home/prabathbk/Serial-System-Bus/rtl/core/slave_port.v Line: 36
