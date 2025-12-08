@@ -4,6 +4,8 @@
 - **Synthesis**: `./scripts/synthesize_and_verify.sh` (Quartus: map, fit, asm, sta)
 - **Full sim**: `./sim/run_sim.sh` (Vivado xsim, master2_slave3_tb.sv)
 - **Single test**: `./sim/run_simple_test.sh` (simple_read_test.sv)
+- **Dual system test**: `./sim/run_dual_system_test.sh` (tb_dual_system.sv, inter-FPGA UART bridge)
+- **Demo bridge test**: `./sim/run_demo_bridge_test.sh` (tb_demo_uart_bridge.sv, DE0-Nano top-level)
 - **FPGA program**: `quartus_pgm -m jtag -o "p;quartus/output_files/ads_bus_system.sof@1"`
 
 ## Code Style (Verilog)
@@ -21,6 +23,6 @@
 
 ## Key Files
 - **Top-level**: `rtl/demo_uart_bridge.v` (DE0-Nano UART bridge)
-- **Testbenches**: `tb_arbiter.sv` (Task 2), `tb_addr_decoder.sv` (Task 3), `master2_slave3_tb.sv` (Task 4)
+- **Testbenches**: `tb_arbiter.sv` (Task 2), `tb_addr_decoder.sv` (Task 3), `master2_slave3_tb.sv` (Task 4), `tb_dual_system.sv` (multi-FPGA bridge), `tb_demo_uart_bridge.sv` (DE0-Nano top-level)
 
 Update todo.md and AGENTS.md always

@@ -22,6 +22,8 @@
 | `tb_addr_decoder.sv` | Task 3 - Address Decoder Verification | Complete | ALL PASS |
 | `master2_slave3_tb.sv` | Task 4 - Top-level Verification | Complete | ALL PASS (20 iterations) |
 | `simple_read_test.sv` | Debug/Quick Test | Complete | ALL PASS (7/7 tests) |
+| `tb_dual_system.sv` | Multi-FPGA Bridge Testing | Complete | ALL PASS (7/7 tests) |
+| `tb_demo_uart_bridge.sv` | DE0-Nano Top-Level Testing | Complete | ALL PASS (7/7 tests) |
 
 ## Verification Status
 - [x] Arbiter verification (reset, single/dual master, split)
@@ -36,9 +38,32 @@
 | Slave 2 | 4KB | 0x1000-0x1FFF | No |
 | Slave 3 | 4KB | 0x2000-0x2FFF | Yes (Bridge) |
 
+## Dual-System Bridge Test Cases (tb_dual_system.sv)
+| Test | Description | Status |
+|------|-------------|--------|
+| Test 1 | Internal Write: System A M1 -> System A S1 | PASS |
+| Test 2 | Internal Write: System A M1 -> System A S2 | PASS |
+| Test 3 | External Write: System A M1 -> System B S1 (via bridge) | PASS |
+| Test 4 | External Write: System A M1 -> System B S2 (via bridge) | PASS |
+| Test 5 | Internal Write: System A M1 -> System A S3 (local memory) | PASS |
+| Test 6 | Bridge Write: System A M2 -> System A S3 (via UART from B) | PASS |
+| Test 7 | External Write: System A M1 -> System B S3 (via bridge) | PASS |
+
+## Demo UART Bridge Test Cases (tb_demo_uart_bridge.sv)
+| Test | Description | Status |
+|------|-------------|--------|
+| Test 1 | Internal Write: A:M1 -> A:S1 (via KEY/SW interface) | PASS |
+| Test 2 | Internal Write: A:M1 -> A:S2 (via KEY/SW interface) | PASS |
+| Test 3 | External Write: A:M1 -> B:S1 (via UART bridge) | PASS |
+| Test 4 | External Write: A:M1 -> B:S2 (via UART bridge) | PASS |
+| Test 5 | Bridge Path: A:M1 -> A:S3 (bridge slave local) | PASS |
+| Test 6 | Reverse Direction: B:M1 -> A:S1 (via UART bridge) | PASS |
+| Test 7 | External Write: A:M1 -> B:S3 (remote bridge slave) | PASS |
+
 ## Future Improvements
 - [ ] Add read-back verification in testbench
 - [ ] Implement error detection/recovery
 - [ ] Add performance counters
-- [ ] Multi-FPGA bridge testing
+- [x] Multi-FPGA bridge testing
+- [x] DE0-Nano top-level testbench (tb_demo_uart_bridge.sv)
 - [ ] Add DE0-Nano pin assignments documentation
