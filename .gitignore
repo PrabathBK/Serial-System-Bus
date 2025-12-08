@@ -6,16 +6,25 @@
 #------------------------------------------------------------------------------
 # Quartus II / Prime Build Artifacts
 #------------------------------------------------------------------------------
-# Database folders
+# Database folders (both quartus/ and Quartus/ directories)
 quartus/db/
 quartus/incremental_db/
 quartus/simulation/
+quartus/output_files/
+Quartus/db/
+Quartus/incremental_db/
+Quartus/simulation/
+Quartus/output_files/
 
 # Report and log files
 quartus/*.rpt
 quartus/*.smsg
 quartus/*.summary
 quartus/*.log
+Quartus/*.rpt
+Quartus/*.smsg
+Quartus/*.summary
+Quartus/*.log
 
 # Programming files (keep .sof if you want to share bitstreams, remove if not)
 quartus/*.sof
@@ -24,26 +33,42 @@ quartus/*.jic
 quartus/*.rbf
 quartus/*.ttf
 quartus/*.sld
+Quartus/*.sof
+Quartus/*.pof
+Quartus/*.jic
+Quartus/*.rbf
+Quartus/*.ttf
+Quartus/*.sld
 
 # Temporary/intermediate files
 quartus/*.done
 quartus/*.jdi
 quartus/*.pin
 quartus/c5_pin_model_dump.txt
+Quartus/*.done
+Quartus/*.jdi
+Quartus/*.pin
+Quartus/c5_pin_model_dump.txt
 
 # Backup files
 quartus/*.bak
 quartus/*.qws
+Quartus/*.bak
+Quartus/*.qws
+
+# Quartus generated MIF files
+*.mif
 
 #------------------------------------------------------------------------------
 # Xilinx Vivado Build Artifacts
 #------------------------------------------------------------------------------
 # Vivado project directories (keep .xpr project file if needed)
-Vivado/**/Serial_bus.cache/
-Vivado/**/Serial_bus.hw/
-Vivado/**/Serial_bus.ip_user_files/
-Vivado/**/Serial_bus.runs/
-Vivado/**/Serial_bus.sim/
+Vivado/**/*.cache/
+Vivado/**/*.hw/
+Vivado/**/*.ip_user_files/
+Vivado/**/*.runs/
+Vivado/**/*.sim/
+Vivado/**/*.srcs/
 Vivado/**/.Xil/
 
 # Vivado logs and journals
@@ -56,6 +81,12 @@ Vivado/**/*.vcd
 
 # Vivado simulation directories
 Vivado/**/xsim.dir/
+
+# Vivado HLS
+*.aps
+*.rpt
+vivado*.log
+vivado*.jou
 
 #------------------------------------------------------------------------------
 # Simulation Output Files (sim/ folder)
@@ -149,6 +180,12 @@ venv/
 *.temp
 *.cache
 .cache/
+
+# Session/status files (development artifacts)
+SESSION_RESUME_SUMMARY.md
+SYNTHESIS_SUCCESS.md
+promt.txt
+vivado_sim_log*.txt
 
 # Don't ignore important documentation
 !docs/requirement.txt

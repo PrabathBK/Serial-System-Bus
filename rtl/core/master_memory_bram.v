@@ -39,7 +39,7 @@ module master_memory_bram #(
     // Memory Array Declaration
     //--------------------------------------------------------------------------
     // Behavioral memory for simulation and synthesis
-    // Will be inferred as M10K blocks by Quartus for Cyclone V
+    // Will be inferred as M9K blocks by Quartus for Cyclone IV
     reg [DATA_WIDTH-1:0] memory [0:MEM_SIZE-1];
 
     //--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ module master_memory_bram #(
 
     //--------------------------------------------------------------------------
     // Memory Read Logic (Synchronous)
-    // Note: No reset on rdata to allow M10K block RAM inference
+    // Note: No reset on rdata to allow M9K block RAM inference
     //--------------------------------------------------------------------------
     always @(posedge clk) begin
         if (ren) begin
@@ -66,10 +66,10 @@ module master_memory_bram #(
     end
 
     //--------------------------------------------------------------------------
-    // Read Valid Generation Logic
+    // Read Valid Generation Logic (async reset)
     // rvalid asserts one cycle after ren assertion (BRAM latency)
     //--------------------------------------------------------------------------
-    always @(posedge clk) begin
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             rvalid   <= 1'b0;
             ren_prev <= 1'b0;

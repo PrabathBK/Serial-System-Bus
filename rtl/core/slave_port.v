@@ -17,7 +17,7 @@
 //   - Ready signal indicates availability for new transaction
 //
 // Author: ADS Bus System Generator
-// Target: Intel Cyclone V (Terasic DE10-Nano)
+// Target: Intel Cyclone IV EP4CE22F17C6 (DE0-Nano)
 //-----------------------------------------------------------------------------
 
 
@@ -92,8 +92,8 @@ module slave_port #(
         endcase
     end
     
-    // State transition logic
-    always @(posedge clk) begin
+    // State transition logic (async reset)
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             state <= IDLE;
             prev_state <= IDLE;
@@ -119,8 +119,8 @@ module slave_port #(
     assign sready = (state == IDLE);
     assign ssplit = (state == SPLIT);
     
-    // Sequential output logic
-    always @(posedge clk) begin
+    // Sequential output logic (async reset)
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             wdata    <= 'b0;
             addr     <= 'b0;

@@ -220,16 +220,19 @@ module bus_bridge_slave #(
     end
 
     //--------------------------------------------------------------------------
-    // State Transition Logic
+    // State Transition Logic (async reset)
     //--------------------------------------------------------------------------
-    always @(posedge clk) begin
-        state <= (!rstn) ? IDLE : next_state;
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
+            state <= IDLE;
+        else
+            state <= next_state;
     end
 
     //--------------------------------------------------------------------------
-    // UART Receive Data Latching (for read responses)
+    // UART Receive Data Latching (async reset)
     //--------------------------------------------------------------------------
-    always @(posedge clk) begin
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             latched_rdata   <= {DATA_WIDTH{1'b0}};
             rdata_received  <= 1'b0;
@@ -251,9 +254,9 @@ module bus_bridge_slave #(
     end
 
     //--------------------------------------------------------------------------
-    // UART Transmit Control
+    // UART Transmit Control (async reset)
     //--------------------------------------------------------------------------
-    always @(posedge clk) begin
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             u_din <= {UART_TX_DATA_WIDTH{1'b0}};
             u_en  <= 1'b0;

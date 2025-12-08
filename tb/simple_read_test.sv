@@ -13,7 +13,9 @@ module simple_read_test;
     //--------------------------------------------------------------------------
     parameter ADDR_WIDTH = 16;
     parameter DATA_WIDTH = 8;
-    parameter SLAVE_MEM_ADDR_WIDTH = 12;
+    parameter SLAVE1_MEM_ADDR_WIDTH = 11;  // 2KB
+    parameter SLAVE2_MEM_ADDR_WIDTH = 12;  // 4KB
+    parameter SLAVE3_MEM_ADDR_WIDTH = 12;  // 4KB
     parameter CLK_PERIOD = 10;  // 10ns = 100MHz
 
     //--------------------------------------------------------------------------
@@ -124,7 +126,7 @@ module simple_read_test;
     master_port #(
         .ADDR_WIDTH(ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH),
-        .SLAVE_MEM_ADDR_WIDTH(SLAVE_MEM_ADDR_WIDTH)
+        .SLAVE_MEM_ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH)
     ) master1 (
         .clk(clk),
         .rstn(rstn),
@@ -151,7 +153,7 @@ module simple_read_test;
     master_port #(
         .ADDR_WIDTH(ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH),
-        .SLAVE_MEM_ADDR_WIDTH(SLAVE_MEM_ADDR_WIDTH)
+        .SLAVE_MEM_ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH)
     ) master2 (
         .clk(clk),
         .rstn(rstn),
@@ -176,7 +178,7 @@ module simple_read_test;
     // Slave 1 (2KB, No Split)
     //--------------------------------------------------------------------------
     slave #(
-        .ADDR_WIDTH(SLAVE_MEM_ADDR_WIDTH),
+        .ADDR_WIDTH(SLAVE1_MEM_ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH),
         .SPLIT_EN(0),
         .MEM_SIZE(2048)
@@ -197,7 +199,7 @@ module simple_read_test;
     // Slave 2 (4KB, No Split)
     //--------------------------------------------------------------------------
     slave #(
-        .ADDR_WIDTH(SLAVE_MEM_ADDR_WIDTH),
+        .ADDR_WIDTH(SLAVE2_MEM_ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH),
         .SPLIT_EN(0),
         .MEM_SIZE(4096)
@@ -218,7 +220,7 @@ module simple_read_test;
     // Slave 3 (4KB, Split Enabled)
     //--------------------------------------------------------------------------
     slave #(
-        .ADDR_WIDTH(SLAVE_MEM_ADDR_WIDTH),
+        .ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH),
         .SPLIT_EN(1),
         .MEM_SIZE(4096)
@@ -241,7 +243,9 @@ module simple_read_test;
     bus_m2_s3 #(
         .ADDR_WIDTH(ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH),
-        .SLAVE_MEM_ADDR_WIDTH(SLAVE_MEM_ADDR_WIDTH)
+        .SLAVE1_MEM_ADDR_WIDTH(SLAVE1_MEM_ADDR_WIDTH),
+        .SLAVE2_MEM_ADDR_WIDTH(SLAVE2_MEM_ADDR_WIDTH),
+        .SLAVE3_MEM_ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH)
     ) bus (
         .clk(clk),
         .rstn(rstn),

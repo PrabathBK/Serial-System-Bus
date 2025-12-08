@@ -103,14 +103,14 @@ set_global_assignment -name VERILOG_FILE ../rtl/core/uart_tx.v
 set_global_assignment -name VERILOG_FILE ../rtl/core/uart_rx.v
 set_global_assignment -name VERILOG_FILE ../rtl/core/uart.v
 set_global_assignment -name VERILOG_FILE ../rtl/core/master_memory_bram.v
-set_global_assignment -name VERILOG_FILE ../rtl/core/master.v
+
 set_global_assignment -name VERILOG_FILE ../rtl/core/fifo.v
 set_global_assignment -name VERILOG_FILE ../rtl/core/bus_bridge_slave.v
 set_global_assignment -name VERILOG_FILE ../rtl/core/bus_bridge_master.v
 set_global_assignment -name VERILOG_FILE ../rtl/core/addr_convert.v
 set_global_assignment -name VERILOG_FILE ../rtl/demo_uart_bridge.v
 set_global_assignment -name SDC_FILE ../constraints/ads_bus_system.sdc
-set_global_assignment -name VERILOG_FILE ../rtl/ads_bus_top.v
+
 set_global_assignment -name VERILOG_FILE ../rtl/core/bus_m2_s3.v
 set_global_assignment -name VERILOG_FILE ../rtl/core/master_port.v
 set_global_assignment -name VERILOG_FILE ../rtl/core/slave_port.v

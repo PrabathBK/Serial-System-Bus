@@ -220,10 +220,10 @@ module bus_bridge_master #(
     );
 
     //--------------------------------------------------------------------------
-    // UART RX to FIFO Logic
+    // UART RX to FIFO Logic (async reset)
     // Enqueue received UART data into FIFO
     //--------------------------------------------------------------------------
-    always @(posedge clk) begin
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             fifo_din     <= {UART_RX_DATA_WIDTH{1'b0}};
             fifo_enq     <= 1'b0;
@@ -247,10 +247,10 @@ module bus_bridge_master #(
     end
 
     //--------------------------------------------------------------------------
-    // FIFO to Master Port Logic
+    // FIFO to Master Port Logic (async reset)
     // Dequeue FIFO data and initiate bus transactions
     //--------------------------------------------------------------------------
-    always @(posedge clk) begin
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             bb_addr      <= {BB_ADDR_WIDTH{1'b0}};
             dwdata       <= {DATA_WIDTH{1'b0}};
@@ -285,10 +285,10 @@ module bus_bridge_master #(
     end
 
     //--------------------------------------------------------------------------
-    // Master Port to UART TX Logic
+    // Master Port to UART TX Logic (async reset)
     // Send read data back via UART after bus read completes
     //--------------------------------------------------------------------------
-    always @(posedge clk) begin
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             u_din        <= {UART_TX_DATA_WIDTH{1'b0}};
             u_en         <= 1'b0;

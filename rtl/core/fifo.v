@@ -20,8 +20,8 @@ module fifo #(
     assign full = (rp == wp + 1);
     assign data_out = queue[rp];
 
-   
-    always @(posedge clk) begin
+    // Sequential logic (async reset)
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             wp <= 'b0;
             rp <= 'b0;
