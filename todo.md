@@ -95,15 +95,23 @@
 **Commented Out Tests (Tests 1-19 legacy):**
 Tests for internal write/read, external write/read, bidirectional, address increment, mode switching - all previously passing, commented out for focused testing.
 
-## Demo Control Scheme (demo_uart_bridge.v)
-- **KEY[0]**: Initiate transfer (read or write based on SW[3])
-- **KEY[1]**: Increment value (data in write mode, address in read mode)
+## Demo Control Scheme (demo_uart_bridge.v) - Updated Dec 9, 2025
+- **KEY[0]**: Initiate transfer (execute read or write)
+- **KEY[1]**: Increment value (data in data mode, address in address mode)
 - **KEY[0]+KEY[1]**: Press both together to reset both counters to 0
 - **SW[0]**: Reset (active HIGH)
-- **SW[1]**: Slave select (0=S1, 1=S2)
-- **SW[2]**: Mode (0=Internal, 1=External via Bridge)
+- **SW[1]**: Data/Address mode (0=Data mode, 1=Address mode)
+- **SW[2]**: Bus mode (0=Internal, 1=External via Bridge)
 - **SW[3]**: Read/Write (0=Read, 1=Write)
-- **LED[7:0]**: Shows data_pattern in write mode, read_data in read mode
+- **LED[7:4]**: Current address offset (always displayed)
+- **LED[3:0]**: Write mode = data value to write, Read mode = data read from slave
+
+### Key Changes from Previous Version:
+- SW[1] changed from "Slave select" to "Data/Address mode"
+- KEY[1] behavior now depends on SW[1] (data/address mode) instead of SW[3] (read/write mode)
+- Slave selection in Internal mode now determined by addr_offset[7] (0=S1, 1=S2)
+- LED display split: upper nibble for address, lower nibble for data
+- Removed automatic address increment after write completion
 
 ## Future Improvements
 - [ ] Implement error detection/recovery
