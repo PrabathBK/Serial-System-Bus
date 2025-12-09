@@ -1,21 +1,19 @@
 //==============================================================================
-// File: slave_memory_bram.v
-// Description: Slave memory module with BRAM instantiation
-//              Supports configurable memory sizes (2KB or 4KB)
-//              Generates rvalid signal one cycle after read enable
-//              Clears memory to zero on reset
+// File: master_memory_bram.v
+// Description: Master memory module with BRAM instantiation
+//              Provides local storage for master devices
+//              Can be accessed by the master's internal logic
 //==============================================================================
 // Author: ADS Bus System
-// Date: 2025-10-14
+// Date: 2025-12-02
 //==============================================================================
-
 
 `timescale 1ns / 1ps
 
-module slave_memory_bram #(
+module master_memory_bram #(
     parameter ADDR_WIDTH = 12,
     parameter DATA_WIDTH = 8,
-    parameter MEM_SIZE = 4096  // Memory size in bytes (2048 or 4096)
+    parameter MEM_SIZE = 4096  // Memory size in bytes (default 4KB)
 )(
     input  wire                     clk,
     input  wire                     rstn,
@@ -36,10 +34,6 @@ module slave_memory_bram #(
     // Internal Signals
     //--------------------------------------------------------------------------
     reg ren_prev;  // Previous cycle read enable
-    
-    // Memory clear control
-    reg clearing;
-    reg [MEM_ADDR_WIDTH-1:0] clear_addr;
 
     //--------------------------------------------------------------------------
     // Memory Array Declaration
@@ -49,54 +43,34 @@ module slave_memory_bram #(
     reg [DATA_WIDTH-1:0] memory [0:MEM_SIZE-1];
 
     //--------------------------------------------------------------------------
-    // Memory Clear FSM (async reset trigger)
-    //--------------------------------------------------------------------------
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn) begin
-            clearing   <= 1'b1;
-            clear_addr <= {MEM_ADDR_WIDTH{1'b0}};
-        end
-        else if (clearing) begin
-            if (clear_addr == MEM_SIZE - 1)
-                clearing <= 1'b0;
-            else
-                clear_addr <= clear_addr + 1'b1;
-        end
-    end
-
-    //--------------------------------------------------------------------------
-    // Memory Write Logic (Synchronous) - Clear or Normal Write
+    // Memory Write Logic (Synchronous)
     //--------------------------------------------------------------------------
     always @(posedge clk) begin
-        if (clearing) begin
-            memory[clear_addr] <= {DATA_WIDTH{1'b0}};
-        end
-        else if (wen) begin
+        if (wen) begin
             memory[addr[MEM_ADDR_WIDTH-1:0]] <= wdata;
+            $display("[MASTER_MEMORY @%0t] Write: addr=0x%h, data=0x%h", 
+                     $time, addr[MEM_ADDR_WIDTH-1:0], wdata);
         end
     end
 
     //--------------------------------------------------------------------------
     // Memory Read Logic (Synchronous)
-    // Blocked during clearing to avoid reading stale data
+    // Note: No reset on rdata to allow M9K block RAM inference
     //--------------------------------------------------------------------------
     always @(posedge clk) begin
-        if (ren && !clearing) begin
+        if (ren) begin
             rdata <= memory[addr[MEM_ADDR_WIDTH-1:0]];
+            $display("[MASTER_MEMORY @%0t] Read: addr=0x%h, data=0x%h", 
+                     $time, addr[MEM_ADDR_WIDTH-1:0], memory[addr[MEM_ADDR_WIDTH-1:0]]);
         end
     end
 
     //--------------------------------------------------------------------------
     // Read Valid Generation Logic (async reset)
     // rvalid asserts one cycle after ren assertion (BRAM latency)
-    // Blocked during memory clearing
     //--------------------------------------------------------------------------
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
-            rvalid   <= 1'b0;
-            ren_prev <= 1'b0;
-        end
-        else if (clearing) begin
             rvalid   <= 1'b0;
             ren_prev <= 1'b0;
         end
@@ -117,7 +91,7 @@ module slave_memory_bram #(
     end
 
     //--------------------------------------------------------------------------
-    // Simulation Memory Initialization
+    // Simulation Memory Initialization (Optional)
     //--------------------------------------------------------------------------
     integer i;
     initial begin

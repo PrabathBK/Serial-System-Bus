@@ -1,5 +1,5 @@
 # ADS Bus System - Comprehensive Documentation
-**Target Platform**: Terasic DE10-Nano (Intel Cyclone V 5CSEBA6U23I7)  
+**Target Platform**: Terasic DE0-Nano (Intel Cyclone IV EP4CE22F17C6)  
 **Project Version**: 1.0  
 **Date**: October 14, 2025  
 **Author**: ADS Bus System Team
@@ -56,7 +56,7 @@ The ADS (Address-Data Serial) Bus System is a custom serial communication bus de
 ```         
 ┌───────────────────────────────────────────────────────────────────────────────────┐
 │                         ADS Bus System Top Level                                  │
-│                         (ads_bus_top.v)                                           │
+│                         (demo_uart_bridge.v)                                      │
 ├───────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                   │
 │  ┌─────────────┐                   ┌──────────────────┐                           │
@@ -353,12 +353,13 @@ When multiple masters request the bus simultaneously:
 
 ## 5. Module Descriptions
 
-### 5.1 ads_bus_top.v
+### 5.1 demo_uart_bridge.v
 **Top-level wrapper for FPGA implementation**
-- Instantiates complete bus system
+- Instantiates complete bus system with UART bridge support
 - Manages clock and reset
-- Provides GPIO interfaces for external master connections
+- Provides GPIO interfaces for external master connections and UART bridge
 - Drives status LEDs
+- Supports both internal (local master) and external (UART bridge) modes
 
 ### 5.2 bus_m2_s3.v
 **Main bus interconnect**
@@ -408,7 +409,7 @@ When multiple masters request the bus simultaneously:
 
 ### 5.8 slave_memory_bram.v
 **Block RAM memory controller**
-- Infers Cyclone V M10K block RAM
+- Infers Cyclone IV M9K block RAM
 - Synchronous read/write
 - Parameterized size (2KB or 4KB)
 - Single-port memory interface
@@ -500,26 +501,26 @@ States:   SPLIT  BREQ BGRANT DADDR MADDR WAIT_ACK DATA IDLE
 
 ## 7. Resource Utilization
 
-### 7.1 Estimated Resources (Cyclone V 5CSEBA6U23I7)
+### 7.1 Estimated Resources (Cyclone IV EP4CE22F17C6)
 
 | Resource Type | Estimated Usage | Available | Utilization % |
 |---------------|-----------------|-----------|---------------|
-| ALMs (Logic Elements) | 500-800 | 110,000 | < 1% |
-| Registers | 300-500 | 220,000 | < 1% |
-| Memory Bits | 81,920 (10KB) | 5,662,000 | 1.4% |
-| M10K Blocks | 10 | 553 | 1.8% |
-| DSP Blocks | 0 | 112 | 0% |
-| PLLs | 0 | 7 | 0% |
-| I/O Pins | 27 | 457 | 5.9% |
+| Logic Elements | 500-800 | 22,320 | 2-4% |
+| Registers | 300-500 | 22,320 | 1-2% |
+| Memory Bits | 81,920 (10KB) | 608,256 | 13% |
+| M9K Blocks | 10 | 66 | 15% |
+| DSP Blocks | 0 | 132 | 0% |
+| PLLs | 0 | 4 | 0% |
+| I/O Pins | 27 | 154 | 17% |
 
 ### 7.2 Memory Breakdown
 
-| Component | Size | M10K Blocks | Notes |
-|-----------|------|-------------|-------|
-| Slave 1 Memory | 2KB | 2 blocks | Each M10K = 10Kb = 1.25KB |
+| Component | Size | M9K Blocks | Notes |
+|-----------|------|------------|-------|
+| Slave 1 Memory | 2KB | 2 blocks | Each M9K = 9Kb = ~1KB |
 | Slave 2 Memory | 4KB | 4 blocks | |
-| Slave 3 Memory | 4KB | 4 blocks | Split-capable |
-| **Total** | **10KB** | **10 blocks** | ~1.8% of available M10K |
+| Slave 3 Memory | 4KB | 4 blocks | Split-capable (Bus Bridge) |
+| **Total** | **10KB** | **10 blocks** | ~15% of available M9K |
 
 ### 7.3 Performance Metrics
 
@@ -539,31 +540,35 @@ States:   SPLIT  BREQ BGRANT DADDR MADDR WAIT_ACK DATA IDLE
 ### 8.1 Quartus Prime Project Structure
 
 ```
-Serial/
+Serial-System-Bus/
 ├── rtl/
-│   ├── ads_bus_top.v              # Top-level FPGA wrapper
+│   ├── demo_uart_bridge.v          # Top-level FPGA wrapper with UART bridge
 │   └── core/
-│       ├── bus_m2_s3.v            # Bus interconnect
-│       ├── arbiter.v              # Arbiter
-│       ├── addr_decoder.v         # Address decoder
-│       ├── master_port.v          # Master interface
-│       ├── slave.v                # Slave wrapper
-│       ├── slave_port.v           # Slave interface
-│       ├── slave_memory_bram.v    # Memory controller
-│       ├── mux2.v, mux3.v         # Multiplexers
-│       └── dec3.v                 # Decoder
+│       ├── bus_m2_s3.v             # Bus interconnect
+│       ├── arbiter.v               # Arbiter
+│       ├── addr_decoder.v          # Address decoder
+│       ├── master_port.v           # Master interface
+│       ├── slave.v                 # Slave wrapper
+│       ├── slave_port.v            # Slave interface
+│       ├── slave_memory_bram.v     # Memory controller
+│       ├── mux2.v, mux3.v          # Multiplexers
+│       ├── dec3.v                  # Decoder
+│       ├── bus_bridge_master.v     # UART bus bridge master
+│       ├── bus_bridge_slave.v      # UART bus bridge slave
+│       ├── uart.v, uart_tx.v, uart_rx.v  # UART modules
+│       ├── fifo.v                  # FIFO for bridge
+│       ├── addr_convert.v          # Address converter
+│       └── master_memory_bram.v    # Master-side memory
 ├── quartus/
-│   ├── ads_bus_system.qpf         # Quartus project file
-│   └── ads_bus_system.qsf         # Settings and pin assignments
+│   ├── ads_bus_system.qpf          # Quartus project file
+│   └── ads_bus_system.qsf          # Settings and pin assignments
 ├── constraints/
-│   └── ads_bus_system.sdc         # Timing constraints
-├── pin_assignments/
-│   └── DE10_Nano_Pin_Assignments.md  # Pin documentation
+│   └── ads_bus_system.sdc          # Timing constraints
 ├── tb/
-│   ├── master2_slave3_tb.sv       # Comprehensive testbench
-│   └── simple_read_test.sv        # Simple test
+│   ├── master2_slave3_tb.sv        # Comprehensive testbench
+│   └── simple_read_test.sv         # Simple test
 └── docs/
-    ├── requirement.txt            # Original requirements
+    ├── requirement.txt             # Original requirements
     └── ADS_Bus_System_Documentation.md  # This file
 ```
 
@@ -595,7 +600,7 @@ Serial/
 
 ### 8.3 Programming the FPGA
 
-1. **Connect DE10-Nano** via USB-Blaster
+1. **Connect DE0-Nano** via USB-Blaster
 
 2. **Open Programmer**
    ```bash
@@ -605,7 +610,7 @@ Serial/
 3. **Load .sof file**
    - File: `quartus/output_files/ads_bus_system.sof`
    - Mode: JTAG
-   - Device: 5CSEBA6U23I7
+   - Device: EP4CE22F17C6
 
 4. **Program Device**
    - Click "Start"
@@ -618,7 +623,7 @@ Serial/
   - Can be ignored if design works correctly
 
 - **Info (276014)**: Inferred RAM from RTL logic
-  - Good! Confirms M10K inference for memories
+  - Good! Confirms M9K inference for memories
 
 - **Info**: Timing requirements met
   - All clocks meet timing constraints
@@ -814,17 +819,15 @@ gpio_set(M1_BREQ, LOW);
 
 ### Design Documents
 - `docs/requirement.txt` - Original project requirements
-- `pin_assignments/DE10_Nano_Pin_Assignments.md` - Detailed pin mapping
 - `constraints/ads_bus_system.sdc` - Timing constraints
 
 ### Datasheets
-- Intel Cyclone V Device Handbook
-- Terasic DE10-Nano User Manual
+- Intel Cyclone IV Device Handbook
+- Terasic DE0-Nano User Manual
 
 ### Tools
 - Intel Quartus Prime Lite Edition 20.1+
 - ModelSim-Intel FPGA Edition (for simulation)
-- DE10-Nano System Builder (optional)
 
 ---
 

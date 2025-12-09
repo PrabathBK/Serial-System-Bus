@@ -21,7 +21,7 @@
 //   - Routes mvalid signal to selected slave
 //   - Handles split transaction continuation via split_grant
 //
-// Target: Intel Cyclone V (Terasic DE10-Nano)
+// Target: Intel Cyclone IV EP4CE22F17C6 (DE0-Nano)
 //-----------------------------------------------------------------------------
 
 
@@ -97,9 +97,12 @@ module addr_decoder #(
         endcase
     end
     
-    // State transition logic
-    always @(posedge clk) begin
-        state <= (!rstn) ? IDLE : next_state;
+    // State transition logic (async reset)
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
+            state <= IDLE;
+        else
+            state <= next_state;
     end
     
     // Combinational assignments
@@ -108,8 +111,8 @@ module addr_decoder #(
     assign ack              = (state == CONNECT) & slave_addr_valid;   // If address invalid, do not ack
     assign sready           = {sready3, sready2, sready1};
     
-    // Sequential output logic
-    always @(posedge clk) begin
+    // Sequential output logic (async reset)
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             slave_addr       <= 'b0;
             slave_en         <= 0;

@@ -12,7 +12,7 @@
 //   - Grants access to continue split when slave is ready
 //   - Allows non-split slaves to operate while split pending
 //
-// Target: Intel Cyclone V (Terasic DE10-Nano)
+// Target: Intel Cyclone IV EP4CE22F17C6 (DE0-Nano)
 //-----------------------------------------------------------------------------
 
 //NOTE
@@ -108,9 +108,12 @@ module arbiter (
         endcase
     end
     
-    // State transition logic
-    always @(posedge clk) begin
-        state <= (!rstn) ? IDLE : next_state;
+    // State transition logic (async reset)
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
+            state <= IDLE;
+        else
+            state <= next_state;
     end
     
     // Combinational output assignments
@@ -118,8 +121,8 @@ module arbiter (
     assign bgrant2 = (state == M2);
     assign msel    = (state == M2);
     
-    // Sequential output assignments (for split)
-    always @(posedge clk) begin
+    // Sequential output assignments for split (async reset)
+    always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             msplit1      <= 1'b0;
             msplit2      <= 1'b0;
