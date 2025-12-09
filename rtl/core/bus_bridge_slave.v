@@ -131,7 +131,12 @@ module bus_bridge_slave #(
 
     //--------------------------------------------------------------------------
     // Slave Port Instantiation
+    // NOTE: sp_split_grant is defined later after state declaration
+    //       sp_ssplit is internal; we extend ssplit for bridge operations
     //--------------------------------------------------------------------------
+    wire sp_split_grant;  // Forward declaration - assigned after state declared
+    wire sp_ssplit;       // Internal ssplit from slave_port
+    
     slave_port #(
         .ADDR_WIDTH(ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH),
@@ -149,10 +154,10 @@ module bus_bridge_slave #(
         .srdata(srdata),
         .smode(smode),
         .mvalid(mvalid),	
-        .split_grant(split_grant),
+        .split_grant(sp_split_grant),
         .svalid(svalid),	
         .sready(sp_ready),
-        .ssplit(ssplit)
+        .ssplit(sp_ssplit)
     );
 
     //--------------------------------------------------------------------------
@@ -204,6 +209,45 @@ module bus_bridge_slave #(
                RBUSY  = 3'b110;    // Wait for UART TX busy after read request
     
     reg [2:0] state, next_state;
+
+    //--------------------------------------------------------------------------
+    // Split Grant Gating Logic (placed after state declaration)
+    //--------------------------------------------------------------------------
+    // For bridge operations (UART), we must NOT grant split until UART response arrives.
+    // For local memory operations, split_grant passes through normally.
+    // 
+    // The problem: arbiter's split_grant is based on bus timing, not UART timing.
+    // Solution: Gate split_grant for bridge reads - only pass through when:
+    //   1. Local access: use arbiter's split_grant directly
+    //   2. Bridge read: only grant when UART response received (rdata_received)
+    //   3. Bridge write: use arbiter's split_grant (write doesn't need response)
+    //
+    // When bus_bridge_slave state is RSEND, RBUSY, or RDATA, we're doing a UART bridge
+    // read and must wait for rdata_received before allowing split_grant through.
+    //--------------------------------------------------------------------------
+    wire bridge_read_in_progress;
+    
+    // Track if we're in the middle of a bridge read operation
+    assign bridge_read_in_progress = (state == RSEND) || (state == RBUSY) || (state == RDATA);
+    
+    // For bridge reads, only grant when UART response is received
+    // For local operations or bridge writes, pass through arbiter's grant
+    assign sp_split_grant = bridge_read_in_progress ? (split_grant && rdata_received) : split_grant;
+
+    //--------------------------------------------------------------------------
+    // Extended Split Signal (ssplit)
+    //--------------------------------------------------------------------------
+    // For bridge read operations, we need to keep ssplit HIGH until UART response
+    // is received. This prevents master_port from leaving SPLIT state prematurely.
+    //
+    // Normal slave_port: ssplit is high only in SPLIT state
+    // Extended for bridge: ssplit stays high during SPLIT, WAIT, and until data ready
+    //
+    // ssplit is high when:
+    //   1. slave_port is in SPLIT state (sp_ssplit), OR
+    //   2. We're doing a bridge read AND haven't received response yet
+    //--------------------------------------------------------------------------
+    assign ssplit = sp_ssplit || (bridge_read_in_progress && !rdata_received);
 
     //--------------------------------------------------------------------------
     // Latch address and data when write/read enable becomes active

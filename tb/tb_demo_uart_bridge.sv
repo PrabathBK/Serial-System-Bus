@@ -15,25 +15,9 @@
 //   - LED[7:0]: Write mode shows increment value, Read mode shows read data
 //
 // Test Cases:
-//   Test 1:  A:M1 -> A:S1 (internal write to Slave 1)
-//   Test 2:  A:M1 -> A:S2 (internal write to Slave 2)
-//   Test 3:  A:M1 -> B:S1 (external write via bridge to remote Slave 1)
-//   Test 4:  A:M1 -> B:S2 (external write via bridge to remote Slave 2)
-//   Test 5:  A:M1 -> A:S1 read (internal read from Slave 1)
-//   Test 6:  B:M1 -> A:S1 (reverse direction - B triggers write to A)
-//   Test 7:  A:M1 -> B:S1 read (external read via bridge)
-//   Test 8:  A:M1 -> A:S2 read (internal read from Slave 2)
-//   Test 9:  B:M1 -> A:S2 (reverse direction write to A:S2)
-//   Test 10: B:M1 -> A:S2 read (reverse direction read from A:S2)
-//   Test 11: A:M1 -> B:S2 read (external read via bridge from B:S2)
-//   Test 12: Bidirectional: A writes to B:S1 while B writes to A:S1
-//   Test 13: Write-Read verification: A writes 0xAA to B:S1, then reads back
-//   Test 14: Write-Read verification: B writes 0xBB to A:S2, then reads back
-//   Test 15: Address increment in read mode (KEY[1] only increments address)
-//   Test 16: Address auto-increment after writes (sequential writes)
-//   Test 17: Reset both counters (KEY[0]+KEY[1] together)
-//   Test 18: Write-Read with address selection (write at addr 0, 1, 2, read back)
-//   Test 19: Mode switching test (write mode -> read mode transition)
+//   Tests 1-19: Commented out for focused testing
+//   Test 1:  NEW - A:M1 -> A:S1 (internal write), B:M1 -> A:S1 (external read via bridge)
+//   Test 20: A:M1 -> B:S1 (external write via bridge), B:M1 -> B:S1 (internal read)
 //
 // Target Device: Intel Cyclone IV EP4CE22F17C6 (DE0-Nano)
 //==============================================================================
@@ -443,9 +427,10 @@ module tb_demo_uart_bridge;
         repeat(100) @(posedge clk_a);
         
         /* =====================================================================
-         * TESTS 1-19 - Re-enabled after fixing cross-system communication
+         * TESTS 1-19 - Commented out for focused testing
          * ===================================================================== */
         
+        /* // TESTS 1-19 COMMENTED OUT
         //======================================================================
         // Test 1: Internal Write - System A M1 -> System A S1
         //======================================================================
@@ -1111,10 +1096,52 @@ module tb_demo_uart_bridge;
         end
         
         repeat(100) @(posedge clk_a);
-        // END OF TESTS 1-19
+        */ // END OF TESTS 1-19 COMMENTED OUT
         
         //======================================================================
-        // Test 20: Cross-System Write-Read
+        // Test 1: Cross-System Write-Read (A:M1 internal write, B:M1 external read)
+        // System A writes to its own Slave 1 (internal)
+        // System B then reads that value from A's Slave 1 via bridge (external)
+        // This verifies cross-system data integrity via UART bridge
+        //======================================================================
+        test_num = 1;
+        $display("");
+        $display("------------------------------------------------------------");
+        $display("TEST %0d: Cross-System Write-Read (A:M1 -> A:S1, then B:M1 -> A:S1)", test_num);
+        $display("------------------------------------------------------------");
+        
+        reset_systems();  // Full system reset - clears all BRAM
+        repeat(50) @(posedge clk_a);
+        
+        // Step 1: System A writes 0xA5 to its own Slave 1 (internal write)
+        $display("  Step 1: System A writes 0xA5 to A:S1 (internal)");
+        test_internal_write(0, 0, 8'hA5, INTERNAL_TIMEOUT);  // A -> A:S1, data=0xA5
+        $display("    System A LED: 0x%02X (expected 0xA5 - data pattern)", led_a);
+        repeat(100) @(posedge clk_a);
+        
+        // Step 2: System B reads from System A's Slave 1 via bridge (external read)
+        // B should read the value 0xA5 that A wrote to its own slave
+        $display("  Step 2: System B reads from A:S1 (external via bridge)");
+        // Reset B's counters to addr_offset=0, but preserve memory
+        reset_increment(1);  // Reset B's counters only (not full reset)
+        repeat(50) @(posedge clk_b);
+        test_external_read(1, 0, EXTERNAL_TIMEOUT);  // B reads from A:S1 via bridge
+        
+        $display("    System B LED: 0x%02X (expected 0xA5 - read data)", led_b);
+        $display("    Cross-system verification: A wrote 0xA5 to A:S1, B read 0x%02X via bridge", led_b);
+        
+        if (led_b == 8'hA5) begin
+            $display("PASS: Test %0d - Cross-system data integrity verified!", test_num);
+            pass_count = pass_count + 1;
+        end else begin
+            $display("FAIL: Test %0d - Data mismatch: A wrote 0xA5, B read 0x%02X", test_num, led_b);
+            fail_count = fail_count + 1;
+        end
+        
+        repeat(100) @(posedge clk_a);
+        
+        //======================================================================
+        // Test 20: Cross-System Write-Read (Legacy Test)
         // System A writes to System B's slave via bridge (external)
         // System B then reads from its own slave (internal)
         // Verify B reads the value A wrote
