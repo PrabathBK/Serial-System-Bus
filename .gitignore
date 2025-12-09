@@ -50,6 +50,11 @@ Quartus/*.jdi
 Quartus/*.pin
 Quartus/c5_pin_model_dump.txt
 
+Quartus_other_team/db
+Quartus_other_team/incremental_db
+Quartus_other_team/output_files
+
+
 # Backup files
 quartus/*.bak
 quartus/*.qws
@@ -193,3 +198,4 @@ vivado_sim_log*.txt
 
 #Old File
 old/
+another_team/

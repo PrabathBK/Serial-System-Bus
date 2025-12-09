@@ -61,7 +61,9 @@
 
 module demo_uart_bridge #(
     // Debounce parameter - set to small value for simulation, large for hardware
-    parameter DEBOUNCE_COUNT = 50000   // ~1ms at 50MHz for real hardware
+    parameter DEBOUNCE_COUNT = 50000,   // ~1ms at 50MHz for real hardware
+    // Adapter enable - set to 1 to use protocol adapters for other team's system
+    parameter ENABLE_ADAPTERS = 0       // 0=Direct UART (internal test), 1=With adapters (cross-system)
 ) (
     //--------------------------------------------------------------------------
     // Clock and Reset
@@ -107,8 +109,9 @@ module demo_uart_bridge #(
     localparam [7:0] INITIAL_DATA_PATTERN = 8'h00;
     localparam [11:0] BASE_MEM_ADDR = 12'h010;
     
-    // UART: 50MHz / 9600 = 5208 clocks per bit
-    localparam UART_CLOCKS_PER_PULSE = 5208;
+    // UART: 50MHz / 115200 = 434 clocks per bit (changed for other team compatibility)
+    // Original: 50MHz / 9600 = 5208 clocks per bit
+    localparam UART_CLOCKS_PER_PULSE = 434;
     localparam BB_ADDR_WIDTH = 12;
     
     //==========================================================================
@@ -119,6 +122,7 @@ module demo_uart_bridge #(
     localparam SLAVE1_MEM_ADDR_WIDTH = 11;  // 2KB
     localparam SLAVE2_MEM_ADDR_WIDTH = 12;  // 4KB
     localparam SLAVE3_MEM_ADDR_WIDTH = 12;  // 4KB
+    localparam LOCAL_MEM_ADDR_WIDTH = 11;   // For bus_bridge_master local memory
     
     //==========================================================================
     // Internal Signals
@@ -490,16 +494,23 @@ module demo_uart_bridge #(
     );
     
     //==========================================================================
+    // UART GPIO Assignments
+    // Adapters are now integrated inside bus_bridge_master and bus_bridge_slave
+    // GPIO pins connect directly to bridge module UART interfaces
+    //==========================================================================
+    
+    //==========================================================================
     // Master 2 - Bus Bridge Master
     // Receives UART commands from external system and executes on local bus
-    // Connected to GPIO_0_BRIDGE_M_TX/RX
+    // Connected to GPIO_0_BRIDGE_M_TX/RX (adapters integrated internally)
     //==========================================================================
     bus_bridge_master #(
         .ADDR_WIDTH(ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH),
         .SLAVE_MEM_ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH),
         .BB_ADDR_WIDTH(BB_ADDR_WIDTH),
-        .UART_CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE)
+        .UART_CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE),
+        .ENABLE_ADAPTERS(ENABLE_ADAPTERS)
     ) master2_bridge (
         .clk(clk),
         .rstn(rstn),
@@ -512,8 +523,14 @@ module demo_uart_bridge #(
         .mbgrant(m2_bgrant),
         .msplit(m2_split),
         .ack(m2_ack),
-        .u_tx(GPIO_0_BRIDGE_M_TX),   // TX for read responses to external
-        .u_rx(GPIO_0_BRIDGE_M_RX)    // RX commands from external
+        .lmem_wen(1'b0),
+        .lmem_ren(1'b0),
+        .lmem_addr({LOCAL_MEM_ADDR_WIDTH{1'b0}}),
+        .lmem_wdata(8'h00),
+        .lmem_rdata(),
+        .lmem_rvalid(),
+        .u_tx(GPIO_0_BRIDGE_M_TX),
+        .u_rx(GPIO_0_BRIDGE_M_RX)
     );
     
     //==========================================================================
@@ -618,12 +635,13 @@ module demo_uart_bridge #(
     //==========================================================================
     // Slave 3 - Bus Bridge Slave
     // Forwards local bus commands via UART to external system
-    // Connected to GPIO_0_BRIDGE_S_TX/RX
+    // Connected to GPIO_0_BRIDGE_S_TX/RX (adapters integrated internally)
     //==========================================================================
     bus_bridge_slave #(
         .DATA_WIDTH(DATA_WIDTH),
         .ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH),
-        .UART_CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE)
+        .UART_CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE),
+        .ENABLE_ADAPTERS(ENABLE_ADAPTERS)
     ) slave3_bridge (
         .clk(clk),
         .rstn(rstn),
@@ -635,8 +653,8 @@ module demo_uart_bridge #(
         .svalid(s3_svalid),
         .sready(s3_ready),
         .ssplit(s3_split),
-        .u_tx(GPIO_0_BRIDGE_S_TX),   // TX commands to external
-        .u_rx(GPIO_0_BRIDGE_S_RX)    // RX read responses from external
+        .u_tx(GPIO_0_BRIDGE_S_TX),
+        .u_rx(GPIO_0_BRIDGE_S_RX)
     );
 
 endmodule

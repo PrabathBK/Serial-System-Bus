@@ -1,0 +1,93 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2025  Altera Corporation. All rights reserved.
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and any partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, the Altera Quartus Prime License Agreement,
+# the Altera IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Altera and sold by Altera or its authorized distributors.  Please
+# refer to the Altera Software License Subscription Agreements 
+# on the Quartus Prime software download page.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+# Date created = 17:51:15  December 09, 2025
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		system_top_with_bus_bridge_symmetric_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Intel recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE22F17C6
+set_global_assignment -name TOP_LEVEL_ENTITY system_top_with_bus_bridge_symmetric
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 25.1STD.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:51:15  DECEMBER 09, 2025"
+set_global_assignment -name LAST_QUARTUS_VERSION "25.1std.0 Lite Edition"
+set_global_assignment -name VERILOG_FILE "../another_team/serial-bus-design/rtl/uart/uart.v"
+set_global_assignment -name VERILOG_FILE "../another_team/serial-bus-design/rtl/uart/transmitter.v"
+set_global_assignment -name VERILOG_FILE "../another_team/serial-bus-design/rtl/uart/receiver.v"
+set_global_assignment -name VERILOG_FILE "../another_team/serial-bus-design/rtl/uart/buadrate.v"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/target_port.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/target.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/system_top_with_bus_bridge_symmetric.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/system_top_with_bus_bridge_b.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/system_top_with_bus_bridge_a.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/system_top_with_bus_bridge.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/system_top.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/split_target_port.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/split_target.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/initiator.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/init_port.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/bus_bridge_target_uart_wrapper.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/bus_bridge_target_if.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/bus_bridge_pkg.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/bus_bridge_initiator_uart_wrapper.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/bus_bridge_initiator_if.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/bus_bridge.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/bus.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/arbiter.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "../another_team/serial-bus-design/rtl/addr_decoder.sv"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_A2 -to bridge_initiator_uart_rx
+set_location_assignment PIN_B3 -to bridge_initiator_uart_tx
+set_location_assignment PIN_A4 -to bridge_target_uart_rx
+set_location_assignment PIN_A5 -to bridge_target_uart_tx
+set_location_assignment PIN_J15 -to btn_reset
+set_location_assignment PIN_E1 -to btn_trigger
+set_location_assignment PIN_R8 -to clk
+set_location_assignment PIN_L3 -to leds[7]
+set_location_assignment PIN_B1 -to leds[6]
+set_location_assignment PIN_F3 -to leds[5]
+set_location_assignment PIN_D1 -to leds[4]
+set_location_assignment PIN_A11 -to leds[3]
+set_location_assignment PIN_B13 -to leds[2]
+set_location_assignment PIN_A13 -to leds[1]
+set_location_assignment PIN_A15 -to leds[0]
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

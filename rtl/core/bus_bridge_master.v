@@ -43,7 +43,8 @@ module bus_bridge_master #(
     parameter BB_ADDR_WIDTH = 12,
     parameter UART_CLOCKS_PER_PULSE = 5208,
     parameter LOCAL_MEM_SIZE = 2048,       // Local memory size
-    parameter LOCAL_MEM_ADDR_WIDTH = 11    // log2(LOCAL_MEM_SIZE)
+    parameter LOCAL_MEM_ADDR_WIDTH = 11,   // log2(LOCAL_MEM_SIZE)
+    parameter ENABLE_ADAPTERS = 0          // Enable protocol adapters for other team's system
 )(
     input clk, rstn,
     
@@ -111,13 +112,27 @@ module bus_bridge_master #(
     wire                             fifo_empty;
 
     //--------------------------------------------------------------------------
-    // UART Signals
+    // UART Signals (Direct mode - no adapters)
     //--------------------------------------------------------------------------
     reg  [UART_TX_DATA_WIDTH-1:0]    u_din;
     reg                              u_en;
     wire                             u_tx_busy;
-    wire                             u_rx_ready;
-    wire [UART_RX_DATA_WIDTH-1:0]    u_dout;
+    wire                             u_rx_ready_direct;    // Direct UART RX ready
+    wire [UART_RX_DATA_WIDTH-1:0]    u_dout_direct;       // Direct UART RX data
+    
+    //--------------------------------------------------------------------------
+    // RX Adapter Signals (for other team's protocol)
+    //--------------------------------------------------------------------------
+    wire [7:0]  rx_adapter_uart_data;           // Data from their UART
+    wire        rx_adapter_uart_ready;          // Their UART ready
+    reg         rx_adapter_uart_ready_clr;      // Clear ready
+    wire [7:0]  rx_adapter_frame_out;           // Frame from RX adapter
+    wire        rx_adapter_frame_valid;         // Frame valid from adapter
+    wire        rx_adapter_frame_ready;         // We're ready for frame
+    
+    // Multiplexed signals based on adapter enable
+    wire                             u_rx_ready;     // Final RX ready
+    wire [UART_RX_DATA_WIDTH-1:0]    u_dout;        // Final RX data
 
     //--------------------------------------------------------------------------
     // Internal Control Signals
@@ -171,7 +186,8 @@ module bus_bridge_master #(
     );
 
     //--------------------------------------------------------------------------
-    // UART Module Instantiation
+    // UART Module Instantiation (Direct mode - 21-bit frames)
+    // RX receives 21-bit commands, TX sends 8-bit read responses
     //--------------------------------------------------------------------------
     uart #(
         .CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE),
@@ -185,9 +201,59 @@ module bus_bridge_master #(
         .tx(u_tx),
         .tx_busy(u_tx_busy),
         .rx(u_rx),  
-        .ready(u_rx_ready),   
-        .data_output(u_dout)
+        .ready(u_rx_ready_direct),   
+        .data_output(u_dout_direct)
     );
+    
+    //--------------------------------------------------------------------------
+    // RX Adapter Module (for other team's protocol)
+    // Converts 4-byte sequence to 21-bit frame
+    // Note: Other team sends commands as 4-byte sequence, we receive via RX adapter
+    // Their response is 2-byte sequence which goes through RX adapter
+    //--------------------------------------------------------------------------
+    generate
+        if (ENABLE_ADAPTERS == 1) begin : rx_adapter_gen
+            // Instantiate UART RX for adapter (8-bit per byte, 115200 baud)
+            uart_rx #(
+                .CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE),  // Should be 434 for 115200
+                .DATA_WIDTH(8)
+            ) adapter_uart_rx (
+                .clk(clk),
+                .rstn(rstn),
+                .rx(u_rx),
+                .ready(rx_adapter_uart_ready),
+                .data_out(rx_adapter_uart_data)
+            );
+            
+            // Instantiate RX adapter
+            uart_to_other_team_rx_adapter rx_adapter (
+                .clk(clk),
+                .rstn(rstn),
+                .uart_data_out(rx_adapter_uart_data),
+                .uart_ready(rx_adapter_uart_ready),
+                .uart_ready_clr(rx_adapter_uart_ready_clr),
+                .frame_out(rx_adapter_frame_out),
+                .frame_valid(rx_adapter_frame_valid),
+                .frame_ready(rx_adapter_frame_ready),
+                .clk_50m(clk)
+            );
+            
+            // Map adapter outputs to internal signals
+            // For bridge master, we expect 21-bit commands but adapter gives 8-bit data
+            // We need to reconstruct: their 2-byte response → our 8-bit read data
+            assign u_rx_ready = rx_adapter_frame_valid;
+            // Pad the 8-bit adapter output to match expected width
+            // Since this is for READ RESPONSES (2-byte from them → 8-bit data for us)
+            // The adapter already extracts just the data byte
+            assign u_dout = {{(UART_RX_DATA_WIDTH-8){1'b0}}, rx_adapter_frame_out};
+            assign rx_adapter_frame_ready = 1'b1;  // Always ready
+            
+        end else begin : no_adapter
+            // Direct connection without adapter
+            assign u_rx_ready = u_rx_ready_direct;
+            assign u_dout = u_dout_direct;
+        end
+    endgenerate
 
     //--------------------------------------------------------------------------
     // Address Converter - Maps BB address to full bus address

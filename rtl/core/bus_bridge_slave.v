@@ -38,7 +38,8 @@ module bus_bridge_slave #(
     parameter ADDR_WIDTH = 12,
     parameter UART_CLOCKS_PER_PULSE = 5208,
     parameter LOCAL_MEM_SIZE = 2048,       // Local memory size (half of address space)
-    parameter BRIDGE_ENABLE = 1            // Enable UART bridge functionality
+    parameter BRIDGE_ENABLE = 1,           // Enable UART bridge functionality
+    parameter ENABLE_ADAPTERS = 0          // Enable protocol adapters for other team's system
 )(
     input clk, rstn,
     
@@ -94,13 +95,24 @@ module bus_bridge_slave #(
     wire                     lmem_rvalid;    // Local memory read valid
 
     //--------------------------------------------------------------------------
-    // Internal Signals - UART
+    // Internal Signals - UART (Direct mode - no adapters)
     //--------------------------------------------------------------------------
-    reg  [UART_TX_DATA_WIDTH-1:0] u_din;     // UART transmit data
+    reg  [UART_TX_DATA_WIDTH-1:0] u_din;     // UART transmit data (21-bit frame)
     reg                           u_en;       // UART transmit enable
-    wire                          u_tx_busy;  // UART transmitter busy
+    wire                          u_tx_busy;  // UART transmitter busy (direct)
     wire                          u_rx_ready; // UART receive data ready
     wire [UART_RX_DATA_WIDTH-1:0] u_dout;    // UART receive data
+    wire                          u_tx_internal; // Internal UART TX (before adapter)
+    
+    //--------------------------------------------------------------------------
+    // Internal Signals - TX Adapter (for other team's protocol)
+    //--------------------------------------------------------------------------
+    wire [20:0] tx_adapter_frame_in;         // Frame to TX adapter
+    wire        tx_adapter_frame_valid;      // Frame valid signal
+    wire        tx_adapter_frame_ready;      // Adapter ready for frame
+    wire [7:0]  tx_adapter_uart_data;        // Data from adapter to their UART
+    wire        tx_adapter_uart_wr_en;       // Write enable from adapter
+    wire        tx_adapter_uart_busy;        // UART busy (via adapter)
 
     //--------------------------------------------------------------------------
     // Internal Signals - Controller
@@ -179,8 +191,11 @@ module bus_bridge_slave #(
     );
 
     //--------------------------------------------------------------------------
-    // UART Module Instantiation (for bridge operations)
+    // UART Module Instantiation (for bridge operations - direct mode)
+    // This UART is only used when ENABLE_ADAPTERS=0 (direct 21-bit protocol)
     //--------------------------------------------------------------------------
+    wire u_tx_busy_direct;  // Direct UART busy
+    
     uart #(
         .CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE),
         .TX_DATA_WIDTH(UART_TX_DATA_WIDTH),
@@ -190,12 +205,59 @@ module bus_bridge_slave #(
         .data_en(u_en),
         .clk(clk),
         .rstn(rstn),
-        .tx(u_tx),
-        .tx_busy(u_tx_busy),
+        .tx(u_tx_internal),
+        .tx_busy(u_tx_busy_direct),
         .rx(u_rx),  
         .ready(u_rx_ready),   
         .data_output(u_dout)
     );
+    
+    //--------------------------------------------------------------------------
+    // TX Adapter Module (for other team's protocol)
+    // Converts 21-bit frames to 4-byte sequence at 115200 baud
+    //--------------------------------------------------------------------------
+    generate
+        if (ENABLE_ADAPTERS == 1) begin : tx_adapter_gen
+            // Instantiate TX adapter
+            uart_to_other_team_tx_adapter tx_adapter (
+                .clk(clk),
+                .rstn(rstn),
+                .frame_in(tx_adapter_frame_in),
+                .frame_valid(tx_adapter_frame_valid),
+                .frame_ready(tx_adapter_frame_ready),
+                .uart_data_in(tx_adapter_uart_data),
+                .uart_wr_en(tx_adapter_uart_wr_en),
+                .uart_tx_busy(tx_adapter_uart_busy),
+                .clk_50m(clk)
+            );
+            
+            // Instantiate UART TX for adapter (8-bit per byte, 115200 baud)
+            uart_tx #(
+                .CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE),  // Should be 434 for 115200
+                .DATA_WIDTH(8)
+            ) adapter_uart_tx (
+                .data_in(tx_adapter_uart_data),
+                .data_en(tx_adapter_uart_wr_en),
+                .clk(clk),
+                .rstn(rstn),
+                .tx(u_tx),
+                .tx_busy(tx_adapter_uart_busy)
+            );
+            
+            // Connect frame signals: present u_din and u_en as frame interface
+            assign tx_adapter_frame_in = u_din;
+            assign tx_adapter_frame_valid = u_en;
+            // Map adapter's ready to internal busy (inverted logic)
+            // When adapter is ready, we're not busy
+            
+        end else begin : no_adapter
+            // Direct connection without adapter
+            assign u_tx = u_tx_internal;
+        end
+    endgenerate
+    
+    // Multiplex busy signal based on adapter enable
+    assign u_tx_busy = (ENABLE_ADAPTERS == 1) ? !tx_adapter_frame_ready : u_tx_busy_direct;
 
     //--------------------------------------------------------------------------
     // Controller FSM States
