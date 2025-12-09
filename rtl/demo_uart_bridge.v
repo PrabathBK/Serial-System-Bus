@@ -44,7 +44,10 @@
 
 `timescale 1ns / 1ps
 
-module demo_uart_bridge (
+module demo_uart_bridge #(
+    // Debounce parameter - set to small value for simulation, large for hardware
+    parameter DEBOUNCE_COUNT = 50000   // ~1ms at 50MHz for real hardware
+) (
     //--------------------------------------------------------------------------
     // Clock and Reset
     //--------------------------------------------------------------------------
@@ -114,11 +117,17 @@ module demo_uart_bridge (
     wire        cfg_write_mode;      // 0=Read, 1=Write
     wire [1:0]  bus_slave_sel;       // Final slave selection for bus
     
-    // Button edge detection and combo detection
+    // Button debouncing and edge detection
     reg [2:0] key0_sync;
     reg [2:0] key1_sync;
-    wire key0_pressed;               // KEY[0] press detected
-    wire key1_pressed;               // KEY[1] press detected
+    reg [15:0] key0_debounce;        // Debounce counter for KEY[0]
+    reg [15:0] key1_debounce;        // Debounce counter for KEY[1]
+    reg key0_stable;                 // Debounced KEY[0] state
+    reg key1_stable;                 // Debounced KEY[1] state
+    reg key0_stable_d;               // Delayed for edge detection
+    reg key1_stable_d;               // Delayed for edge detection
+    wire key0_pressed;               // KEY[0] press detected (debounced)
+    wire key1_pressed;               // KEY[1] press detected (debounced)
     wire both_keys_pressed;          // Both keys pressed together
     reg both_keys_held;              // Track if both were held
     
@@ -167,29 +176,69 @@ module demo_uart_bridge (
     assign bus_slave_sel = cfg_external_mode ? 2'b10 :              // External -> Slave 3 (Bridge)
                            (cfg_slave_sel ? 2'b01 : 2'b00);         // Internal -> S1 or S2
     
-    // Button synchronization and edge detection
+    // Button synchronization and debouncing
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             key0_sync <= 3'b111;
             key1_sync <= 3'b111;
+            key0_debounce <= 16'd0;
+            key1_debounce <= 16'd0;
+            key0_stable <= 1'b1;
+            key1_stable <= 1'b1;
+            key0_stable_d <= 1'b1;
+            key1_stable_d <= 1'b1;
             both_keys_held <= 1'b0;
         end else begin
+            // Synchronize raw key inputs
             key0_sync <= {key0_sync[1:0], KEY[0]};
             key1_sync <= {key1_sync[1:0], KEY[1]};
+            
+            // Debounce KEY[0]
+            if (key0_sync[2] != key0_stable) begin
+                // Key state changed, start debounce counter
+                if (key0_debounce < DEBOUNCE_COUNT) begin
+                    key0_debounce <= key0_debounce + 1'b1;
+                end else begin
+                    // Debounce time passed, accept new state
+                    key0_stable <= key0_sync[2];
+                    key0_debounce <= 16'd0;
+                end
+            end else begin
+                key0_debounce <= 16'd0;
+            end
+            
+            // Debounce KEY[1]
+            if (key1_sync[2] != key1_stable) begin
+                if (key1_debounce < DEBOUNCE_COUNT) begin
+                    key1_debounce <= key1_debounce + 1'b1;
+                end else begin
+                    key1_stable <= key1_sync[2];
+                    key1_debounce <= 16'd0;
+                end
+            end else begin
+                key1_debounce <= 16'd0;
+            end
+            
+            // Edge detection delay registers
+            key0_stable_d <= key0_stable;
+            key1_stable_d <= key1_stable;
+            
             // Track if both keys are currently held (active low)
-            if (!key0_sync[1] && !key1_sync[1])
+            if (!key0_stable && !key1_stable)
                 both_keys_held <= 1'b1;
-            else if (key0_sync[1] && key1_sync[1])
+            else if (key0_stable && key1_stable)
                 both_keys_held <= 1'b0;
         end
     end
     
-    // Both keys pressed together (active low, so both are 0)
-    assign both_keys_pressed = both_keys_held && (key0_sync[2:1] == 2'b01 || key1_sync[2:1] == 2'b01);
+    // Both keys pressed together detection
+    assign both_keys_pressed = both_keys_held && 
+                               ((key0_stable_d && !key0_stable) || (key1_stable_d && !key1_stable));
     
-    // Single key press detection (only if not both pressed)
-    assign key0_pressed = (key0_sync[2:1] == 2'b10) && key1_sync[1];  // KEY[0] pressed, KEY[1] not held
-    assign key1_pressed = (key1_sync[2:1] == 2'b10) && key0_sync[1];  // KEY[1] pressed, KEY[0] not held
+    // Single key press detection (falling edge on debounced signal, only if other key not held)
+    // Active low: pressed = 0, so falling edge (1->0) = press
+    assign key0_pressed = (key0_stable_d && !key0_stable) && key1_stable;  // KEY[0] pressed, KEY[1] not held
+    assign key1_pressed = (key1_stable_d && !key1_stable) && key0_stable;  // KEY[1] pressed, KEY[0] not held
     
     // Data pattern management:
     // - KEY[1] alone: increment value

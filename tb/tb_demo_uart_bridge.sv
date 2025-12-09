@@ -100,8 +100,11 @@ module tb_demo_uart_bridge;
     //
     // For this testbench, we'll use the default baud rate but extend timeouts
     // to account for actual UART timing (~5208 clocks/bit at 50MHz)
+    // DEBOUNCE_COUNT is set to 2 for fast simulation (vs 50000 for hardware)
     //==========================================================================
-    demo_uart_bridge dut_a (
+    demo_uart_bridge #(
+        .DEBOUNCE_COUNT(2)  // Very short debounce for simulation
+    ) dut_a (
         .CLOCK_50(clk_a),
         .KEY(key_a),
         .SW(sw_a),
@@ -115,7 +118,9 @@ module tb_demo_uart_bridge;
     //==========================================================================
     // DUT Instantiation - System B
     //==========================================================================
-    demo_uart_bridge dut_b (
+    demo_uart_bridge #(
+        .DEBOUNCE_COUNT(2)  // Very short debounce for simulation
+    ) dut_b (
         .CLOCK_50(clk_b),
         .KEY(key_b),
         .SW(sw_b),
