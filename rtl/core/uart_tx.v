@@ -42,12 +42,15 @@ module uart_tx #(
 						data <= data_in;
 						c_bits <= 0;
 						c_clocks <= 0;
+						$display("[UART_TX %m @%0t] START: data=0x%h, DATA_WIDTH=%0d, CLOCKS_PER_PULSE=%0d, c_bits_width=%0d, c_clocks_width=%0d", 
+						         $time, data_in, DATA_WIDTH, CLOCKS_PER_PULSE, $bits(c_bits), $bits(c_clocks));
 					end else tx <= 1'b1;
 				end
 				TX_START: begin
 					if (c_clocks == CLOCKS_PER_PULSE-1) begin
 						state <= TX_DATA;
 						c_clocks <= 0;
+						$display("[UART_TX %m @%0t] TX_START done, moving to TX_DATA", $time);
 					end else begin
 						tx <= 1'b0;
 						c_clocks <= c_clocks + 1;
@@ -58,6 +61,7 @@ module uart_tx #(
 						c_clocks <= 0;
 						if (c_bits == DATA_WIDTH-1) begin
 							state <= TX_END;
+							$display("[UART_TX %m @%0t] TX_DATA done (bit %0d), moving to TX_END", $time, c_bits);
 						end else begin
 							c_bits <= c_bits + 1;
 							tx <= data[c_bits];
@@ -71,6 +75,7 @@ module uart_tx #(
 					if (c_clocks == CLOCKS_PER_PULSE-1) begin
 						state <= TX_IDLE;
 						c_clocks <= 0;
+						$display("[UART_TX %m @%0t] TX_END done, returning to IDLE", $time);
 					end else begin
 						tx <= 1'b1;
 						c_clocks <= c_clocks + 1;

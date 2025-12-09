@@ -106,16 +106,23 @@ module bus_bridge_slave #(
     // Internal Signals - Controller
     //--------------------------------------------------------------------------
     reg  [DATA_WIDTH-1:0] latched_rdata;     // Latched read data from UART
+    reg  [DATA_WIDTH-1:0] latched_wdata;     // Latched write data from slave_port
+    reg  [ADDR_WIDTH-1:0] latched_addr;      // Latched address from slave_port
     reg                   rdata_received;    // Flag: UART data received
     reg                   prev_u_rx_ready;   // Previous UART ready state
+    reg                   pending_write;     // Flag: write pending for UART TX
+    reg                   pending_read;      // Flag: read pending for UART TX
     wire                  is_bridge_access;  // Address indicates bridge access
     wire                  is_local_access;   // Address indicates local memory access
 
     //--------------------------------------------------------------------------
-    // Address Decode Logic
+    // Address Decode Logic (using latched address for FSM decisions)
     //--------------------------------------------------------------------------
-    assign is_bridge_access = sp_memaddr[LOCAL_ADDR_MSB] & BRIDGE_ENABLE;
-    assign is_local_access  = ~sp_memaddr[LOCAL_ADDR_MSB];
+    wire is_bridge_access_now = sp_memaddr[LOCAL_ADDR_MSB] & BRIDGE_ENABLE;
+    wire is_local_access_now  = ~sp_memaddr[LOCAL_ADDR_MSB];
+    
+    assign is_bridge_access = latched_addr[LOCAL_ADDR_MSB] & BRIDGE_ENABLE;
+    assign is_local_access  = ~latched_addr[LOCAL_ADDR_MSB];
     
     // Local memory signals
     assign lmem_wen  = sp_memwen & is_local_access;
@@ -192,27 +199,124 @@ module bus_bridge_slave #(
                WSEND  = 3'b001,    // Send write via UART
                RSEND  = 3'b010,    // Send read request via UART
                RDATA  = 3'b011,    // Wait for UART read response
-               LOCAL  = 3'b100;    // Local memory operation
+               LOCAL  = 3'b100,    // Local memory operation
+               WBUSY  = 3'b101,    // Wait for UART TX busy after write
+               RBUSY  = 3'b110;    // Wait for UART TX busy after read request
     
     reg [2:0] state, next_state;
 
     //--------------------------------------------------------------------------
-    // Next State Logic
+    // Latch address and data when write/read enable becomes active
+    // 
+    // IMPORTANT TIMING: slave_port uses non-blocking assignments:
+    //   smemwen <= 1; smemaddr <= addr;
+    // These take effect at the END of the clock cycle. So when bus_bridge_slave
+    // sees sp_memwen=1 for the first time, sp_memaddr still has the OLD value!
+    // We need to capture the values ONE CYCLE LATER (or use registered detection).
+    //
+    // Solution: Use a 2-cycle detection:
+    // Cycle N:   sp_memwen goes high, sp_memaddr still has old value
+    // Cycle N+1: sp_memwen stays high (for at least one more cycle in slave_port 
+    //            transition), sp_memaddr now has correct value - LATCH HERE
+    // Actually slave_port goes SREADY->IDLE in one cycle, so sp_memwen is only high
+    // for ONE cycle. But the NON-BLOCKING assignment means:
+    // - At clock edge N: SREADY logic executes, schedules smemwen=1, smemaddr=addr
+    // - After clock edge N: smemwen becomes 1, smemaddr becomes correct
+    // - At clock edge N+1: IDLE logic executes, schedules smemwen=0
+    // - bus_bridge_slave at clock edge N+1: sees smemwen=1, smemaddr=correct!
+    //
+    // So we should latch when we FIRST see sp_memwen=1 (rising edge detection)
+    // and the address should be correct at that point.
+    //--------------------------------------------------------------------------
+    reg prev_sp_memwen, prev_sp_memren;
+    
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            latched_wdata   <= {DATA_WIDTH{1'b0}};
+            latched_addr    <= {ADDR_WIDTH{1'b0}};
+            pending_write   <= 1'b0;
+            pending_read    <= 1'b0;
+            prev_sp_memwen  <= 1'b0;
+            prev_sp_memren  <= 1'b0;
+        end else begin
+            prev_sp_memwen <= sp_memwen;
+            prev_sp_memren <= sp_memren;
+            
+            // Rising edge of sp_memwen - at this clock edge, sp_memaddr should be valid
+            // because it was set by the previous clock edge's non-blocking assignment
+            if (sp_memwen && !prev_sp_memwen && state == IDLE) begin
+                latched_wdata <= sp_memwdata;
+                latched_addr  <= sp_memaddr;
+                $display("[BUS_BRIDGE_SLAVE %m @%0t] Detected WRITE rising edge: addr=0x%03h, data=0x%02h, addr[11]=%b", 
+                         $time, sp_memaddr, sp_memwdata, sp_memaddr[LOCAL_ADDR_MSB]);
+                // Check bridge access using the current address value
+                if (sp_memaddr[LOCAL_ADDR_MSB] & BRIDGE_ENABLE) begin
+                    pending_write <= 1'b1;
+                    $display("[BUS_BRIDGE_SLAVE %m @%0t] -> BRIDGE write pending", $time);
+                end else begin
+                    $display("[BUS_BRIDGE_SLAVE %m @%0t] -> LOCAL write (not bridge)", $time);
+                end
+            end
+            // Rising edge of sp_memren
+            else if (sp_memren && !prev_sp_memren && state == IDLE) begin
+                latched_addr  <= sp_memaddr;
+                $display("[BUS_BRIDGE_SLAVE %m @%0t] Detected READ rising edge: addr=0x%03h, addr[11]=%b", 
+                         $time, sp_memaddr, sp_memaddr[LOCAL_ADDR_MSB]);
+                if (sp_memaddr[LOCAL_ADDR_MSB] & BRIDGE_ENABLE) begin
+                    pending_read  <= 1'b1;
+                    $display("[BUS_BRIDGE_SLAVE %m @%0t] -> BRIDGE read pending", $time);
+                end else begin
+                    $display("[BUS_BRIDGE_SLAVE %m @%0t] -> LOCAL read (not bridge)", $time);
+                end
+            end
+            // Clear pending flags when entering WSEND/RSEND states
+            else if (state == WSEND || state == RSEND) begin
+                pending_write <= 1'b0;
+                pending_read  <= 1'b0;
+            end
+        end
+    end
+
+    //--------------------------------------------------------------------------
+    // UART TX start tracking
+    // We need to wait one cycle after entering WBUSY/RBUSY before checking u_tx_busy
+    // because the UART TX module takes one clock cycle to start after seeing data_en
+    //--------------------------------------------------------------------------
+    reg uart_tx_started;
+    
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
+            uart_tx_started <= 1'b0;
+        else if (state == WSEND || state == RSEND)
+            uart_tx_started <= 1'b0;  // Reset when entering busy wait states
+        else if ((state == WBUSY || state == RBUSY) && u_tx_busy)
+            uart_tx_started <= 1'b1;  // Mark that TX has started
+        else if (state == IDLE)
+            uart_tx_started <= 1'b0;  // Clear when back to IDLE
+    end
+
+    //--------------------------------------------------------------------------
+    // Next State Logic (uses pending flags instead of direct sp_memwen/sp_memren)
+    // WSEND/RSEND states immediately transition to WBUSY/RBUSY to wait for UART
     //--------------------------------------------------------------------------
     always @(*) begin
         case (state)
             IDLE: begin
-                if (sp_memwen && is_bridge_access)
+                if (pending_write)
                     next_state = WSEND;
-                else if (sp_memren && is_bridge_access)
+                else if (pending_read)
                     next_state = RSEND;
-                else if ((sp_memwen || sp_memren) && is_local_access)
+                else if ((sp_memwen || sp_memren) && is_local_access_now)
                     next_state = LOCAL;
                 else
                     next_state = IDLE;
             end
-            WSEND:  next_state = (u_tx_busy) ? WSEND : IDLE;
-            RSEND:  next_state = (u_tx_busy) ? RSEND : RDATA;
+            WSEND:  next_state = WBUSY;  // Always go to WBUSY to wait for TX to start
+            // Wait until TX has started AND completed (tx_busy goes high then low)
+            WBUSY:  next_state = (uart_tx_started && !u_tx_busy) ? IDLE : WBUSY;
+            RSEND:  next_state = RBUSY;  // Always go to RBUSY to wait for TX to start
+            // Wait until TX has started AND completed, then wait for response
+            RBUSY:  next_state = (uart_tx_started && !u_tx_busy) ? RDATA : RBUSY;
             RDATA:  next_state = (!sp_memren) ? IDLE : RDATA;
             LOCAL:  next_state = (!sp_memwen && !sp_memren) ? IDLE : LOCAL;
             default: next_state = IDLE;
@@ -225,8 +329,29 @@ module bus_bridge_slave #(
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
             state <= IDLE;
-        else
+        else begin
+            if (state == IDLE && (sp_memwen || sp_memren)) begin
+                $display("[BUS_BRIDGE_SLAVE %m @%0t] IDLE state: sp_memwen=%b, sp_memren=%b, is_bridge=%b, is_local=%b, addr=0x%03h",
+                         $time, sp_memwen, sp_memren, is_bridge_access, is_local_access, sp_memaddr);
+            end
+            if (state != next_state) begin
+                $display("[BUS_BRIDGE_SLAVE %m @%0t] STATE: %0s -> %0s (u_tx_busy=%b, u_en=%b)",
+                         $time, 
+                         state == IDLE ? "IDLE" : state == WSEND ? "WSEND" : state == RSEND ? "RSEND" :
+                         state == RDATA ? "RDATA" : state == LOCAL ? "LOCAL" : 
+                         state == WBUSY ? "WBUSY" : state == RBUSY ? "RBUSY" : "UNKNOWN",
+                         next_state == IDLE ? "IDLE" : next_state == WSEND ? "WSEND" : next_state == RSEND ? "RSEND" :
+                         next_state == RDATA ? "RDATA" : next_state == LOCAL ? "LOCAL" :
+                         next_state == WBUSY ? "WBUSY" : next_state == RBUSY ? "RBUSY" : "UNKNOWN",
+                         u_tx_busy, u_en);
+            end
+            // Debug WBUSY state every cycle
+            if (state == WBUSY || state == RBUSY) begin
+                $display("[BUS_BRIDGE_SLAVE %m @%0t] %s: u_tx_busy=%b, uart_tx_started=%b, u_en=%b",
+                         $time, state == WBUSY ? "WBUSY" : "RBUSY", u_tx_busy, uart_tx_started, u_en);
+            end
             state <= next_state;
+        end
     end
 
     //--------------------------------------------------------------------------
@@ -254,7 +379,8 @@ module bus_bridge_slave #(
     end
 
     //--------------------------------------------------------------------------
-    // UART Transmit Control (async reset)
+    // UART Transmit Control (async reset) - Uses latched values
+    // Only assert u_en in WSEND/RSEND states for ONE cycle
     //--------------------------------------------------------------------------
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
@@ -269,19 +395,32 @@ module bus_bridge_slave #(
                 end
                 
                 WSEND: begin
-                    // Send: {mode=1, data, addr[ADDR_WIDTH-2:0]}
-                    u_din <= {1'b1, sp_memwdata, sp_memaddr[ADDR_WIDTH-2:0]};
+                    // Send: {mode=1, data, addr} - full address width
+                    // Use latched values for correct data
+                    u_din <= {1'b1, latched_wdata, latched_addr};
                     u_en  <= 1'b1;
                     $display("[BUS_BRIDGE_SLAVE @%0t] UART TX write: addr=0x%03h, data=0x%02h", 
-                             $time, sp_memaddr[ADDR_WIDTH-2:0], sp_memwdata);
+                             $time, latched_addr, latched_wdata);
+                end
+                
+                WBUSY: begin
+                    // Keep data, but deassert enable - UART should be busy now
+                    u_din <= u_din;
+                    u_en  <= 1'b0;
                 end
                 
                 RSEND: begin
-                    // Send: {mode=0, 0, addr[ADDR_WIDTH-2:0]}
-                    u_din <= {1'b0, {DATA_WIDTH{1'b0}}, sp_memaddr[ADDR_WIDTH-2:0]};
+                    // Send: {mode=0, 0, addr} - full address width
+                    // Use latched address
+                    u_din <= {1'b0, {DATA_WIDTH{1'b0}}, latched_addr};
                     u_en  <= 1'b1;
                     $display("[BUS_BRIDGE_SLAVE @%0t] UART TX read request: addr=0x%03h", 
-                             $time, sp_memaddr[ADDR_WIDTH-2:0]);
+                             $time, latched_addr);
+                end
+                
+                RBUSY: begin
+                    u_din <= u_din;
+                    u_en  <= 1'b0;
                 end
                 
                 RDATA: begin

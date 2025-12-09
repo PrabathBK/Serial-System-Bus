@@ -3,6 +3,7 @@
 // Description: Slave memory module with BRAM instantiation
 //              Supports configurable memory sizes (2KB or 4KB)
 //              Generates rvalid signal one cycle after read enable
+//              Clears memory to zero on reset
 //==============================================================================
 // Author: ADS Bus System
 // Date: 2025-10-14
@@ -35,6 +36,10 @@ module slave_memory_bram #(
     // Internal Signals
     //--------------------------------------------------------------------------
     reg ren_prev;  // Previous cycle read enable
+    
+    // Memory clear control
+    reg clearing;
+    reg [MEM_ADDR_WIDTH-1:0] clear_addr;
 
     //--------------------------------------------------------------------------
     // Memory Array Declaration
@@ -44,31 +49,54 @@ module slave_memory_bram #(
     reg [DATA_WIDTH-1:0] memory [0:MEM_SIZE-1];
 
     //--------------------------------------------------------------------------
-    // Memory Write Logic (Synchronous)
+    // Memory Clear FSM (async reset trigger)
+    //--------------------------------------------------------------------------
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            clearing   <= 1'b1;
+            clear_addr <= {MEM_ADDR_WIDTH{1'b0}};
+        end
+        else if (clearing) begin
+            if (clear_addr == MEM_SIZE - 1)
+                clearing <= 1'b0;
+            else
+                clear_addr <= clear_addr + 1'b1;
+        end
+    end
+
+    //--------------------------------------------------------------------------
+    // Memory Write Logic (Synchronous) - Clear or Normal Write
     //--------------------------------------------------------------------------
     always @(posedge clk) begin
-        if (wen) begin
+        if (clearing) begin
+            memory[clear_addr] <= {DATA_WIDTH{1'b0}};
+        end
+        else if (wen) begin
             memory[addr[MEM_ADDR_WIDTH-1:0]] <= wdata;
         end
     end
 
     //--------------------------------------------------------------------------
     // Memory Read Logic (Synchronous)
-    // Note: No reset on rdata to allow M9K block RAM inference
+    // Blocked during clearing to avoid reading stale data
     //--------------------------------------------------------------------------
     always @(posedge clk) begin
-        if (ren) begin
+        if (ren && !clearing) begin
             rdata <= memory[addr[MEM_ADDR_WIDTH-1:0]];
-            //$display("[MEMORY @%0t] Read: addr=0x%h, data=0x%h", $time, addr[MEM_ADDR_WIDTH-1:0], memory[addr[MEM_ADDR_WIDTH-1:0]]);
         end
     end
 
     //--------------------------------------------------------------------------
     // Read Valid Generation Logic (async reset)
     // rvalid asserts one cycle after ren assertion (BRAM latency)
+    // Blocked during memory clearing
     //--------------------------------------------------------------------------
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
+            rvalid   <= 1'b0;
+            ren_prev <= 1'b0;
+        end
+        else if (clearing) begin
             rvalid   <= 1'b0;
             ren_prev <= 1'b0;
         end
@@ -76,11 +104,9 @@ module slave_memory_bram #(
             // rvalid goes high one cycle after ren is asserted
             if ((!ren_prev) && ren) begin
                 rvalid <= 1'b0;  // First cycle of read, data not ready
-                //$display("[MEMORY @%0t] rvalid generation: First ren cycle, rvalid=0", $time);
             end
             else if (ren) begin
                 rvalid <= 1'b1;  // Second cycle of read, data is valid
-                //$display("[MEMORY @%0t] rvalid generation: Second+ ren cycle, rvalid=1, rdata=0x%h", $time, rdata);
             end
             else begin
                 rvalid <= 1'b0;  // No read operation
@@ -91,7 +117,7 @@ module slave_memory_bram #(
     end
 
     //--------------------------------------------------------------------------
-    // Simulation Memory Initialization (Optional)
+    // Simulation Memory Initialization
     //--------------------------------------------------------------------------
     integer i;
     initial begin

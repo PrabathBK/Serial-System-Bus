@@ -340,8 +340,11 @@ module demo_uart_bridge #(
     assign mem_address = BASE_MEM_ADDR + {4'b0000, addr_offset};
     
     // When external: encode remote slave in address sent to bridge
-    // Remote Slave 1 = address 0x0xxx, Remote Slave 2 = address 0x1xxx
-    assign bridge_remote_addr = {cfg_slave_sel, 1'b0, mem_address[9:0]};
+    // MSB (bit 11) must be 1 for bridge access (vs local memory)
+    // Bit 10 selects remote slave: 0=Slave1, 1=Slave2
+    // Bits 9:0 are the memory address within the remote slave
+    // Remote Slave 1 = address 0x8xxx, Remote Slave 2 = address 0xCxxx
+    assign bridge_remote_addr = {1'b1, cfg_slave_sel, mem_address[9:0]};
     
     // Full address for bus transaction
     assign full_address = cfg_external_mode ? 

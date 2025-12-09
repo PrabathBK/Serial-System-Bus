@@ -252,7 +252,8 @@ module slave_port #(
                         $display("[SLAVE_PORT %m @%0t] WDATA receiving: bit[%0d]=%b, swdata=%b, current_wdata=0x%h", 
                                  $time, counter, swdata, swdata, wdata);
                         if (counter == DATA_WIDTH-1) begin
-                            smemwen <= 1'b1;
+                            // DON'T set smemwen here - let SREADY do it with smemaddr at the same time
+                            // This ensures both signals are set together via non-blocking assignment
                             counter <= 'b0;
                             $display("[SLAVE_PORT %m @%0t] WDATA COMPLETE: will write 0x%h to memory", 
                                      $time, {wdata[DATA_WIDTH-2:0], swdata});

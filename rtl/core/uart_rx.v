@@ -70,6 +70,7 @@ module uart_rx #(
 					ready <= 1'b1;
 					state <= RX_IDLE;
 					c_clocks <= 0;
+					$display("[UART_RX %m @%0t] Received data: 0x%h, DATA_WIDTH=%0d", $time, temp_data, DATA_WIDTH);
 				end else c_clocks <= c_clocks + 1;
 			end
 			default: state <= RX_IDLE;

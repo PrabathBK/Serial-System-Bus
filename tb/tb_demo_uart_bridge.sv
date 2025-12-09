@@ -54,7 +54,7 @@ module tb_demo_uart_bridge;
     
     // Timeout values
     localparam INTERNAL_TIMEOUT = 5000;      // ~100us for internal transactions
-    localparam EXTERNAL_TIMEOUT = 100000;    // ~2ms for external UART transactions
+    localparam EXTERNAL_TIMEOUT = 250000;    // ~5ms for external UART transactions (21-bit frame ~2.4ms)
     
     //==========================================================================
     // DUT Signals - System A
@@ -149,6 +149,12 @@ module tb_demo_uart_bridge;
         clk_b = ~clk_b;
     end
     
+    // Clock verification - added for debugging
+    initial begin
+        repeat(10) @(posedge clk_a);
+        $display("[CLK_CHECK @%0t] After 10 clock edges - expected 200ns (10 * 20ns period)", $time);
+    end
+    
     //==========================================================================
     // VCD Dump for Waveform Viewing
     //==========================================================================
@@ -164,7 +170,7 @@ module tb_demo_uart_bridge;
         // Extended timeout for UART transactions (9600 baud is slow)
         // 32 bits * 5208 clocks/bit * 20ns = ~3.3ms per UART frame
         // Allow 50ms total for complex transactions
-        #50000000;
+        #100000000;  // 100ms global timeout
         $display("ERROR: Global timeout reached!");
         $display("FAIL: Tests did not complete in time");
         $finish;
@@ -194,7 +200,8 @@ module tb_demo_uart_bridge;
             sw_a[0] = 1'b0;
             sw_b[0] = 1'b0;
             
-            repeat(10) @(posedge clk_a);
+            // Wait for BRAM clear to complete (4096 cycles for largest memory + margin)
+            repeat(4200) @(posedge clk_a);
             $display("  Reset complete");
         end
     endtask
@@ -434,6 +441,10 @@ module tb_demo_uart_bridge;
         // Reset both systems
         reset_systems();
         repeat(100) @(posedge clk_a);
+        
+        /* =====================================================================
+         * TESTS 1-19 - Re-enabled after fixing cross-system communication
+         * ===================================================================== */
         
         //======================================================================
         // Test 1: Internal Write - System A M1 -> System A S1
@@ -919,9 +930,9 @@ module tb_demo_uart_bridge;
         // After write: addr_offset auto-increments to 3
         
         // Now read back from address 0 to verify first write
-        // Use system reset to get clean addr_offset=0
-        $display("  Step 4: Reset system and read back from address 0");
-        reset_systems();  // Clean reset to set addr_offset=0
+        // Use reset_increment to reset addr_offset to 0 WITHOUT clearing memory
+        $display("  Step 4: Reset counters and read back from address 0");
+        reset_increment(0);  // Reset addr_offset to 0 (memory preserved)
         repeat(50) @(posedge clk_a);
         configure_switches(0, 0, 0, 0);  // Read mode, S1
         press_key(0, 0);                 // Read from addr_offset=0 (mem=0x010)
@@ -1014,9 +1025,9 @@ module tb_demo_uart_bridge;
         // addr_offset auto-increments to 3
         
         // Now read from address 1 to verify the middle write
-        // Reset system to get clean state, then increment address once
-        $display("  Step 4: Reset system and select address 1 for reading");
-        reset_systems();  // Reset addr_offset to 0
+        // Reset counters to get clean state, then increment address once
+        $display("  Step 4: Reset counters and select address 1 for reading");
+        reset_increment(0);  // Reset addr_offset to 0 (memory preserved)
         repeat(50) @(posedge clk_a);
         configure_switches(0, 0, 0, 0);  // Read mode
         press_key(0, 1);                 // Increment addr_offset to 1
@@ -1097,6 +1108,49 @@ module tb_demo_uart_bridge;
         end else begin
             $display("INFO: Test %0d - Data pattern value: 0x%02X", test_num, led_a);
             pass_count = pass_count + 1;  // This is also acceptable
+        end
+        
+        repeat(100) @(posedge clk_a);
+        // END OF TESTS 1-19
+        
+        //======================================================================
+        // Test 20: Cross-System Write-Read
+        // System A writes to System B's slave via bridge (external)
+        // System B then reads from its own slave (internal)
+        // Verify B reads the value A wrote
+        //======================================================================
+        test_num = 20;
+        $display("");
+        $display("------------------------------------------------------------");
+        $display("TEST %0d: Cross-System Write-Read (A:M1 -> B:S1, then B:M1 -> B:S1)", test_num);
+        $display("------------------------------------------------------------");
+        
+        reset_systems();  // Full system reset - clears all BRAM
+        repeat(50) @(posedge clk_a);
+        
+        // Step 1: System A writes 0x5A to System B's Slave 1 via UART bridge
+        $display("  Step 1: System A writes 0x5A to B:S1 (external via bridge)");
+        test_external_write(0, 0, 8'h5A, EXTERNAL_TIMEOUT);  // A -> B:S1, data=0x5A
+        $display("    System A LED: 0x%02X (expected 0x5A - data pattern)", led_a);
+        repeat(100) @(posedge clk_a);
+        
+        // Step 2: System B reads from its own Slave 1 (internal read)
+        // B should read the value 0x5A that A wrote
+        $display("  Step 2: System B reads from B:S1 (internal)");
+        // Reset B's counters to addr_offset=0, but preserve memory
+        reset_increment(1);  // Reset B's counters only (not full reset)
+        repeat(50) @(posedge clk_b);
+        test_internal_read(1, 0, INTERNAL_TIMEOUT);  // B reads from B:S1
+        
+        $display("    System B LED: 0x%02X (expected 0x5A - read data)", led_b);
+        $display("    Cross-system verification: A wrote 0x5A, B read 0x%02X", led_b);
+        
+        if (led_b == 8'h5A) begin
+            $display("PASS: Test %0d - Cross-system data integrity verified!", test_num);
+            pass_count = pass_count + 1;
+        end else begin
+            $display("FAIL: Test %0d - Data mismatch: A wrote 0x5A, B read 0x%02X", test_num, led_b);
+            fail_count = fail_count + 1;
         end
         
         repeat(100) @(posedge clk_a);

@@ -101,6 +101,7 @@ sim/*.fsdb
 sim/*.log
 sim/*.pb
 sim/*.jou
+*.jou
 
 # XSim directories
 sim/xsim.dir/
