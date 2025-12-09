@@ -1,0 +1,30 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../../../rtl/core/addr_convert.v" \
+"../../../../../../rtl/core/addr_decoder.v" \
+"../../../../../../rtl/core/arbiter.v" \
+"../../../../../../rtl/core/bus_bridge_master.v" \
+"../../../../../../rtl/core/bus_bridge_slave.v" \
+"../../../../../../rtl/core/bus_m2_s3.v" \
+"../../../../../../rtl/core/dec3.v" \
+"../../../../../../rtl/core/fifo.v" \
+"../../../../../../rtl/core/master.v" \
+"../../../../../../rtl/core/master_memory_bram.v" \
+"../../../../../../rtl/core/master_port.v" \
+"../../../../../../rtl/core/mux2.v" \
+"../../../../../../rtl/core/mux3.v" \
+"../../../../../../rtl/core/slave.v" \
+"../../../../../../rtl/core/slave_memory_bram.v" \
+"../../../../../../rtl/core/slave_port.v" \
+"../../../../../../rtl/core/uart.v" \
+"../../../../../../rtl/core/uart_rx.v" \
+"../../../../../../rtl/core/uart_tx.v" \
+
+sv xil_defaultlib  \
+"../../../../../../tb/cross_system_bridge_tb.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

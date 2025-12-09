@@ -1,0 +1,176 @@
+
+State Machine - |demo_uart_bridge|demo_state
+Name demo_state.DEMO_DISPLAY demo_state.DEMO_COMPLETE demo_state.DEMO_WAIT demo_state.DEMO_WAIT_START demo_state.DEMO_START demo_state.DEMO_IDLE 
+demo_state.DEMO_IDLE 0 0 0 0 0 0 
+demo_state.DEMO_START 0 0 0 0 1 1 
+demo_state.DEMO_WAIT_START 0 0 0 1 0 1 
+demo_state.DEMO_WAIT 0 0 1 0 0 1 
+demo_state.DEMO_COMPLETE 0 1 0 0 0 1 
+demo_state.DEMO_DISPLAY 1 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_bridge_slave:slave3_bridge|state
+Name state.RBUSY state.WBUSY state.LOCAL state.RDATA state.RSEND state.WSEND state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 
+state.WSEND 0 0 0 0 0 1 1 
+state.RSEND 0 0 0 0 1 0 1 
+state.RDATA 0 0 0 1 0 0 1 
+state.LOCAL 0 0 1 0 0 0 1 
+state.WBUSY 0 1 0 0 0 0 1 
+state.RBUSY 1 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_bridge_slave:slave3_bridge|uart:uart_module|uart_rx:receiver|state
+Name state.RX_DATA state.RX_END state.RX_START state.RX_IDLE 
+state.RX_IDLE 0 0 0 0 
+state.RX_START 0 0 1 1 
+state.RX_END 0 1 0 1 
+state.RX_DATA 1 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_bridge_slave:slave3_bridge|uart:uart_module|uart_tx:transmitter|state
+Name state.TX_DATA state.TX_END state.TX_START state.TX_IDLE 
+state.TX_IDLE 0 0 0 0 
+state.TX_START 0 0 1 1 
+state.TX_END 0 1 0 1 
+state.TX_DATA 1 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_bridge_slave:slave3_bridge|slave_port:slave|prev_state
+Name prev_state.RVALID prev_state.WAIT prev_state.SREADY prev_state.SPLIT prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
+prev_state.IDLE 0 0 0 0 0 0 0 0 
+prev_state.ADDR 0 0 0 0 0 0 1 1 
+prev_state.RDATA 0 0 0 0 0 1 0 1 
+prev_state.WDATA 0 0 0 0 1 0 0 1 
+prev_state.SPLIT 0 0 0 1 0 0 0 1 
+prev_state.SREADY 0 0 1 0 0 0 0 1 
+prev_state.WAIT 0 1 0 0 0 0 0 1 
+prev_state.RVALID 1 0 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_bridge_slave:slave3_bridge|slave_port:slave|state
+Name state.RVALID state.WAIT state.SREADY state.SPLIT state.WDATA state.RDATA state.ADDR state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 
+state.ADDR 0 0 0 0 0 0 1 1 
+state.RDATA 0 0 0 0 0 1 0 1 
+state.WDATA 0 0 0 0 1 0 0 1 
+state.SPLIT 0 0 0 1 0 0 0 1 
+state.SREADY 0 0 1 0 0 0 0 1 
+state.WAIT 0 1 0 0 0 0 0 1 
+state.RVALID 1 0 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|slave:slave2_inst|slave_port:sp|prev_state
+Name prev_state.RVALID prev_state.WAIT prev_state.SREADY prev_state.SPLIT prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
+prev_state.IDLE 0 0 0 0 0 0 0 0 
+prev_state.ADDR 0 0 0 0 0 0 1 1 
+prev_state.RDATA 0 0 0 0 0 1 0 1 
+prev_state.WDATA 0 0 0 0 1 0 0 1 
+prev_state.SPLIT 0 0 0 1 0 0 0 1 
+prev_state.SREADY 0 0 1 0 0 0 0 1 
+prev_state.WAIT 0 1 0 0 0 0 0 1 
+prev_state.RVALID 1 0 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|slave:slave2_inst|slave_port:sp|state
+Name state.RVALID state.WAIT state.SREADY state.SPLIT state.WDATA state.RDATA state.ADDR state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 
+state.ADDR 0 0 0 0 0 0 1 1 
+state.RDATA 0 0 0 0 0 1 0 1 
+state.WDATA 0 0 0 0 1 0 0 1 
+state.SPLIT 0 0 0 1 0 0 0 1 
+state.SREADY 0 0 1 0 0 0 0 1 
+state.WAIT 0 1 0 0 0 0 0 1 
+state.RVALID 1 0 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|slave:slave1_inst|slave_port:sp|prev_state
+Name prev_state.RVALID prev_state.WAIT prev_state.SREADY prev_state.SPLIT prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
+prev_state.IDLE 0 0 0 0 0 0 0 0 
+prev_state.ADDR 0 0 0 0 0 0 1 1 
+prev_state.RDATA 0 0 0 0 0 1 0 1 
+prev_state.WDATA 0 0 0 0 1 0 0 1 
+prev_state.SPLIT 0 0 0 1 0 0 0 1 
+prev_state.SREADY 0 0 1 0 0 0 0 1 
+prev_state.WAIT 0 1 0 0 0 0 0 1 
+prev_state.RVALID 1 0 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|slave:slave1_inst|slave_port:sp|state
+Name state.RVALID state.WAIT state.SREADY state.SPLIT state.WDATA state.RDATA state.ADDR state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 
+state.ADDR 0 0 0 0 0 0 1 1 
+state.RDATA 0 0 0 0 0 1 0 1 
+state.WDATA 0 0 0 0 1 0 0 1 
+state.SPLIT 0 0 0 1 0 0 0 1 
+state.SREADY 0 0 1 0 0 0 0 1 
+state.WAIT 0 1 0 0 0 0 0 1 
+state.RVALID 1 0 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_m2_s3:bus_inst|addr_decoder:decoder|state
+Name state.WAIT state.CONNECT state.ADDR state.IDLE 
+state.IDLE 0 0 0 0 
+state.ADDR 0 0 1 1 
+state.CONNECT 0 1 0 1 
+state.WAIT 1 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_m2_s3:bus_inst|arbiter:bus_arbiter|split_owner
+Name split_owner.NONE split_owner.SM2 split_owner.SM1 
+split_owner.NONE 0 0 0 
+split_owner.SM1 1 0 1 
+split_owner.SM2 1 1 0 
+
+State Machine - |demo_uart_bridge|bus_m2_s3:bus_inst|arbiter:bus_arbiter|state
+Name state.IDLE state.M2 state.M1 
+state.IDLE 0 0 0 
+state.M1 1 0 1 
+state.M2 1 1 0 
+
+State Machine - |demo_uart_bridge|bus_bridge_master:master2_bridge|uart:uart_module|uart_rx:receiver|state
+Name state.RX_DATA state.RX_END state.RX_START state.RX_IDLE 
+state.RX_IDLE 0 0 0 0 
+state.RX_START 0 0 1 1 
+state.RX_END 0 1 0 1 
+state.RX_DATA 1 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_bridge_master:master2_bridge|uart:uart_module|uart_tx:transmitter|state
+Name state.TX_DATA state.TX_END state.TX_START state.TX_IDLE 
+state.TX_IDLE 0 0 0 0 
+state.TX_START 0 0 1 1 
+state.TX_END 0 1 0 1 
+state.TX_DATA 1 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_bridge_master:master2_bridge|master_port:master|prev_state
+Name prev_state.SPLIT prev_state.WAIT prev_state.SADDR prev_state.REQ prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
+prev_state.IDLE 0 0 0 0 0 0 0 0 
+prev_state.ADDR 0 0 0 0 0 0 1 1 
+prev_state.RDATA 0 0 0 0 0 1 0 1 
+prev_state.WDATA 0 0 0 0 1 0 0 1 
+prev_state.REQ 0 0 0 1 0 0 0 1 
+prev_state.SADDR 0 0 1 0 0 0 0 1 
+prev_state.WAIT 0 1 0 0 0 0 0 1 
+prev_state.SPLIT 1 0 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|bus_bridge_master:master2_bridge|master_port:master|state
+Name state.SPLIT state.WAIT state.SADDR state.REQ state.WDATA state.RDATA state.ADDR state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 
+state.ADDR 0 0 0 0 0 0 1 1 
+state.RDATA 0 0 0 0 0 1 0 1 
+state.WDATA 0 0 0 0 1 0 0 1 
+state.REQ 0 0 0 1 0 0 0 1 
+state.SADDR 0 0 1 0 0 0 0 1 
+state.WAIT 0 1 0 0 0 0 0 1 
+state.SPLIT 1 0 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|master_port:master1_port|prev_state
+Name prev_state.SPLIT prev_state.WAIT prev_state.SADDR prev_state.REQ prev_state.WDATA prev_state.RDATA prev_state.ADDR prev_state.IDLE 
+prev_state.IDLE 0 0 0 0 0 0 0 0 
+prev_state.ADDR 0 0 0 0 0 0 1 1 
+prev_state.RDATA 0 0 0 0 0 1 0 1 
+prev_state.WDATA 0 0 0 0 1 0 0 1 
+prev_state.REQ 0 0 0 1 0 0 0 1 
+prev_state.SADDR 0 0 1 0 0 0 0 1 
+prev_state.WAIT 0 1 0 0 0 0 0 1 
+prev_state.SPLIT 1 0 0 0 0 0 0 1 
+
+State Machine - |demo_uart_bridge|master_port:master1_port|state
+Name state.SPLIT state.WAIT state.SADDR state.REQ state.WDATA state.RDATA state.ADDR state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 
+state.ADDR 0 0 0 0 0 0 1 1 
+state.RDATA 0 0 0 0 0 1 0 1 
+state.WDATA 0 0 0 0 1 0 0 1 
+state.REQ 0 0 0 1 0 0 0 1 
+state.SADDR 0 0 1 0 0 0 0 1 
+state.WAIT 0 1 0 0 0 0 0 1 
+state.SPLIT 1 0 0 0 0 0 0 1 

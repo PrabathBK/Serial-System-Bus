@@ -1,0 +1,7 @@
+Running: xsim.dir/cross_system_bridge_tb_behav/xsimk -simmode gui -wdb cross_system_bridge_tb_behav.wdb -simrunnum 0 -socket 38837
+Design successfully loaded
+Design Loading Memory Usage: 24100 KB (Peak: 24352 KB)
+Design Loading CPU Usage: 30 ms
+Simulation completed
+Simulation Memory Usage: 106252 KB (Peak: 163368 KB)
+Simulation CPU Usage: 90 ms
