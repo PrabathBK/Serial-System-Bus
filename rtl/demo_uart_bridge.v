@@ -14,22 +14,21 @@
 //   Slave 3:  Bus Bridge Slave (forwards commands via UART to external bus)
 //
 // Demo Controls:
-//   - KEY[0]: Trigger transaction (press to send)
-//   - KEY[1]: Increment data pattern (press to change data)
+//   - KEY[0]: Initiate transfer (press to execute read or write)
+//   - KEY[1]: Increment data value (press to +1)
+//   - KEY[0]+KEY[1]: Press both together to reset increment value to 0
 //   - SW[0]:  Reset (HIGH = reset active)
-//   - SW[1]:  Internal slave select (0 = Slave 1, 1 = Slave 2)
-//   - SW[2]:  External slave select (0 = Remote Slave 1, 1 = Remote Slave 2)
-//   - SW[3]:  Master select (0 = Local Master1 to internal, 1 = Local Master1 to external via Bridge)
+//   - SW[1]:  Slave select (0 = Slave 1, 1 = Slave 2) for both internal/external
+//   - SW[2]:  Mode select (0 = Internal, 1 = External via Bridge)
+//   - SW[3]:  Read/Write (0 = Read, 1 = Write)
 //
 // Operation Modes:
-//   SW[3]=0: Internal Mode - Local Master1 writes to internal Slave1/2 (selected by SW[1])
-//   SW[3]=1: External Mode - Local Master1 writes to Bridge Slave3 -> UART -> Remote FPGA
-//            The remote slave (1 or 2) is selected by SW[2]
+//   SW[2]=0: Internal Mode - Access local Slave1/2 (selected by SW[1])
+//   SW[2]=1: External Mode - Access remote Slave1/2 via Bridge (selected by SW[1])
 //
 // LED Display:
-//   - LED[0]:   Transaction active
-//   - LED[1]:   Mode (0=Internal, 1=External/Bridge)
-//   - LED[7:2]: Data pattern (6 bits)
+//   - Write mode (SW[3]=1): LED[7:0] = Increment value (data to write)
+//   - Read mode  (SW[3]=0): LED[7:0] = Data read from slave
 //
 // UART Connections (for inter-FPGA communication):
 //   Bridge Master (receives commands from external sender):
@@ -54,23 +53,23 @@ module demo_uart_bridge (
     //--------------------------------------------------------------------------
     // Push Buttons (Active Low)
     //--------------------------------------------------------------------------
-    input  wire [1:0]  KEY,                 // KEY[0] = Trigger transaction
-                                            // KEY[1] = Increment data pattern
+    input  wire [1:0]  KEY,                 // KEY[0] = Initiate transfer
+                                            // KEY[1] = Increment data value
+                                            // Both pressed = Reset increment to 0
     
     //--------------------------------------------------------------------------
     // DIP Switches
     //--------------------------------------------------------------------------
     input  wire [3:0]  SW,                  // SW[0] = Reset (active high)
-                                            // SW[1] = Internal slave (0=S1, 1=S2)
-                                            // SW[2] = External slave (0=S1, 1=S2)
-                                            // SW[3] = Mode (0=Internal, 1=External/Bridge)
+                                            // SW[1] = Slave select (0=S1, 1=S2)
+                                            // SW[2] = Mode (0=Internal, 1=External)
+                                            // SW[3] = R/W (0=Read, 1=Write)
     
     //--------------------------------------------------------------------------
     // LEDs for Status Display
     //--------------------------------------------------------------------------
-    output wire [7:0]  LED,                 // LED[0] = Transaction active
-                                            // LED[1] = Mode (0=Int, 1=Ext)
-                                            // LED[7:2] = Data pattern
+    output wire [7:0]  LED,                 // Write mode: increment value
+                                            // Read mode: data from slave
     
     //--------------------------------------------------------------------------
     // GPIO for Bus Bridge UART Interface
@@ -110,16 +109,18 @@ module demo_uart_bridge (
     wire rstn;
     
     // Configuration from switches
+    wire        cfg_slave_sel;       // Slave select: 0=S1, 1=S2
     wire        cfg_external_mode;   // 0=Internal, 1=External (via Bridge)
-    wire        cfg_int_slave_sel;   // Internal slave: 0=S1, 1=S2
-    wire        cfg_ext_slave_sel;   // External slave: 0=S1, 1=S2
-    wire [1:0]  cfg_slave_sel;       // Final slave selection for bus
+    wire        cfg_write_mode;      // 0=Read, 1=Write
+    wire [1:0]  bus_slave_sel;       // Final slave selection for bus
     
-    // Button edge detection
+    // Button edge detection and combo detection
     reg [2:0] key0_sync;
     reg [2:0] key1_sync;
-    wire key0_pressed;
-    wire key1_pressed;
+    wire key0_pressed;               // KEY[0] press detected
+    wire key1_pressed;               // KEY[1] press detected
+    wire both_keys_pressed;          // Both keys pressed together
+    reg both_keys_held;              // Track if both were held
     
     // Switch synchronization
     reg [3:0] sw_sync1, sw_sync2;
@@ -128,8 +129,11 @@ module demo_uart_bridge (
     // Reset synchronization
     reg [2:0] reset_sync;
     
-    // Data pattern register
+    // Data pattern register (increment value)
     reg [7:0] data_pattern;
+    
+    // Read data storage
+    reg [7:0] read_data;
     
     //==========================================================================
     // Clock and Reset Management
@@ -153,33 +157,51 @@ module demo_uart_bridge (
     assign sw_stable = sw_sync2;
     
     // Decode switch settings
-    assign cfg_external_mode = sw_stable[3];     // SW[3]: 0=Internal, 1=External (Bridge)
-    assign cfg_int_slave_sel = sw_stable[1];     // SW[1]: Internal slave (0=S1, 1=S2)
-    assign cfg_ext_slave_sel = sw_stable[2];     // SW[2]: External slave (0=S1, 1=S2)
+    assign cfg_slave_sel     = sw_stable[1];     // SW[1]: Slave select (0=S1, 1=S2)
+    assign cfg_external_mode = sw_stable[2];     // SW[2]: 0=Internal, 1=External (Bridge)
+    assign cfg_write_mode    = sw_stable[3];     // SW[3]: 0=Read, 1=Write
     
     // Determine actual slave for bus transaction
     // Internal mode: Use SW[1] to select Slave 1 or 2
     // External mode: Always route to Slave 3 (Bridge Slave)
-    assign cfg_slave_sel = cfg_external_mode ? 2'b10 :              // External -> Slave 3 (Bridge)
-                           (cfg_int_slave_sel ? 2'b01 : 2'b00);     // Internal -> S1 or S2
+    assign bus_slave_sel = cfg_external_mode ? 2'b10 :              // External -> Slave 3 (Bridge)
+                           (cfg_slave_sel ? 2'b01 : 2'b00);         // Internal -> S1 or S2
     
-    // Button edge detection
+    // Button synchronization and edge detection
     always @(posedge clk or negedge rstn) begin
-        if (!rstn) key0_sync <= 3'b111;
-        else key0_sync <= {key0_sync[1:0], KEY[0]};
+        if (!rstn) begin
+            key0_sync <= 3'b111;
+            key1_sync <= 3'b111;
+            both_keys_held <= 1'b0;
+        end else begin
+            key0_sync <= {key0_sync[1:0], KEY[0]};
+            key1_sync <= {key1_sync[1:0], KEY[1]};
+            // Track if both keys are currently held (active low)
+            if (!key0_sync[1] && !key1_sync[1])
+                both_keys_held <= 1'b1;
+            else if (key0_sync[1] && key1_sync[1])
+                both_keys_held <= 1'b0;
+        end
     end
-    assign key0_pressed = (key0_sync[2:1] == 2'b10);
     
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn) key1_sync <= 3'b111;
-        else key1_sync <= {key1_sync[1:0], KEY[1]};
-    end
-    assign key1_pressed = (key1_sync[2:1] == 2'b10);
+    // Both keys pressed together (active low, so both are 0)
+    assign both_keys_pressed = both_keys_held && (key0_sync[2:1] == 2'b01 || key1_sync[2:1] == 2'b01);
     
-    // Data pattern - increments when KEY[1] is pressed
+    // Single key press detection (only if not both pressed)
+    assign key0_pressed = (key0_sync[2:1] == 2'b10) && key1_sync[1];  // KEY[0] pressed, KEY[1] not held
+    assign key1_pressed = (key1_sync[2:1] == 2'b10) && key0_sync[1];  // KEY[1] pressed, KEY[0] not held
+    
+    // Data pattern management:
+    // - KEY[1] alone: increment value
+    // - KEY[0]+KEY[1] together: reset to 0
     always @(posedge clk or negedge rstn) begin
-        if (!rstn) data_pattern <= INITIAL_DATA_PATTERN;
-        else if (key1_pressed) data_pattern <= data_pattern + 8'h01;
+        if (!rstn) begin
+            data_pattern <= INITIAL_DATA_PATTERN;
+        end else if (both_keys_pressed) begin
+            data_pattern <= 8'h00;  // Both keys pressed resets to 0
+        end else if (key1_pressed) begin
+            data_pattern <= data_pattern + 8'h01;  // KEY[1] alone increments
+        end
     end
     
     //==========================================================================
@@ -193,10 +215,8 @@ module demo_uart_bridge (
     
     reg [2:0] demo_state;
     reg [19:0] demo_counter;
-    reg [7:0] display_data;
     reg transaction_active;
-    reg captured_external_mode;
-    reg captured_ext_slave_sel;
+    reg captured_write_mode;         // Captured R/W mode at transaction start
     
     // Master 1 device interface signals (local Master 1)
     reg [DATA_WIDTH-1:0] m1_dwdata;
@@ -215,27 +235,26 @@ module demo_uart_bridge (
     
     // When external: encode remote slave in address sent to bridge
     // Remote Slave 1 = address 0x0xxx, Remote Slave 2 = address 0x1xxx
-    assign bridge_remote_addr = {cfg_ext_slave_sel, 1'b0, BASE_MEM_ADDR[9:0]};
+    assign bridge_remote_addr = {cfg_slave_sel, 1'b0, BASE_MEM_ADDR[9:0]};
     
     // Full address for bus transaction
     assign full_address = cfg_external_mode ? 
                           {2'b00, 2'b10, bridge_remote_addr} :   // External: Slave 3 with remote addr
-                          {2'b00, cfg_slave_sel, BASE_MEM_ADDR}; // Internal: Slave 1 or 2
+                          {2'b00, bus_slave_sel, BASE_MEM_ADDR}; // Internal: Slave 1 or 2
     
-    // Demo FSM - Controls Master 1 for local transactions
+    // Demo FSM - Controls Master 1 for local transactions (read or write)
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             demo_state <= DEMO_IDLE;
             demo_counter <= 20'd0;
-            display_data <= 8'h00;
+            read_data <= 8'h00;
             transaction_active <= 1'b0;
-            captured_external_mode <= 1'b0;
-            captured_ext_slave_sel <= 1'b0;
+            captured_write_mode <= 1'b0;
             
             m1_dwdata <= 8'h00;
             m1_daddr <= 16'h0000;
             m1_dvalid <= 1'b0;
-            m1_dmode <= 1'b1;  // Always write mode for demo
+            m1_dmode <= 1'b1;
         end else begin
             // Default: deassert valid
             m1_dvalid <= 1'b0;
@@ -246,9 +265,8 @@ module demo_uart_bridge (
                     if (key0_pressed) begin
                         demo_state <= DEMO_START;
                         demo_counter <= 20'd0;
-                        // Capture settings at transaction start
-                        captured_external_mode <= cfg_external_mode;
-                        captured_ext_slave_sel <= cfg_ext_slave_sel;
+                        // Capture R/W mode at transaction start
+                        captured_write_mode <= cfg_write_mode;
                     end
                 end
                 
@@ -256,7 +274,7 @@ module demo_uart_bridge (
                     transaction_active <= 1'b1;
                     m1_daddr <= full_address;
                     m1_dwdata <= data_pattern;
-                    m1_dmode <= 1'b1;  // Write mode
+                    m1_dmode <= captured_write_mode;  // 0=Read, 1=Write from SW[3]
                     m1_dvalid <= 1'b1;
                     demo_state <= DEMO_WAIT;
                     demo_counter <= 20'd0;
@@ -272,7 +290,10 @@ module demo_uart_bridge (
                 end
                 
                 DEMO_COMPLETE: begin
-                    display_data <= data_pattern;
+                    // Capture read data if this was a read operation
+                    if (!captured_write_mode) begin
+                        read_data <= m1_drdata;
+                    end
                     demo_state <= DEMO_DISPLAY;
                     demo_counter <= 20'd0;
                 end
@@ -290,12 +311,9 @@ module demo_uart_bridge (
     //==========================================================================
     // LED Display Assignment
     //==========================================================================
-    // LED[0] = Transaction active
-    // LED[1] = Mode (0=Internal, 1=External/Bridge)
-    // LED[7:2] = Data pattern (6 bits)
-    assign LED[0] = transaction_active;
-    assign LED[1] = cfg_external_mode;
-    assign LED[7:2] = display_data[5:0];
+    // Write mode (SW[3]=1): LED[7:0] = increment value (data to write)
+    // Read mode  (SW[3]=0): LED[7:0] = data read from slave
+    assign LED = cfg_write_mode ? data_pattern : read_data;
     
     //==========================================================================
     // Internal Bus Signals
