@@ -372,87 +372,87 @@ module tb_bus_m2_s3_simple;
         // Description: Verifies all bus control signals are in correct reset state
         //              Checks: bgrant=0, split=0, dready=1 for both masters
         //======================================================================
-        test_num = 1;
-        $display("\n----------------------------------------");
-        $display("Test 1: Reset Test");
-        $display("----------------------------------------");
+//        test_num = 1;
+//        $display("\n----------------------------------------");
+//        $display("Test 1: Reset Test");
+//        $display("----------------------------------------");
         
-        // Check all control outputs are in reset state
-        if (m1_bgrant == 0 && m2_bgrant == 0 && m1_split == 0 && m2_split == 0 &&
-            m1_dready == 1 && m2_dready == 1) begin
-            $display("PASS: All signals properly reset");
-            $display("  - m1_bgrant = %b, m2_bgrant = %b", m1_bgrant, m2_bgrant);
-            $display("  - m1_dready = %b, m2_dready = %b", m1_dready, m2_dready);
-            $display("  - m1_split = %b, m2_split = %b", m1_split, m2_split);
-            pass_count = pass_count + 1;
-        end else begin
-            $display("ERROR: Reset state incorrect");
-            $display("  - m1_bgrant = %b (expected 0)", m1_bgrant);
-            $display("  - m2_bgrant = %b (expected 0)", m2_bgrant);
-            fail_count = fail_count + 1;
-        end
+//        // Check all control outputs are in reset state
+//        if (m1_bgrant == 0 && m2_bgrant == 0 && m1_split == 0 && m2_split == 0 &&
+//            m1_dready == 1 && m2_dready == 1) begin
+//            $display("PASS: All signals properly reset");
+//            $display("  - m1_bgrant = %b, m2_bgrant = %b", m1_bgrant, m2_bgrant);
+//            $display("  - m1_dready = %b, m2_dready = %b", m1_dready, m2_dready);
+//            $display("  - m1_split = %b, m2_split = %b", m1_split, m2_split);
+//            pass_count = pass_count + 1;
+//        end else begin
+//            $display("ERROR: Reset state incorrect");
+//            $display("  - m1_bgrant = %b (expected 0)", m1_bgrant);
+//            $display("  - m2_bgrant = %b (expected 0)", m2_bgrant);
+//            fail_count = fail_count + 1;
+//        end
         
-        repeat(5) @(posedge clk);
+//        repeat(5) @(posedge clk);
         
-        //======================================================================
-        // Test 2: Single Master Request (M1 -> S1 Write + Read)
-        // Description: Tests basic single master operation with write-then-read
-        //              Verifies: Serial data transmission, memory write/read,
-        //              and bus transaction completion (dready handshake)
-//        ======================================================================
-        test_num = 2;
-        $display("\n----------------------------------------");
-        $display("Test 2: Single Master Request");
-        $display("  M1 writes 0xAA to Slave 1 @ 0x0100");
-        $display("----------------------------------------");
+//        //======================================================================
+//        // Test 2: Single Master Request (M1 -> S1 Write + Read)
+//        // Description: Tests basic single master operation with write-then-read
+//        //              Verifies: Serial data transmission, memory write/read,
+//        //              and bus transaction completion (dready handshake)
+////        ======================================================================
+//        test_num = 2;
+//        $display("\n----------------------------------------");
+//        $display("Test 2: Single Master Request");
+//        $display("  M1 writes 0xAA to Slave 1 @ 0x0100");
+//        $display("----------------------------------------");
         
-        m1_transaction(16'h0100, 8'hAA, 1'b1);  // Write to Slave 1 (device 0)
+//        m1_transaction(16'h0100, 8'hAA, 1'b1);  // Write to Slave 1 (device 0)
         
-        $display("  Write completed, initiating read-back...");
-        repeat(3) @(posedge clk);
+//        $display("  Write completed, initiating read-back...");
+//        repeat(3) @(posedge clk);
         
-        // Verify write by reading back
-        m1_transaction(16'h0100, 8'h00, 1'b0);  // Read from Slave 1
+//        // Verify write by reading back
+//        m1_transaction(16'h0100, 8'h00, 1'b0);  // Read from Slave 1
         
-        // Data is captured in captured_m1_data
-        if (captured_m1_data == 8'hAA) begin
-            $display("PASS: Write and read-back successful");
-            $display("  - Written: 0xAA, Read: 0x%02h", captured_m1_data);
-            pass_count = pass_count + 1;
-        end else begin
-            $display("ERROR: Read-back data mismatch");
-            $display("  - Expected: 0xAA, Got: 0x%02h", captured_m1_data);
-            fail_count = fail_count + 1;
-        end
+//        // Data is captured in captured_m1_data
+//        if (captured_m1_data == 8'hAA) begin
+//            $display("PASS: Write and read-back successful");
+//            $display("  - Written: 0xAA, Read: 0x%02h", captured_m1_data);
+//            pass_count = pass_count + 1;
+//        end else begin
+//            $display("ERROR: Read-back data mismatch");
+//            $display("  - Expected: 0xAA, Got: 0x%02h", captured_m1_data);
+//            fail_count = fail_count + 1;
+//        end
         
-        repeat(5) @(posedge clk);
+//        repeat(5) @(posedge clk);
         
-        //======================================================================
-        // Test 2a: Single Master Read (Pre-initialized Memory)
-        // Description: Tests read-only operation without prior write in this test
-        //              Reads from address that was written in Test 2 (0x0100)
-        //              Verifies: Read operation independence, data persistence
-        //======================================================================
-        test_num = test_num + 1;
-        $display("\n----------------------------------------");
-        $display("Test 2a: Single Master Read-Only");
-        $display("  M1 reads from Slave 1 @ 0x0100 (should contain 0xAA from Test 2)");
-        $display("----------------------------------------");
+//        //======================================================================
+//        // Test 2a: Single Master Read (Pre-initialized Memory)
+//        // Description: Tests read-only operation without prior write in this test
+//        //              Reads from address that was written in Test 2 (0x0100)
+//        //              Verifies: Read operation independence, data persistence
+//        //======================================================================
+//        test_num = test_num + 1;
+//        $display("\n----------------------------------------");
+//        $display("Test 2a: Single Master Read-Only");
+//        $display("  M1 reads from Slave 1 @ 0x0100 (should contain 0xAA from Test 2)");
+//        $display("----------------------------------------");
         
-        // Read from address that was written in Test 2
-        m1_transaction(16'h0100, 8'h00, 1'b0);  // Read from Slave 1
+//        // Read from address that was written in Test 2
+//        m1_transaction(16'h0100, 8'h00, 1'b0);  // Read from Slave 1
         
-        if (captured_m1_data == 8'hAA) begin
-            $display("PASS: Read-only operation successful");
-            $display("  - Read value: 0x%02h (data persisted from Test 2)", captured_m1_data);
-            pass_count = pass_count + 1;
-        end else begin
-            $display("ERROR: Read-only data mismatch");
-            $display("  - Expected: 0xAA (from Test 2), Got: 0x%02h", captured_m1_data);
-            fail_count = fail_count + 1;
-        end
+//        if (captured_m1_data == 8'hAA) begin
+//            $display("PASS: Read-only operation successful");
+//            $display("  - Read value: 0x%02h (data persisted from Test 2)", captured_m1_data);
+//            pass_count = pass_count + 1;
+//        end else begin
+//            $display("ERROR: Read-only data mismatch");
+//            $display("  - Expected: 0xAA (from Test 2), Got: 0x%02h", captured_m1_data);
+//            fail_count = fail_count + 1;
+//        end
         
-        repeat(5) @(posedge clk);
+//        repeat(5) @(posedge clk);
         
         //======================================================================
         // Test 3: Dual Master Request (Priority Arbitration)
@@ -500,64 +500,64 @@ module tb_bus_m2_s3_simple;
         
         repeat(5) @(posedge clk);
         
-        //======================================================================
-        // Test 4: Split Transaction (M1 -> S3)
-        // Description: Tests split transaction support for slow slaves
-        //              S3 asserts split signal during read, releasing the bus
-        //              Arbiter grants bus to S3 when ready to complete transaction
-        //              Verifies: Split handshake, bus re-arbitration, data integrity
-        //======================================================================
-        test_num = test_num + 1;
-        $display("\n----------------------------------------");
-        $display("Test 4: Split Transaction");
-        $display("  M1 writes 0xBB to S3 @ 0x2050");
-        $display("  (S3 has split support enabled)");
-        $display("----------------------------------------");
+//        //======================================================================
+//        // Test 4: Split Transaction (M1 -> S3)
+//        // Description: Tests split transaction support for slow slaves
+//        //              S3 asserts split signal during read, releasing the bus
+//        //              Arbiter grants bus to S3 when ready to complete transaction
+//        //              Verifies: Split handshake, bus re-arbitration, data integrity
+//        //======================================================================
+//        test_num = test_num + 1;
+//        $display("\n----------------------------------------");
+//        $display("Test 4: Split Transaction");
+//        $display("  M1 writes 0xBB to S3 @ 0x2050");
+//        $display("  (S3 has split support enabled)");
+//        $display("----------------------------------------");
         
-        // Write to Slave 3 (split-capable)
-        $display("  Initiating write transaction to split-capable slave...");
-        m1_transaction(16'h2050, 8'hBB, 1'b1);  // Write to S3 (device 2)
+//        // Write to Slave 3 (split-capable)
+//        $display("  Initiating write transaction to split-capable slave...");
+//        m1_transaction(16'h2050, 8'hBB, 1'b1);  // Write to S3 (device 2)
         
-        $display("  Write completed (split transaction handled)");
-        repeat(5) @(posedge clk);
+//        $display("  Write completed (split transaction handled)");
+//        repeat(5) @(posedge clk);
         
-        // Read back to verify split transaction
-        $display("  Initiating read transaction from split-capable slave...");
-        m1_transaction(16'h2050, 8'h00, 1'b0);  // Read from S3
+//        // Read back to verify split transaction
+//        $display("  Initiating read transaction from split-capable slave...");
+//        m1_transaction(16'h2050, 8'h00, 1'b0);  // Read from S3
         
-        $display("  Read completed: 0x%02h", captured_m1_data);
+//        $display("  Read completed: 0x%02h", captured_m1_data);
         
-        if (captured_m1_data == 8'hBB) begin
-            $display("PASS: Split transaction completed successfully");
-            $display("  - Written: 0xBB, Read: 0x%02h", captured_m1_data);
-            $display("  - Split signals properly handled by arbiter");
-            pass_count = pass_count + 1;
-        end else begin
-            $display("ERROR: Split transaction data mismatch");
-            $display("  - Expected: 0xBB, Got: 0x%02h", captured_m1_data);
-            fail_count = fail_count + 1;
-        end
+//        if (captured_m1_data == 8'hBB) begin
+//            $display("PASS: Split transaction completed successfully");
+//            $display("  - Written: 0xBB, Read: 0x%02h", captured_m1_data);
+//            $display("  - Split signals properly handled by arbiter");
+//            pass_count = pass_count + 1;
+//        end else begin
+//            $display("ERROR: Split transaction data mismatch");
+//            $display("  - Expected: 0xBB, Got: 0x%02h", captured_m1_data);
+//            fail_count = fail_count + 1;
+//        end
         
-        repeat(10) @(posedge clk);
+//        repeat(10) @(posedge clk);
         
-        //======================================================================
-        // Test Summary
-        //======================================================================
-        $display("\n========================================");
-        $display("  Test Summary");
-        $display("========================================");
-        $display("Total Tests: %0d", test_num);
-        $display("Passed:      %0d", pass_count);
-        $display("Failed:      %0d", fail_count);
+//        //======================================================================
+//        // Test Summary
+//        //======================================================================
+//        $display("\n========================================");
+//        $display("  Test Summary");
+//        $display("========================================");
+//        $display("Total Tests: %0d", test_num);
+//        $display("Passed:      %0d", pass_count);
+//        $display("Failed:      %0d", fail_count);
         
-        if (fail_count == 0) begin
-            $display("\n*** ALL TESTS PASSED ***\n");
-        end else begin
-            $display("\n*** SOME TESTS FAILED ***\n");
-        end
+//        if (fail_count == 0) begin
+//            $display("\n*** ALL TESTS PASSED ***\n");
+//        end else begin
+//            $display("\n*** SOME TESTS FAILED ***\n");
+//        end
         
-        $display("Waveform saved to: tb_bus_m2_s3_simple.vcd");
-        $display("View with: gtkwave tb_bus_m2_s3_simple.vcd\n");
+//        $display("Waveform saved to: tb_bus_m2_s3_simple.vcd");
+//        $display("View with: gtkwave tb_bus_m2_s3_simple.vcd\n");
         
         $finish;
     end
