@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_bus_m2_s3_simple_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_bus_m2_s3_simple" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="40,901.693 ns"></ZoomStartTime>
+      <ZoomEndTime time="41,541.488 ns"></ZoomEndTime>
+      <Cursor1Time time="41,525.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="146"></NameColumnWidth>
+      <ValueColumnWidth column_width="137"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="2" />
+   <wvobject type="group" fp_name="group3586">
+      <obj_property name="label">master_1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/rstn">
+         <obj_property name="ElementShortName">rstn</obj_property>
+         <obj_property name="ObjectShortName">rstn</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_bus_m2_s3_simple/master1/dwdata">
+         <obj_property name="ElementShortName">dwdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dwdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_bus_m2_s3_simple/master1/drdata">
+         <obj_property name="ElementShortName">drdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">drdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_bus_m2_s3_simple/master1/daddr">
+         <obj_property name="ElementShortName">daddr[15:0]</obj_property>
+         <obj_property name="ObjectShortName">daddr[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/dvalid">
+         <obj_property name="ElementShortName">dvalid</obj_property>
+         <obj_property name="ObjectShortName">dvalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/dready">
+         <obj_property name="ElementShortName">dready</obj_property>
+         <obj_property name="ObjectShortName">dready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/dmode">
+         <obj_property name="ElementShortName">dmode</obj_property>
+         <obj_property name="ObjectShortName">dmode</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/mrdata">
+         <obj_property name="ElementShortName">mrdata</obj_property>
+         <obj_property name="ObjectShortName">mrdata</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/mwdata">
+         <obj_property name="ElementShortName">mwdata</obj_property>
+         <obj_property name="ObjectShortName">mwdata</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/mmode">
+         <obj_property name="ElementShortName">mmode</obj_property>
+         <obj_property name="ObjectShortName">mmode</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/mvalid">
+         <obj_property name="ElementShortName">mvalid</obj_property>
+         <obj_property name="ObjectShortName">mvalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/svalid">
+         <obj_property name="ElementShortName">svalid</obj_property>
+         <obj_property name="ObjectShortName">svalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/mbreq">
+         <obj_property name="ElementShortName">mbreq</obj_property>
+         <obj_property name="ObjectShortName">mbreq</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/mbgrant">
+         <obj_property name="ElementShortName">mbgrant</obj_property>
+         <obj_property name="ObjectShortName">mbgrant</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/msplit">
+         <obj_property name="ElementShortName">msplit</obj_property>
+         <obj_property name="ObjectShortName">msplit</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/ack">
+         <obj_property name="ElementShortName">ack</obj_property>
+         <obj_property name="ObjectShortName">ack</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_bus_m2_s3_simple/master1/wdata">
+         <obj_property name="ElementShortName">wdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">wdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_bus_m2_s3_simple/master1/addr">
+         <obj_property name="ElementShortName">addr[15:0]</obj_property>
+         <obj_property name="ObjectShortName">addr[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/master1/mode">
+         <obj_property name="ElementShortName">mode</obj_property>
+         <obj_property name="ObjectShortName">mode</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_bus_m2_s3_simple/master1/rdata">
+         <obj_property name="ElementShortName">rdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rdata[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group3835">
+      <obj_property name="label">slave_1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/swdata">
+         <obj_property name="ElementShortName">swdata</obj_property>
+         <obj_property name="ObjectShortName">swdata</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/srdata">
+         <obj_property name="ElementShortName">srdata</obj_property>
+         <obj_property name="ObjectShortName">srdata</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/smode">
+         <obj_property name="ElementShortName">smode</obj_property>
+         <obj_property name="ObjectShortName">smode</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/mvalid">
+         <obj_property name="ElementShortName">mvalid</obj_property>
+         <obj_property name="ObjectShortName">mvalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/split_grant">
+         <obj_property name="ElementShortName">split_grant</obj_property>
+         <obj_property name="ObjectShortName">split_grant</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/svalid">
+         <obj_property name="ElementShortName">svalid</obj_property>
+         <obj_property name="ObjectShortName">svalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/sready">
+         <obj_property name="ElementShortName">sready</obj_property>
+         <obj_property name="ObjectShortName">sready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/ssplit">
+         <obj_property name="ElementShortName">ssplit</obj_property>
+         <obj_property name="ObjectShortName">ssplit</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/smemwen">
+         <obj_property name="ElementShortName">smemwen</obj_property>
+         <obj_property name="ObjectShortName">smemwen</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_bus_m2_s3_simple/slave1/smemren">
+         <obj_property name="ElementShortName">smemren</obj_property>
+         <obj_property name="ObjectShortName">smemren</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

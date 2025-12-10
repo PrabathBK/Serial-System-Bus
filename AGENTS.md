@@ -4,6 +4,7 @@
 - **Synthesis**: `./scripts/synthesize_and_verify.sh` (Quartus: map, fit, asm, sta; ~5-7 min)
   - Single phase: `./scripts/synthesize_and_verify.sh --phase <map|fit|asm|sta>`
 - **Full sim**: `./sim/run_sim.sh` (master2_slave3_tb.sv - comprehensive bus test)
+- **Bus core test**: `./sim/run_bus_m2_s3_simple_test.sh` (tb_bus_m2_s3_simple.sv - 5 basic tests)
 - **Single test**: `./sim/run_simple_test.sh` (simple_read_test.sv - quick debug)
 - **Demo test**: `./sim/run_demo_bridge_test.sh` (tb_demo_uart_bridge.sv - 19 UART bridge tests)
 - **Dual system**: `./sim/run_dual_system_test.sh` (tb_dual_system.sv - inter-FPGA communication)

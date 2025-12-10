@@ -98,17 +98,6 @@ module slave_port #(
             state <= IDLE;
             prev_state <= IDLE;
         end else begin
-            if (state != next_state) begin
-                $display("[SLAVE_PORT %m @%0t] STATE TRANSITION: %0s -> %0s, mode=%b, mvalid=%b, smode=%b",
-                         $time, 
-                         state == IDLE ? "IDLE" : state == ADDR ? "ADDR" : state == RDATA ? "RDATA" :
-                         state == WDATA ? "WDATA" : state == SREADY ? "SREADY" : state == SPLIT ? "SPLIT" :
-                         state == WAIT ? "WAIT" : state == RVALID ? "RVALID" : "UNKNOWN",
-                         next_state == IDLE ? "IDLE" : next_state == ADDR ? "ADDR" : next_state == RDATA ? "RDATA" :
-                         next_state == WDATA ? "WDATA" : next_state == SREADY ? "SREADY" : next_state == SPLIT ? "SPLIT" :
-                         next_state == WAIT ? "WAIT" : next_state == RVALID ? "RVALID" : "UNKNOWN",
-                         mode, mvalid, smode);
-            end
             prev_state <= state;
             state <= next_state;
         end
@@ -145,8 +134,6 @@ module slave_port #(
                         mode <= smode;
                         addr[counter] <= swdata;
                         counter <= counter + 1;
-                        $display("[SLAVE_PORT %m @%0t] IDLE: Latching mode=%b (smode=%b), receiving first addr bit=%b", 
-                                 $time, smode, smode, swdata);
                     end else begin
                         addr    <= addr;
                         counter <= counter;
@@ -175,19 +162,15 @@ module slave_port #(
                         smemwen   <= 1'b1;
                         smemwdata <= wdata;
                         smemaddr  <= addr;
-                        $display("[SLAVE_PORT @%0t] SREADY state (WRITE): addr=0x%h, wdata=0x%h", $time, addr, wdata);
                     end else begin
                         smemren  <= 1'b1;
                         smemaddr <= addr;
-                        $display("[SLAVE_PORT @%0t] SREADY state (READ): addr=0x%h, starting read", $time, addr);
                     end
                 end
                 
                 RVALID: begin
                     // Waiting for read data valid - keep smemren asserted
                     smemren <= 1'b1;
-                    $display("[SLAVE_PORT @%0t] RVALID state: smemren=%b, rvalid=%b, smemrdata=0x%h, smemaddr=0x%h", 
-                             $time, smemren, rvalid, smemrdata, smemaddr);
                 end
                 
                 SPLIT : begin  // Wait for some time - keep smemren asserted
@@ -200,37 +183,15 @@ module slave_port #(
                     smemren <= 1'b1;
                 end
                 
-                RDATA : begin  // Send data to master
-                    // Strategy: Each bit needs 2 cycles - one to load, one to hold for master to sample
-                    // counter[0] = 0 (even): Load bit into srdata, svalid=0
-                    // counter[0] = 1 (odd):  Hold bit in srdata, svalid=1 (master samples next clock edge)
-                    //
-                    // Timeline:
-                    // counter=0: Load bit[0], svalid=0
-                    // counter=1: Hold bit[0], svalid=1 -> master samples bit[0] at next edge
-                    // counter=2: Load bit[1], svalid=0
-                    // counter=3: Hold bit[1], svalid=1 -> master samples bit[1] at next edge
-                    // ...
-                    // counter=14: Load bit[7], svalid=0
-                    // counter=15: Hold bit[7], svalid=1 -> master samples bit[7] at next edge
-                    // counter=16: Exit
-                    
+                RDATA : begin  // Send data to master                  
                     if (counter < DATA_WIDTH * 2) begin
                         if (counter[0] == 0) begin
                             // Even counter: Load bit
                             srdata <= rdata[counter >> 1];  // counter/2 gives bit index
                             svalid <= 1'b0;
-                            if (counter == 0)
-                                $display("[SLAVE_PORT %m @%0t] RDATA transmission START, data=0x%h", $time, rdata);
-                            //$display("[SLAVE_PORT @%0t] RDATA counter=%0d: loading bit[%0d]=%b, svalid=0", 
-                            //         $time, counter, counter>>1, rdata[counter>>1]);
                         end else begin
                             // Odd counter: Hold bit, assert valid
                             svalid <= 1'b1;
-                            if (counter == 15)
-                                $display("[SLAVE_PORT %m @%0t] RDATA transmission END (sending last bit)", $time);
-                            //$display("[SLAVE_PORT @%0t] RDATA counter=%0d: holding bit[%0d]=%b, svalid=1", 
-                            //         $time, counter, counter>>1, srdata);
                         end
                         smemren <= 1'b1;
                         counter <= counter + 1;
@@ -243,30 +204,20 @@ module slave_port #(
                 end
                 
                 WDATA : begin  // Receive data from master
-                    $display("[SLAVE_PORT %m @%0t] WDATA state: prev_state=%0d, state=%0d, mvalid=%b, counter=%0d, swdata=%b", 
-                             $time, prev_state, state, mvalid, counter, swdata);
                     svalid <= 1'b0;
                     // Skip sampling on first cycle after transition from ADDR (setup time for data)
                     if (mvalid && !(prev_state == ADDR && state == WDATA)) begin
                         wdata[counter] <= swdata;
-                        $display("[SLAVE_PORT %m @%0t] WDATA receiving: bit[%0d]=%b, swdata=%b, current_wdata=0x%h", 
-                                 $time, counter, swdata, swdata, wdata);
                         if (counter == DATA_WIDTH-1) begin
                             // DON'T set smemwen here - let SREADY do it with smemaddr at the same time
                             // This ensures both signals are set together via non-blocking assignment
                             counter <= 'b0;
-                            $display("[SLAVE_PORT %m @%0t] WDATA COMPLETE: will write 0x%h to memory", 
-                                     $time, {wdata[DATA_WIDTH-2:0], swdata});
                         end else begin
                             counter <= counter + 1;
                         end
                     end else begin
                         wdata   <= wdata;
                         counter <= counter;
-                        if (prev_state == ADDR && state == WDATA) begin
-                            $display("[SLAVE_PORT %m @%0t] WDATA setup cycle (SKIPPING first sample, prev=%0d, state=%0d)", 
-                                     $time, prev_state, state);
-                        end
                     end
                 end
                 

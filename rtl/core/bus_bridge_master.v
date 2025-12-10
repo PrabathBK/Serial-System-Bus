@@ -235,9 +235,6 @@ module bus_bridge_master #(
             if (u_rx_ready && !prev_u_ready) begin
                 fifo_din <= u_dout;
                 fifo_enq <= 1'b1;
-                $display("[BUS_BRIDGE_MASTER @%0t] UART RX -> FIFO: 0x%05h (mode=%b, data=0x%02h, addr=0x%03h)", 
-                         $time, u_dout, u_dout[BB_ADDR_WIDTH + DATA_WIDTH], 
-                         u_dout[BB_ADDR_WIDTH +: DATA_WIDTH], u_dout[BB_ADDR_WIDTH-1:0]);
             end
             else begin
                 fifo_din <= fifo_din;
@@ -268,10 +265,6 @@ module bus_bridge_master #(
                 fifo_deq     <= 1'b1;
                 expect_rdata <= ~fifo_dout[BB_ADDR_WIDTH + DATA_WIDTH];  // Expect read data if mode=0
                 
-                $display("[BUS_BRIDGE_MASTER @%0t] FIFO -> Master: addr=0x%03h, data=0x%02h, mode=%s", 
-                         $time, fifo_dout[BB_ADDR_WIDTH-1:0], 
-                         fifo_dout[BB_ADDR_WIDTH +: DATA_WIDTH],
-                         fifo_dout[BB_ADDR_WIDTH + DATA_WIDTH] ? "WRITE" : "READ");
             end
             else begin
                 bb_addr      <= bb_addr;
@@ -301,7 +294,7 @@ module bus_bridge_master #(
             if (!prev_m_ready && dready && expect_rdata) begin
                 u_din <= drdata;
                 u_en  <= 1'b1;
-                $display("[BUS_BRIDGE_MASTER @%0t] Master -> UART TX: read_data=0x%02h", $time, drdata);
+
             end
             else begin
                 u_din <= u_din;

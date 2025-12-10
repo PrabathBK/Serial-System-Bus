@@ -67,7 +67,7 @@ module bus_bridge_slave #(
     //--------------------------------------------------------------------------
     localparam UART_TX_DATA_WIDTH = DATA_WIDTH + ADDR_WIDTH + 1;    // Transmit: mode + data + addr
     localparam UART_RX_DATA_WIDTH = DATA_WIDTH;                     // Receive: only read data
-    localparam SPLIT_EN = 1'b1;  // Enable split for UART operations (they take time)
+    localparam SPLIT_EN = 1'b1;  // Enable split for UART operations 
     
     // Address bit to distinguish local vs bridge operation
     // MSB of address: 0 = local memory, 1 = bridge to remote
@@ -226,52 +226,9 @@ module bus_bridge_slave #(
     // read and must wait for rdata_received before allowing split_grant through.
     //--------------------------------------------------------------------------
     wire bridge_read_in_progress;
-    
-    // Track if we're in the middle of a bridge read operation
     assign bridge_read_in_progress = (state == RSEND) || (state == RBUSY) || (state == RDATA);
-    
-    // For bridge reads, only grant when UART response is received
-    // For local operations or bridge writes, pass through arbiter's grant
     assign sp_split_grant = bridge_read_in_progress ? (split_grant && rdata_received) : split_grant;
-
-    //--------------------------------------------------------------------------
-    // Extended Split Signal (ssplit)
-    //--------------------------------------------------------------------------
-    // For bridge read operations, we need to keep ssplit HIGH until UART response
-    // is received. This prevents master_port from leaving SPLIT state prematurely.
-    //
-    // Normal slave_port: ssplit is high only in SPLIT state
-    // Extended for bridge: ssplit stays high during SPLIT, WAIT, and until data ready
-    //
-    // ssplit is high when:
-    //   1. slave_port is in SPLIT state (sp_ssplit), OR
-    //   2. We're doing a bridge read AND haven't received response yet
-    //--------------------------------------------------------------------------
     assign ssplit = sp_ssplit || (bridge_read_in_progress && !rdata_received);
-
-    //--------------------------------------------------------------------------
-    // Latch address and data when write/read enable becomes active
-    // 
-    // IMPORTANT TIMING: slave_port uses non-blocking assignments:
-    //   smemwen <= 1; smemaddr <= addr;
-    // These take effect at the END of the clock cycle. So when bus_bridge_slave
-    // sees sp_memwen=1 for the first time, sp_memaddr still has the OLD value!
-    // We need to capture the values ONE CYCLE LATER (or use registered detection).
-    //
-    // Solution: Use a 2-cycle detection:
-    // Cycle N:   sp_memwen goes high, sp_memaddr still has old value
-    // Cycle N+1: sp_memwen stays high (for at least one more cycle in slave_port 
-    //            transition), sp_memaddr now has correct value - LATCH HERE
-    // Actually slave_port goes SREADY->IDLE in one cycle, so sp_memwen is only high
-    // for ONE cycle. But the NON-BLOCKING assignment means:
-    // - At clock edge N: SREADY logic executes, schedules smemwen=1, smemaddr=addr
-    // - After clock edge N: smemwen becomes 1, smemaddr becomes correct
-    // - At clock edge N+1: IDLE logic executes, schedules smemwen=0
-    // - bus_bridge_slave at clock edge N+1: sees smemwen=1, smemaddr=correct!
-    //
-    // So we should latch when we FIRST see sp_memwen=1 (rising edge detection)
-    // and the address should be correct at that point.
-    //--------------------------------------------------------------------------
     reg prev_sp_memwen, prev_sp_memren;
     
     always @(posedge clk or negedge rstn) begin
@@ -291,26 +248,22 @@ module bus_bridge_slave #(
             if (sp_memwen && !prev_sp_memwen && state == IDLE) begin
                 latched_wdata <= sp_memwdata;
                 latched_addr  <= sp_memaddr;
-                $display("[BUS_BRIDGE_SLAVE %m @%0t] Detected WRITE rising edge: addr=0x%03h, data=0x%02h, addr[11]=%b", 
-                         $time, sp_memaddr, sp_memwdata, sp_memaddr[LOCAL_ADDR_MSB]);
                 // Check bridge access using the current address value
                 if (sp_memaddr[LOCAL_ADDR_MSB] & BRIDGE_ENABLE) begin
                     pending_write <= 1'b1;
-                    $display("[BUS_BRIDGE_SLAVE %m @%0t] -> BRIDGE write pending", $time);
+
                 end else begin
-                    $display("[BUS_BRIDGE_SLAVE %m @%0t] -> LOCAL write (not bridge)", $time);
+
                 end
             end
             // Rising edge of sp_memren
             else if (sp_memren && !prev_sp_memren && state == IDLE) begin
                 latched_addr  <= sp_memaddr;
-                $display("[BUS_BRIDGE_SLAVE %m @%0t] Detected READ rising edge: addr=0x%03h, addr[11]=%b", 
-                         $time, sp_memaddr, sp_memaddr[LOCAL_ADDR_MSB]);
                 if (sp_memaddr[LOCAL_ADDR_MSB] & BRIDGE_ENABLE) begin
                     pending_read  <= 1'b1;
-                    $display("[BUS_BRIDGE_SLAVE %m @%0t] -> BRIDGE read pending", $time);
+
                 end else begin
-                    $display("[BUS_BRIDGE_SLAVE %m @%0t] -> LOCAL read (not bridge)", $time);
+
                 end
             end
             // Clear pending flags when entering WSEND/RSEND states
@@ -323,8 +276,6 @@ module bus_bridge_slave #(
 
     //--------------------------------------------------------------------------
     // UART TX start tracking
-    // We need to wait one cycle after entering WBUSY/RBUSY before checking u_tx_busy
-    // because the UART TX module takes one clock cycle to start after seeing data_en
     //--------------------------------------------------------------------------
     reg uart_tx_started;
     
@@ -375,24 +326,11 @@ module bus_bridge_slave #(
             state <= IDLE;
         else begin
             if (state == IDLE && (sp_memwen || sp_memren)) begin
-                $display("[BUS_BRIDGE_SLAVE %m @%0t] IDLE state: sp_memwen=%b, sp_memren=%b, is_bridge=%b, is_local=%b, addr=0x%03h",
-                         $time, sp_memwen, sp_memren, is_bridge_access, is_local_access, sp_memaddr);
             end
             if (state != next_state) begin
-                $display("[BUS_BRIDGE_SLAVE %m @%0t] STATE: %0s -> %0s (u_tx_busy=%b, u_en=%b)",
-                         $time, 
-                         state == IDLE ? "IDLE" : state == WSEND ? "WSEND" : state == RSEND ? "RSEND" :
-                         state == RDATA ? "RDATA" : state == LOCAL ? "LOCAL" : 
-                         state == WBUSY ? "WBUSY" : state == RBUSY ? "RBUSY" : "UNKNOWN",
-                         next_state == IDLE ? "IDLE" : next_state == WSEND ? "WSEND" : next_state == RSEND ? "RSEND" :
-                         next_state == RDATA ? "RDATA" : next_state == LOCAL ? "LOCAL" :
-                         next_state == WBUSY ? "WBUSY" : next_state == RBUSY ? "RBUSY" : "UNKNOWN",
-                         u_tx_busy, u_en);
             end
             // Debug WBUSY state every cycle
             if (state == WBUSY || state == RBUSY) begin
-                $display("[BUS_BRIDGE_SLAVE %m @%0t] %s: u_tx_busy=%b, uart_tx_started=%b, u_en=%b",
-                         $time, state == WBUSY ? "WBUSY" : "RBUSY", u_tx_busy, uart_tx_started, u_en);
             end
             state <= next_state;
         end
@@ -417,7 +355,7 @@ module bus_bridge_slave #(
             else if (state == RDATA && u_rx_ready && !prev_u_rx_ready) begin
                 latched_rdata  <= u_dout;
                 rdata_received <= 1'b1;
-                $display("[BUS_BRIDGE_SLAVE @%0t] UART RX received: 0x%02h", $time, u_dout);
+
             end
         end
     end
@@ -443,8 +381,6 @@ module bus_bridge_slave #(
                     // Use latched values for correct data
                     u_din <= {1'b1, latched_wdata, latched_addr};
                     u_en  <= 1'b1;
-                    $display("[BUS_BRIDGE_SLAVE @%0t] UART TX write: addr=0x%03h, data=0x%02h", 
-                             $time, latched_addr, latched_wdata);
                 end
                 
                 WBUSY: begin
@@ -458,8 +394,6 @@ module bus_bridge_slave #(
                     // Use latched address
                     u_din <= {1'b0, {DATA_WIDTH{1'b0}}, latched_addr};
                     u_en  <= 1'b1;
-                    $display("[BUS_BRIDGE_SLAVE @%0t] UART TX read request: addr=0x%03h", 
-                             $time, latched_addr);
                 end
                 
                 RBUSY: begin

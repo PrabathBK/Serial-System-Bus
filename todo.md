@@ -38,11 +38,12 @@
    assign sp_split_grant = bridge_read_in_progress ? (split_grant && rdata_received) : split_grant;
    ```
 
-## Testbenches Status (Last Run: Dec 9, 2025)
+## Testbenches Status (Last Run: Dec 10, 2025)
 | Testbench | Assignment Task | Status | Result |
 |-----------|-----------------|--------|--------|
 | `tb_arbiter.sv` | Task 2 - Arbiter Verification | Complete | ALL PASS |
 | `tb_addr_decoder.sv` | Task 3 - Address Decoder Verification | Complete | ALL PASS |
+| `tb_bus_m2_s3_simple.sv` | Bus Core Simple Verification | New | 4 tests (reset, single master, dual master, split) |
 | `master2_slave3_tb.sv` | Task 4 - Top-level Verification | Complete | ALL PASS (20 iterations) |
 | `simple_read_test.sv` | Debug/Quick Test | Complete | ALL PASS (7/7 tests) |
 | `tb_dual_system.sv` | Multi-FPGA Bridge Testing | Complete | ALL PASS (7/7 tests) |

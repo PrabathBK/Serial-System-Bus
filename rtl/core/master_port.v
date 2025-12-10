@@ -102,23 +102,8 @@ module master_port #(
             state <= IDLE;
             prev_state <= IDLE;
         end else begin
-            if (state != next_state) begin
-                $display("[MASTER_PORT %m @%0t] STATE: %0s -> %0s, mode=%b",
-                         $time,
-                         state == IDLE ? "IDLE" : state == ADDR ? "ADDR" : state == RDATA ? "RDATA" :
-                         state == WDATA ? "WDATA" : state == REQ ? "REQ" : state == SADDR ? "SADDR" :
-                         state == WAIT ? "WAIT" : state == SPLIT ? "SPLIT" : "UNKNOWN",
-                         next_state == IDLE ? "IDLE" : next_state == ADDR ? "ADDR" : next_state == RDATA ? "RDATA" :
-                         next_state == WDATA ? "WDATA" : next_state == REQ ? "REQ" : next_state == SADDR ? "SADDR" :
-                         next_state == WAIT ? "WAIT" : next_state == SPLIT ? "SPLIT" : "UNKNOWN",
-                         mode);
-            end
             prev_state <= state;
             state <= next_state;
-            if (state == RDATA && next_state == IDLE) begin
-                $display("[MASTER_PORT %m @%0t] Transitioning RDATA->IDLE, rdata=0x%h, drdata=0x%h", 
-                         $time, rdata, rdata);
-            end
         end
     end
     
@@ -147,8 +132,6 @@ module master_port #(
                     mvalid  <= 0;
                     timeout <= 'b0;
                     if (dvalid) begin  // Have to send data
-                        $display("[MASTER_PORT %m @%0t] IDLE: Starting new transaction (addr=0x%h, mode=%s), current rdata=0x%h", 
-                                 $time, daddr, dmode ? "WRITE" : "READ", rdata);
                         wdata <= dwdata;
                         addr  <= daddr;
                         mode  <= dmode;
@@ -169,8 +152,6 @@ module master_port #(
                     mvalid <= 1'b1;
                     if (counter == SLAVE_DEVICE_ADDR_WIDTH-1) begin
                         counter <= 'b0;
-                        $display("[MASTER_PORT %m @%0t] SADDR complete: mode=%b, mmode=%b (0=READ, 1=WRITE)", 
-                                 $time, mode, mode);
                     end else begin
                         counter <= counter + 1;
                     end
@@ -195,12 +176,8 @@ module master_port #(
                     mvalid <= 1'b0;
                     if (svalid) begin
                         rdata[counter] <= mrdata;
-                        $display("[MASTER_PORT %m @%0t] RDATA receiving: bit[%0d]=%b, current_rdata=0x%h", 
-                                 $time, counter, mrdata, rdata);
                         if (counter == DATA_WIDTH-1) begin
                             counter <= 'b0;
-                            $display("[MASTER_PORT %m @%0t] RDATA COMPLETE: final rdata will be 0x%h after clock edge", 
-                                     $time, {rdata[DATA_WIDTH-2:0], mrdata});
                         end else begin
                             counter <= counter + 1;
                         end
@@ -216,17 +193,13 @@ module master_port #(
                         // First cycle after ADDR->WDATA: setup time, don't transmit yet
                         mvalid <= 1'b0;
                         mwdata <= 1'b0;
-                        $display("[MASTER_PORT %m @%0t] WDATA setup cycle (holding, not transmitting yet), wdata=0x%h", 
-                                 $time, wdata);
                     end else begin
                         // Normal transmission
                         mwdata <= wdata[counter];
                         mvalid <= 1'b1;
-                        $display("[MASTER_PORT %m @%0t] WDATA transmitting: bit[%0d]=%b, wdata=0x%h", 
-                                 $time, counter, wdata[counter], wdata);
                         if (counter == DATA_WIDTH-1) begin
                             counter <= 'b0;
-                            $display("[MASTER_PORT %m @%0t] WDATA transmission COMPLETE", $time);
+
                         end else begin
                             counter <= counter + 1;
                         end
