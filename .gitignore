@@ -33,7 +33,6 @@ quartus/*.jic
 quartus/*.rbf
 quartus/*.ttf
 quartus/*.sld
-Quartus/*.sof
 Quartus/*.pof
 Quartus/*.jic
 Quartus/*.rbf

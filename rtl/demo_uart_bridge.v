@@ -15,33 +15,34 @@
 //
 // Demo Controls:
 //   - KEY[0]: Initiate transfer (press to execute read or write)
-//   - KEY[1]: Increment value (data in write mode, address in read mode)
+//   - KEY[1]: Increment value (data in data mode, address in address mode)
 //   - KEY[0]+KEY[1]: Press both together to reset both counters to 0
 //   - SW[0]:  Reset (HIGH = reset active)
-//   - SW[1]:  Slave select (0 = Slave 1, 1 = Slave 2) for both internal/external
-//   - SW[2]:  Mode select (0 = Internal, 1 = External via Bridge)
+//   - SW[1]:  Mode select (0 = Data mode, 1 = Address mode)
+//   - SW[2]:  Bus mode (0 = Internal, 1 = External via Bridge)
 //   - SW[3]:  Read/Write (0 = Read, 1 = Write)
 //
 // Operation Modes:
-//   SW[2]=0: Internal Mode - Access local Slave1/2 (selected by SW[1])
-//   SW[2]=1: External Mode - Access remote Slave1/2 via Bridge (selected by SW[1])
+//   SW[1]=0: Data Mode - KEY[1] increments data value
+//   SW[1]=1: Address Mode - KEY[1] increments address offset
+//   SW[2]=0: Internal Mode - Access local Slave1 (address determines slave via MSB)
+//   SW[2]=1: External Mode - Access remote bus via Bridge
 //
 // LED Display:
-//   - Write mode (SW[3]=1): LED[7:0] = Data value to write
-//   - Read mode  (SW[3]=0): LED[7:0] = Data read from slave
+//   - LED[7:4]: Current address offset (always displayed)
+//   - LED[3:0]: Write mode (SW[3]=1) = Data value to write
+//               Read mode (SW[3]=0) = Data read from slave
 //
 // Address/Data Behavior:
 //   Two separate counters: data_pattern (for write data) and addr_offset (for address)
 //   
-//   WRITE MODE (SW[3]=1):
-//     - KEY[1]: Increment data value (shown on LED)
-//     - KEY[0]: Write data to current address, then auto-increment address
-//     - Allows sequential writes: set data, write, set new data, write...
+//   DATA MODE (SW[1]=0):
+//     - KEY[1]: Increment data value (shown on LED[3:0])
+//     - KEY[0]: Execute read/write transaction
 //   
-//   READ MODE (SW[3]=0):
-//     - KEY[1]: Increment address offset
-//     - KEY[0]: Read from current address (result shown on LED)
-//     - Allows reading any address: select address with KEY[1], read with KEY[0]
+//   ADDRESS MODE (SW[1]=1):
+//     - KEY[1]: Increment address offset (shown on LED[7:4])
+//     - KEY[0]: Execute read/write transaction
 //   
 //   RESET (KEY[0]+KEY[1] together): Reset both counters to 0
 //
@@ -79,15 +80,15 @@ module demo_uart_bridge #(
     // DIP Switches
     //--------------------------------------------------------------------------
     input  wire [3:0]  SW,                  // SW[0] = Reset (active high)
-                                            // SW[1] = Slave select (0=S1, 1=S2)
-                                            // SW[2] = Mode (0=Internal, 1=External)
+                                            // SW[1] = Data/Address mode (0=Data, 1=Address)
+                                            // SW[2] = Bus mode (0=Internal, 1=External)
                                             // SW[3] = R/W (0=Read, 1=Write)
     
     //--------------------------------------------------------------------------
     // LEDs for Status Display
     //--------------------------------------------------------------------------
-    output wire [7:0]  LED,                 // Write mode: increment value
-                                            // Read mode: data from slave
+    output wire [7:0]  LED,                 // LED[7:4] = Current address offset
+                                            // LED[3:0] = Data value (write) or read data (read)
     
     //--------------------------------------------------------------------------
     // GPIO for Bus Bridge UART Interface
@@ -127,7 +128,7 @@ module demo_uart_bridge #(
     wire rstn;
     
     // Configuration from switches
-    wire        cfg_slave_sel;       // Slave select: 0=S1, 1=S2
+    wire        cfg_addr_mode;       // 0=Data mode, 1=Address mode
     wire        cfg_external_mode;   // 0=Internal, 1=External (via Bridge)
     wire        cfg_write_mode;      // 0=Read, 1=Write
     wire [1:0]  bus_slave_sel;       // Final slave selection for bus
@@ -181,15 +182,15 @@ module demo_uart_bridge #(
     assign sw_stable = sw_sync2;
     
     // Decode switch settings
-    assign cfg_slave_sel     = sw_stable[1];     // SW[1]: Slave select (0=S1, 1=S2)
+    assign cfg_addr_mode     = sw_stable[1];     // SW[1]: 0=Data mode, 1=Address mode
     assign cfg_external_mode = sw_stable[2];     // SW[2]: 0=Internal, 1=External (Bridge)
     assign cfg_write_mode    = sw_stable[3];     // SW[3]: 0=Read, 1=Write
     
     // Determine actual slave for bus transaction
-    // Internal mode: Use SW[1] to select Slave 1 or 2
+    // Internal mode: Slave selection determined by address MSB (addr_offset[7])
     // External mode: Always route to Slave 3 (Bridge Slave)
     assign bus_slave_sel = cfg_external_mode ? 2'b10 :              // External -> Slave 3 (Bridge)
-                           (cfg_slave_sel ? 2'b01 : 2'b00);         // Internal -> S1 or S2
+                           (addr_offset[7] ? 2'b01 : 2'b00);        // Internal -> S1 (0xxx) or S2 (1xxx)
     
     // Button synchronization and debouncing
     always @(posedge clk or negedge rstn) begin
@@ -266,20 +267,20 @@ module demo_uart_bridge #(
     assign key1_pressed = (key1_stable_d && !key1_stable) && key0_stable;  // KEY[1] pressed, KEY[0] not held
     
     // Separate counters for data and address
-    // - data_pattern: value to write (incremented by KEY[1] in write mode)
-    // - addr_offset:  address offset (incremented by KEY[1] in read mode, auto-increments after write)
+    // - data_pattern: value to write (incremented by KEY[1] in data mode)
+    // - addr_offset:  address offset (incremented by KEY[1] in address mode)
     reg [7:0] addr_offset;
     
-    // Data pattern management (for write mode):
-    // - KEY[1] in write mode: increment data value
+    // Data pattern management:
+    // - KEY[1] in data mode (SW[1]=0): increment data value
     // - KEY[0]+KEY[1] together: reset both counters to 0
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             data_pattern <= INITIAL_DATA_PATTERN;
         end else if (both_keys_pressed) begin
             data_pattern <= 8'h00;  // Both keys pressed resets to 0
-        end else if (key1_pressed && cfg_write_mode) begin
-            data_pattern <= data_pattern + 8'h01;  // KEY[1] in write mode increments data
+        end else if (key1_pressed && !cfg_addr_mode) begin
+            data_pattern <= data_pattern + 8'h01;  // KEY[1] in data mode increments data
         end
     end
     
@@ -298,19 +299,16 @@ module demo_uart_bridge #(
     reg transaction_active;
     reg captured_write_mode;         // Captured R/W mode at transaction start
     
-    // Address offset management (for read mode):
-    // - KEY[1] in read mode: increment address offset
+    // Address offset management:
+    // - KEY[1] in address mode (SW[1]=1): increment address offset
     // - KEY[0]+KEY[1] together: reset both counters to 0
-    // - After successful write: auto-increment address
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             addr_offset <= 8'h00;
         end else if (both_keys_pressed) begin
             addr_offset <= 8'h00;  // Both keys pressed resets to 0
-        end else if (key1_pressed && !cfg_write_mode) begin
-            addr_offset <= addr_offset + 8'h01;  // KEY[1] in read mode increments address
-        end else if (demo_state == DEMO_COMPLETE && captured_write_mode) begin
-            addr_offset <= addr_offset + 8'h01;  // Auto-increment after write completes
+        end else if (key1_pressed && cfg_addr_mode) begin
+            addr_offset <= addr_offset + 8'h01;  // KEY[1] in address mode increments address
         end
     end
     
@@ -336,15 +334,16 @@ module demo_uart_bridge #(
     wire [11:0] mem_address;
     wire [11:0] bridge_remote_addr;
     
-    // Memory address uses addr_offset (which is separate from data_pattern)
-    assign mem_address = BASE_MEM_ADDR + {4'b0000, addr_offset};
+    // Memory address uses addr_offset (lower 7 bits for actual offset within slave)
+    // addr_offset[7] determines slave selection: 0=Slave1, 1=Slave2
+    assign mem_address = BASE_MEM_ADDR + {5'b00000, addr_offset[6:0]};
     
     // When external: encode remote slave in address sent to bridge
     // MSB (bit 11) must be 1 for bridge access (vs local memory)
-    // Bit 10 selects remote slave: 0=Slave1, 1=Slave2
+    // Bit 10 selects remote slave: 0=Slave1, 1=Slave2 (from addr_offset[7])
     // Bits 9:0 are the memory address within the remote slave
     // Remote Slave 1 = address 0x8xxx, Remote Slave 2 = address 0xCxxx
-    assign bridge_remote_addr = {1'b1, cfg_slave_sel, mem_address[9:0]};
+    assign bridge_remote_addr = {1'b1, addr_offset[7], mem_address[9:0]};
     
     // Full address for bus transaction
     assign full_address = cfg_external_mode ? 
@@ -440,9 +439,11 @@ module demo_uart_bridge #(
     //==========================================================================
     // LED Display Assignment
     //==========================================================================
-    // Write mode (SW[3]=1): LED[7:0] = increment value (data to write)
-    // Read mode  (SW[3]=0): LED[7:0] = data read from slave
-    assign LED = cfg_write_mode ? data_pattern : read_data;
+    // LED[7:4]: Current address offset (always displayed)
+    // LED[3:0]: Write mode (SW[3]=1) = data value to write
+    //           Read mode (SW[3]=0) = data read from slave
+    assign LED[7:4] = addr_offset[3:0];  // Show lower 4 bits of address
+    assign LED[3:0] = cfg_write_mode ? data_pattern[3:0] : read_data[3:0];
     
     //==========================================================================
     // Internal Bus Signals
