@@ -32,11 +32,15 @@
 //   - LED[0]:   Master 2 has bus grant
 //
 // Operation:
-//   Press KEY[0] to trigger both masters simultaneously. The LEDs will show:
-//   1. Both LED[3] and LED[2] turn on (both requesting)
-//   2. LED[1] turns on first (Master 1 gets priority)
-//   3. LED[0] turns on after (Master 2 gets bus after Master 1 completes)
-//   This demonstrates the arbiter giving priority to Master 1
+//   Press KEY[0] to trigger both masters simultaneously. The LEDs will show
+//   a 4-second animated sequence demonstrating priority:
+//   
+//   Second 1: LED[3] and LED[2] ON  (Both masters requesting)
+//   Second 2: LED[3] and LED[1] ON  (Master 1 gets priority, gets grant FIRST)
+//   Second 3: LED[2] and LED[0] ON  (Master 2 waits, gets grant SECOND)
+//   Second 4: All LEDs OFF          (Transaction complete)
+//   
+//   This sequential animation clearly shows Master 1 getting priority over Master 2
 //
 // Target Device: Intel Cyclone IV EP4CE22F17C6 (DE0-Nano)
 // Clock Frequency: 50 MHz
@@ -226,6 +230,20 @@ module demo_uart_bridge #(
     reg [19:0] m2_counter;
     reg m2_active;              // Master 2 transaction active
     
+    // LED display state machine for sequential visualization
+    localparam LED_IDLE = 3'd0;
+    localparam LED_SHOW_REQUEST = 3'd1;
+    localparam LED_SHOW_M1_GRANT = 3'd2;
+    localparam LED_SHOW_M2_GRANT = 3'd3;
+    localparam LED_SHOW_COMPLETE = 3'd4;
+    
+    reg [2:0] led_state;
+    reg [26:0] led_timer;
+    localparam LED_PHASE_TIME = 27'd50000000;  // 1.0 sec at 50MHz
+    
+    reg display_m1_req, display_m2_req;
+    reg display_m1_grant, display_m2_grant;
+    
     //==========================================================================
     // Master 1 Device Interface Signals
     //==========================================================================
@@ -383,18 +401,109 @@ module demo_uart_bridge #(
     end
     
     //==========================================================================
-    // LED Display Assignment
+    // LED Display State Machine - Sequential visualization of priority demo
+    // Shows each phase of arbitration with 1-second delays between phases
+    //==========================================================================
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            led_state <= LED_IDLE;
+            led_timer <= 27'd0;
+            display_m1_req <= 1'b0;
+            display_m2_req <= 1'b0;
+            display_m1_grant <= 1'b0;
+            display_m2_grant <= 1'b0;
+        end else begin
+            case (led_state)
+                LED_IDLE: begin
+                    display_m1_req <= 1'b0;
+                    display_m2_req <= 1'b0;
+                    display_m1_grant <= 1'b0;
+                    display_m2_grant <= 1'b0;
+                    
+                    // When both masters become active, start display sequence
+                    if (m1_active && m2_active) begin
+                        led_state <= LED_SHOW_REQUEST;
+                        led_timer <= LED_PHASE_TIME;
+                    end
+                end
+                
+                LED_SHOW_REQUEST: begin
+                    // Phase 1: Show both masters requesting (LED[3] and LED[2] on)
+                    display_m1_req <= 1'b1;
+                    display_m2_req <= 1'b1;
+                    display_m1_grant <= 1'b0;
+                    display_m2_grant <= 1'b0;
+                    
+                    if (led_timer > 0) begin
+                        led_timer <= led_timer - 1'b1;
+                    end else begin
+                        led_state <= LED_SHOW_M1_GRANT;
+                        led_timer <= LED_PHASE_TIME;
+                    end
+                end
+                
+                LED_SHOW_M1_GRANT: begin
+                    // Phase 2: Show Master 1 getting grant FIRST (LED[3] and LED[1] on)
+                    display_m1_req <= 1'b1;
+                    display_m2_req <= 1'b1;
+                    display_m1_grant <= 1'b1;
+                    display_m2_grant <= 1'b0;
+                    
+                    if (led_timer > 0) begin
+                        led_timer <= led_timer - 1'b1;
+                    end else begin
+                        led_state <= LED_SHOW_M2_GRANT;
+                        led_timer <= LED_PHASE_TIME;
+                    end
+                end
+                
+                LED_SHOW_M2_GRANT: begin
+                    // Phase 3: Show Master 2 getting grant AFTER M1 completes (LED[2] and LED[0] on)
+                    display_m1_req <= 1'b0;
+                    display_m2_req <= 1'b1;
+                    display_m1_grant <= 1'b0;
+                    display_m2_grant <= 1'b1;
+                    
+                    if (led_timer > 0) begin
+                        led_timer <= led_timer - 1'b1;
+                    end else begin
+                        led_state <= LED_SHOW_COMPLETE;
+                        led_timer <= LED_PHASE_TIME;
+                    end
+                end
+                
+                LED_SHOW_COMPLETE: begin
+                    // Phase 4: Show completion - all off
+                    display_m1_req <= 1'b0;
+                    display_m2_req <= 1'b0;
+                    display_m1_grant <= 1'b0;
+                    display_m2_grant <= 1'b0;
+                    
+                    if (led_timer > 0) begin
+                        led_timer <= led_timer - 1'b1;
+                    end else begin
+                        led_state <= LED_IDLE;
+                    end
+                end
+                
+                default: led_state <= LED_IDLE;
+            endcase
+        end
+    end
+    
+    //==========================================================================
+    // LED Display Assignment - Sequential Priority Demonstration
     //==========================================================================
     // LED[7:4]: Current data value (Master 1 will write this)
-    // LED[3]:   Master 1 transaction active
-    // LED[2]:   Master 2 transaction active
-    // LED[1]:   Master 1 has bus grant
-    // LED[0]:   Master 2 has bus grant
+    // LED[3]:   Master 1 request/active (animated sequence)
+    // LED[2]:   Master 2 request/active (animated sequence)
+    // LED[1]:   Master 1 bus grant (animated sequence - shows FIRST)
+    // LED[0]:   Master 2 bus grant (animated sequence - shows SECOND)
     assign LED[7:4] = data_pattern[3:0];
-    assign LED[3] = m1_active;
-    assign LED[2] = m2_active;
-    assign LED[1] = m1_bgrant;
-    assign LED[0] = m2_bgrant;
+    assign LED[3] = display_m1_req;
+    assign LED[2] = display_m2_req;
+    assign LED[1] = display_m1_grant;
+    assign LED[0] = display_m2_grant;
     
     //==========================================================================
     // Internal Bus Signals
