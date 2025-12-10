@@ -1,58 +1,42 @@
 //==============================================================================
 // File: demo_uart_bridge.v
-// Description: Unified Demo Wrapper for ADS Bus System with Bus Bridge
-//              Supports both internal (local master) and external (UART bridge)
-//              communication modes, selectable via switches.
+// Description: Priority Demonstration Wrapper for ADS Bus System
+//              Demonstrates Master 1 priority over Master 2 by triggering
+//              simultaneous transactions to the same fixed address.
 //
 // Target: DE0-Nano FPGA
 // 
 // Architecture:
-//   Master 1: Local master (controlled by buttons/switches)
-//   Master 2: Bus Bridge Master (receives commands via UART from external bus)
-//   Slave 1:  Local memory (2KB)
+//   Master 1: Local master (higher priority) - WRITE operations
+//   Master 2: Local master (lower priority) - READ operations
+//   Slave 1:  Local memory (2KB) - Shared target
 //   Slave 2:  Local memory (4KB)
 //   Slave 3:  Bus Bridge Slave (forwards commands via UART to external bus)
 //
-// Demo Controls:
-//   - KEY[0]: Initiate transfer (press to execute read or write)
-//   - KEY[1]: Increment value (data in data mode, address in address mode)
-//   - KEY[0]+KEY[1]: Press both together to reset both counters to 0
+// Demo Controls (Priority Demo Mode):
+//   - KEY[0]: Simultaneously trigger BOTH Master 1 (write) and Master 2 (read)
+//             to the same fixed address to demonstrate priority arbitration
+//   - KEY[1]: Increment data value that Master 1 will write
 //   - SW[0]:  Reset (HIGH = reset active)
-//   - SW[1]:  Mode select (0 = Data mode, 1 = Address mode)
-//   - SW[2]:  Bus mode (0 = Internal, 1 = External via Bridge)
-//   - SW[3]:  Read/Write (0 = Read, 1 = Write)
 //
-// Operation Modes:
-//   SW[1]=0: Data Mode - KEY[1] increments data value
-//   SW[1]=1: Address Mode - KEY[1] increments address offset
-//   SW[2]=0: Internal Mode - Access local Slave1 (address determines slave via MSB)
-//   SW[2]=1: External Mode - Access remote bus via Bridge
+// Fixed Address Demo:
+//   - Both masters target address 0x0020 in Slave 1
+//   - Master 1: WRITE operation (higher priority - should win arbitration)
+//   - Master 2: READ operation (lower priority - should wait)
 //
 // LED Display:
-//   - LED[7:4]: Current address offset (always displayed)
-//   - LED[3:0]: Write mode (SW[3]=1) = Data value to write
-//               Read mode (SW[3]=0) = Data read from slave
+//   - LED[7:4]: Current data value (Master 1 will write this)
+//   - LED[3]:   Master 1 transaction active
+//   - LED[2]:   Master 2 transaction active
+//   - LED[1]:   Master 1 has bus grant (shows priority)
+//   - LED[0]:   Master 2 has bus grant
 //
-// Address/Data Behavior:
-//   Two separate counters: data_pattern (for write data) and addr_offset (for address)
-//   
-//   DATA MODE (SW[1]=0):
-//     - KEY[1]: Increment data value (shown on LED[3:0])
-//     - KEY[0]: Execute read/write transaction
-//   
-//   ADDRESS MODE (SW[1]=1):
-//     - KEY[1]: Increment address offset (shown on LED[7:4])
-//     - KEY[0]: Execute read/write transaction
-//   
-//   RESET (KEY[0]+KEY[1] together): Reset both counters to 0
-//
-// UART Connections (for inter-FPGA communication):
-//   Bridge Master (receives commands from external sender):
-//     - GPIO_0_BRIDGE_M_TX: Response TX to external system
-//     - GPIO_0_BRIDGE_M_RX: Command RX from external system
-//   Bridge Slave (forwards commands to external receiver):
-//     - GPIO_0_BRIDGE_S_TX: Command TX to external system
-//     - GPIO_0_BRIDGE_S_RX: Response RX from external system
+// Operation:
+//   Press KEY[0] to trigger both masters simultaneously. The LEDs will show:
+//   1. Both LED[3] and LED[2] turn on (both requesting)
+//   2. LED[1] turns on first (Master 1 gets priority)
+//   3. LED[0] turns on after (Master 2 gets bus after Master 1 completes)
+//   This demonstrates the arbiter giving priority to Master 1
 //
 // Target Device: Intel Cyclone IV EP4CE22F17C6 (DE0-Nano)
 // Clock Frequency: 50 MHz
@@ -72,41 +56,47 @@ module demo_uart_bridge #(
     //--------------------------------------------------------------------------
     // Push Buttons (Active Low)
     //--------------------------------------------------------------------------
-    input  wire [1:0]  KEY,                 // KEY[0] = Initiate transfer
+    input  wire [1:0]  KEY,                 // KEY[0] = Trigger both masters simultaneously
                                             // KEY[1] = Increment data value
-                                            // Both pressed = Reset increment to 0
     
     //--------------------------------------------------------------------------
     // DIP Switches
     //--------------------------------------------------------------------------
     input  wire [3:0]  SW,                  // SW[0] = Reset (active high)
-                                            // SW[1] = Data/Address mode (0=Data, 1=Address)
-                                            // SW[2] = Bus mode (0=Internal, 1=External)
-                                            // SW[3] = R/W (0=Read, 1=Write)
+                                            // SW[1:3] = Unused in priority demo mode
     
     //--------------------------------------------------------------------------
     // LEDs for Status Display
     //--------------------------------------------------------------------------
-    output wire [7:0]  LED,                 // LED[7:4] = Current address offset
-                                            // LED[3:0] = Data value (write) or read data (read)
+    output wire [7:0]  LED,                 // LED[7:4] = Data value to write
+                                            // LED[3]   = Master 1 active
+                                            // LED[2]   = Master 2 active
+                                            // LED[1]   = Master 1 has bus grant
+                                            // LED[0]   = Master 2 has bus grant
     
     //--------------------------------------------------------------------------
-    // GPIO for Bus Bridge UART Interface
+    // GPIO for Bus Bridge UART Interface (unused in priority demo mode)
     //--------------------------------------------------------------------------
-    // Bridge Master UART (Master 2 - receives commands from external bus)
-    output wire        GPIO_0_BRIDGE_M_TX,  // UART TX to external system (for read responses)
-    input  wire        GPIO_0_BRIDGE_M_RX,  // UART RX from external system (commands)
+    output wire        GPIO_0_BRIDGE_M_TX,  // Unused in priority demo
+    input  wire        GPIO_0_BRIDGE_M_RX,  // Unused in priority demo
     
-    // Bridge Slave UART (Slave 3 - forwards commands to external bus)
     output wire        GPIO_0_BRIDGE_S_TX,  // UART TX to external system (commands)
     input  wire        GPIO_0_BRIDGE_S_RX   // UART RX from external system (read responses)
 );
 
     //==========================================================================
+    // Tie off unused UART TX (Master 2 no longer uses UART in priority demo)
+    //==========================================================================
+    assign GPIO_0_BRIDGE_M_TX = 1'b1;  // Idle high for UART
+
+    //==========================================================================
     // Configuration Parameters
     //==========================================================================
     localparam [7:0] INITIAL_DATA_PATTERN = 8'h00;
-    localparam [11:0] BASE_MEM_ADDR = 12'h010;
+    
+    // Fixed shared address for priority demonstration
+    // Both masters will target this address: Slave 1, address 0x0020
+    localparam [15:0] FIXED_DEMO_ADDR = 16'h0020;  // Device 0 (Slave 1), mem addr 0x020
     
     // UART: 50MHz / 9600 = 5208 clocks per bit
     localparam UART_CLOCKS_PER_PULSE = 5208;
@@ -127,12 +117,6 @@ module demo_uart_bridge #(
     wire clk;
     wire rstn;
     
-    // Configuration from switches
-    wire        cfg_addr_mode;       // 0=Data mode, 1=Address mode
-    wire        cfg_external_mode;   // 0=Internal, 1=External (via Bridge)
-    wire        cfg_write_mode;      // 0=Read, 1=Write
-    wire [1:0]  bus_slave_sel;       // Final slave selection for bus
-    
     // Button debouncing and edge detection
     reg [2:0] key0_sync;
     reg [2:0] key1_sync;
@@ -144,21 +128,12 @@ module demo_uart_bridge #(
     reg key1_stable_d;               // Delayed for edge detection
     wire key0_pressed;               // KEY[0] press detected (debounced)
     wire key1_pressed;               // KEY[1] press detected (debounced)
-    wire both_keys_pressed;          // Both keys pressed together
-    reg both_keys_held;              // Track if both were held
-    
-    // Switch synchronization
-    reg [3:0] sw_sync1, sw_sync2;
-    wire [3:0] sw_stable;
     
     // Reset synchronization
     reg [2:0] reset_sync;
     
-    // Data pattern register (increment value)
+    // Data pattern register (value to write)
     reg [7:0] data_pattern;
-    
-    // Read data storage
-    reg [7:0] read_data;
     
     //==========================================================================
     // Clock and Reset Management
@@ -169,28 +144,6 @@ module demo_uart_bridge #(
         reset_sync <= {reset_sync[1:0], ~SW[0]};
     end
     assign rstn = reset_sync[2];
-    
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn) begin
-            sw_sync1 <= 4'b0000;
-            sw_sync2 <= 4'b0000;
-        end else begin
-            sw_sync1 <= SW;
-            sw_sync2 <= sw_sync1;
-        end
-    end
-    assign sw_stable = sw_sync2;
-    
-    // Decode switch settings
-    assign cfg_addr_mode     = sw_stable[1];     // SW[1]: 0=Data mode, 1=Address mode
-    assign cfg_external_mode = sw_stable[2];     // SW[2]: 0=Internal, 1=External (Bridge)
-    assign cfg_write_mode    = sw_stable[3];     // SW[3]: 0=Read, 1=Write
-    
-    // Determine actual slave for bus transaction
-    // Internal mode: Slave selection determined by address MSB (addr_offset[7])
-    // External mode: Always route to Slave 3 (Bridge Slave)
-    assign bus_slave_sel = cfg_external_mode ? 2'b10 :              // External -> Slave 3 (Bridge)
-                           (addr_offset[7] ? 2'b01 : 2'b00);        // Internal -> S1 (0xxx) or S2 (1xxx)
     
     // Button synchronization and debouncing
     always @(posedge clk or negedge rstn) begin
@@ -203,7 +156,6 @@ module demo_uart_bridge #(
             key1_stable <= 1'b1;
             key0_stable_d <= 1'b1;
             key1_stable_d <= 1'b1;
-            both_keys_held <= 1'b0;
         end else begin
             // Synchronize raw key inputs
             key0_sync <= {key0_sync[1:0], KEY[0]};
@@ -238,84 +190,45 @@ module demo_uart_bridge #(
             // Edge detection delay registers
             key0_stable_d <= key0_stable;
             key1_stable_d <= key1_stable;
-            
-            // Track if both keys are currently held (active low)
-            if (!key0_stable && !key1_stable)
-                both_keys_held <= 1'b1;
-            else if (key0_stable && key1_stable)
-                both_keys_held <= 1'b0;
         end
     end
     
-    // Both keys pressed together detection
-    // Detect when both keys become pressed - needs to handle simultaneous press
-    // Use a registered version of both_keys_held for proper timing
-    reg both_keys_held_d;
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn)
-            both_keys_held_d <= 1'b0;
-        else
-            both_keys_held_d <= both_keys_held;
-    end
-    
-    // Rising edge of both_keys_held means both keys just became pressed together
-    assign both_keys_pressed = both_keys_held && !both_keys_held_d;
-    
-    // Single key press detection (falling edge on debounced signal, only if other key not held)
+    // Key press detection (falling edge on debounced signal)
     // Active low: pressed = 0, so falling edge (1->0) = press
-    assign key0_pressed = (key0_stable_d && !key0_stable) && key1_stable;  // KEY[0] pressed, KEY[1] not held
-    assign key1_pressed = (key1_stable_d && !key1_stable) && key0_stable;  // KEY[1] pressed, KEY[0] not held
+    assign key0_pressed = (key0_stable_d && !key0_stable);  // KEY[0] pressed
+    assign key1_pressed = (key1_stable_d && !key1_stable);  // KEY[1] pressed
     
-    // Separate counters for data and address
-    // - data_pattern: value to write (incremented by KEY[1] in data mode)
-    // - addr_offset:  address offset (incremented by KEY[1] in address mode)
-    reg [7:0] addr_offset;
-    
-    // Data pattern management:
-    // - KEY[1] in data mode (SW[1]=0): increment data value
-    // - KEY[0]+KEY[1] together: reset both counters to 0
+    // Data pattern management - value that Master 1 will write
+    // KEY[1]: increment data value
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
             data_pattern <= INITIAL_DATA_PATTERN;
-        end else if (both_keys_pressed) begin
-            data_pattern <= 8'h00;  // Both keys pressed resets to 0
-        end else if (key1_pressed && !cfg_addr_mode) begin
-            data_pattern <= data_pattern + 8'h01;  // KEY[1] in data mode increments data
+        end else if (key1_pressed) begin
+            data_pattern <= data_pattern + 8'h01;  // KEY[1] increments data
         end
     end
     
     //==========================================================================
-    // Demo Transaction Controller FSM - State definitions (declared early for use below)
+    // Master Controllers FSM - State definitions
     //==========================================================================
-    localparam DEMO_IDLE       = 3'd0;
-    localparam DEMO_START      = 3'd1;
-    localparam DEMO_WAIT_START = 3'd2;
-    localparam DEMO_WAIT       = 3'd3;
-    localparam DEMO_COMPLETE   = 3'd4;
-    localparam DEMO_DISPLAY    = 3'd5;
+    localparam IDLE       = 2'd0;
+    localparam START      = 2'd1;
+    localparam WAIT       = 2'd2;
+    localparam COMPLETE   = 2'd3;
     
-    reg [2:0] demo_state;
-    reg [19:0] demo_counter;
-    reg transaction_active;
-    reg captured_write_mode;         // Captured R/W mode at transaction start
+    // Master 1 FSM state and control
+    reg [1:0] m1_state;
+    reg [19:0] m1_counter;
+    reg m1_active;              // Master 1 transaction active
     
-    // Address offset management:
-    // - KEY[1] in address mode (SW[1]=1): increment address offset
-    // - KEY[0]+KEY[1] together: reset both counters to 0
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn) begin
-            addr_offset <= 8'h00;
-        end else if (both_keys_pressed) begin
-            addr_offset <= 8'h00;  // Both keys pressed resets to 0
-        end else if (key1_pressed && cfg_addr_mode) begin
-            addr_offset <= addr_offset + 8'h01;  // KEY[1] in address mode increments address
-        end
-    end
+    // Master 2 FSM state and control  
+    reg [1:0] m2_state;
+    reg [19:0] m2_counter;
+    reg m2_active;              // Master 2 transaction active
     
     //==========================================================================
     // Master 1 Device Interface Signals
     //==========================================================================
-    // Master 1 device interface signals (local Master 1)
     reg [DATA_WIDTH-1:0] m1_dwdata;
     wire [DATA_WIDTH-1:0] m1_drdata;
     reg [ADDR_WIDTH-1:0] m1_daddr;
@@ -324,114 +237,147 @@ module demo_uart_bridge #(
     reg m1_dmode;
     
     //==========================================================================
-    // Address Generation
+    // Master 2 Device Interface Signals (for local control, not UART)
     //==========================================================================
-    // Build full address: {device_addr[3:0], mem_addr[11:0]}
-    // Slave 1 = 4'b0000, Slave 2 = 4'b0001, Slave 3 = 4'b0010
-    // For external mode, we embed the remote slave selection in the address
-    // that will be sent over UART to the remote FPGA
-    wire [15:0] full_address;
-    wire [11:0] mem_address;
-    wire [11:0] bridge_remote_addr;
-    
-    // Memory address uses addr_offset (lower 7 bits for actual offset within slave)
-    // addr_offset[7] determines slave selection: 0=Slave1, 1=Slave2
-    assign mem_address = BASE_MEM_ADDR + {5'b00000, addr_offset[6:0]};
-    
-    // When external: encode remote slave in address sent to bridge
-    // MSB (bit 11) must be 1 for bridge access (vs local memory)
-    // Bit 10 selects remote slave: 0=Slave1, 1=Slave2 (from addr_offset[7])
-    // Bits 9:0 are the memory address within the remote slave
-    // Remote Slave 1 = address 0x8xxx, Remote Slave 2 = address 0xCxxx
-    assign bridge_remote_addr = {1'b1, addr_offset[7], mem_address[9:0]};
-    
-    // Full address for bus transaction
-    assign full_address = cfg_external_mode ? 
-                          {2'b00, 2'b10, bridge_remote_addr} :   // External: Slave 3 with remote addr
-                          {2'b00, bus_slave_sel, mem_address};   // Internal: Slave 1 or 2
+    reg [DATA_WIDTH-1:0] m2_dwdata;
+    wire [DATA_WIDTH-1:0] m2_drdata;
+    reg [ADDR_WIDTH-1:0] m2_daddr;
+    reg m2_dvalid;
+    wire m2_dready;
+    reg m2_dmode;
     
     //==========================================================================
-    // Demo Transaction Controller FSM
+    // Master 1 Transaction Controller FSM
+    // Master 1 performs WRITE operations
     //==========================================================================
-    // Demo FSM - Controls Master 1 for local transactions (read or write)
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
-            demo_state <= DEMO_IDLE;
-            demo_counter <= 20'd0;
-            read_data <= 8'h00;
-            transaction_active <= 1'b0;
-            captured_write_mode <= 1'b0;
+            m1_state <= IDLE;
+            m1_counter <= 20'd0;
+            m1_active <= 1'b0;
             
             m1_dwdata <= 8'h00;
             m1_daddr <= 16'h0000;
             m1_dvalid <= 1'b0;
-            m1_dmode <= 1'b1;
+            m1_dmode <= 1'b1;  // Always WRITE
         end else begin
             // Default: deassert valid
             m1_dvalid <= 1'b0;
             
-            case (demo_state)
-                DEMO_IDLE: begin
-                    transaction_active <= 1'b0;
+            case (m1_state)
+                IDLE: begin
+                    m1_active <= 1'b0;
                     if (key0_pressed) begin
-                        demo_state <= DEMO_START;
-                        demo_counter <= 20'd0;
-                        // Capture R/W mode at transaction start
-                        captured_write_mode <= cfg_write_mode;
+                        m1_state <= START;
+                        m1_counter <= 20'd0;
                     end
                 end
                 
-                DEMO_START: begin
-                    transaction_active <= 1'b1;
-                    m1_daddr <= full_address;
-                    m1_dwdata <= data_pattern;
-                    m1_dmode <= captured_write_mode;  // 0=Read, 1=Write from SW[3]
+                START: begin
+                    m1_active <= 1'b1;
+                    m1_daddr <= FIXED_DEMO_ADDR;      // Fixed address
+                    m1_dwdata <= data_pattern;         // Write current data value
+                    m1_dmode <= 1'b1;                  // WRITE mode
                     m1_dvalid <= 1'b1;
-                    demo_state <= DEMO_WAIT_START;
-                    demo_counter <= 20'd0;
-                end
-                
-                DEMO_WAIT_START: begin
-                    // Wait for master to leave IDLE (start the transaction)
-                    // Keep dvalid asserted until master acknowledges
-                    m1_dvalid <= 1'b1;
-                    if (!m1_dready) begin
-                        // Master has started - now wait for completion
-                        demo_state <= DEMO_WAIT;
-                        m1_dvalid <= 1'b0;
-                    end
-                    demo_counter <= demo_counter + 1'b1;
-                    // Timeout if master doesn't start
-                    if (demo_counter > 20'd1000) begin
-                        demo_state <= DEMO_COMPLETE;
-                        m1_dvalid <= 1'b0;
-                    end
-                end
-                
-                DEMO_WAIT: begin
-                    demo_counter <= demo_counter + 1'b1;
                     
-                    // Extended timeout for UART bridge transactions (~10ms for 9600 baud)
-                    if (m1_dready || (demo_counter > 20'd500000)) begin
-                        demo_state <= DEMO_COMPLETE;
+                    if (!m1_dready) begin
+                        // Master has started transaction
+                        m1_state <= WAIT;
+                        m1_dvalid <= 1'b0;
+                    end
+                    
+                    m1_counter <= m1_counter + 1'b1;
+                    // Timeout if master doesn't start
+                    if (m1_counter > 20'd1000) begin
+                        m1_state <= COMPLETE;
+                        m1_dvalid <= 1'b0;
                     end
                 end
                 
-                DEMO_COMPLETE: begin
-                    // Capture read data if this was a read operation
-                    if (!captured_write_mode) begin
-                        read_data <= m1_drdata;
+                WAIT: begin
+                    m1_counter <= m1_counter + 1'b1;
+                    
+                    // Wait for completion or timeout
+                    if (m1_dready || (m1_counter > 20'd100000)) begin
+                        m1_state <= COMPLETE;
                     end
-                    demo_state <= DEMO_DISPLAY;
-                    demo_counter <= 20'd0;
                 end
                 
-                DEMO_DISPLAY: begin
-                    transaction_active <= 1'b0;
-                    demo_state <= DEMO_IDLE;
+                COMPLETE: begin
+                    m1_active <= 1'b0;
+                    m1_state <= IDLE;
+                    m1_counter <= 20'd0;
                 end
                 
-                default: demo_state <= DEMO_IDLE;
+                default: m1_state <= IDLE;
+            endcase
+        end
+    end
+    
+    //==========================================================================
+    // Master 2 Transaction Controller FSM
+    // Master 2 performs READ operations
+    //==========================================================================
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            m2_state <= IDLE;
+            m2_counter <= 20'd0;
+            m2_active <= 1'b0;
+            
+            m2_dwdata <= 8'h00;
+            m2_daddr <= 16'h0000;
+            m2_dvalid <= 1'b0;
+            m2_dmode <= 1'b0;  // Always READ
+        end else begin
+            // Default: deassert valid
+            m2_dvalid <= 1'b0;
+            
+            case (m2_state)
+                IDLE: begin
+                    m2_active <= 1'b0;
+                    if (key0_pressed) begin
+                        m2_state <= START;
+                        m2_counter <= 20'd0;
+                    end
+                end
+                
+                START: begin
+                    m2_active <= 1'b1;
+                    m2_daddr <= FIXED_DEMO_ADDR;      // Same fixed address as M1
+                    m2_dwdata <= 8'h00;                // Don't care for read
+                    m2_dmode <= 1'b0;                  // READ mode
+                    m2_dvalid <= 1'b1;
+                    
+                    if (!m2_dready) begin
+                        // Master has started transaction
+                        m2_state <= WAIT;
+                        m2_dvalid <= 1'b0;
+                    end
+                    
+                    m2_counter <= m2_counter + 1'b1;
+                    // Timeout if master doesn't start
+                    if (m2_counter > 20'd1000) begin
+                        m2_state <= COMPLETE;
+                        m2_dvalid <= 1'b0;
+                    end
+                end
+                
+                WAIT: begin
+                    m2_counter <= m2_counter + 1'b1;
+                    
+                    // Wait for completion or timeout
+                    if (m2_dready || (m2_counter > 20'd100000)) begin
+                        m2_state <= COMPLETE;
+                    end
+                end
+                
+                COMPLETE: begin
+                    m2_active <= 1'b0;
+                    m2_state <= IDLE;
+                    m2_counter <= 20'd0;
+                end
+                
+                default: m2_state <= IDLE;
             endcase
         end
     end
@@ -439,11 +385,16 @@ module demo_uart_bridge #(
     //==========================================================================
     // LED Display Assignment
     //==========================================================================
-    // LED[7:4]: Current address offset (always displayed)
-    // LED[3:0]: Write mode (SW[3]=1) = data value to write
-    //           Read mode (SW[3]=0) = data read from slave
-    assign LED[7:4] = addr_offset[3:0];  // Show lower 4 bits of address
-    assign LED[3:0] = cfg_write_mode ? data_pattern[3:0] : read_data[3:0];
+    // LED[7:4]: Current data value (Master 1 will write this)
+    // LED[3]:   Master 1 transaction active
+    // LED[2]:   Master 2 transaction active
+    // LED[1]:   Master 1 has bus grant
+    // LED[0]:   Master 2 has bus grant
+    assign LED[7:4] = data_pattern[3:0];
+    assign LED[3] = m1_active;
+    assign LED[2] = m2_active;
+    assign LED[1] = m1_bgrant;
+    assign LED[0] = m2_bgrant;
     
     //==========================================================================
     // Internal Bus Signals
@@ -464,7 +415,7 @@ module demo_uart_bridge #(
     wire split_grant;
     
     //==========================================================================
-    // Master Port 1 - Used for local transactions
+    // Master Port 1 - Local master (higher priority)
     //==========================================================================
     master_port #(
         .ADDR_WIDTH(ADDR_WIDTH),
@@ -491,19 +442,21 @@ module demo_uart_bridge #(
     );
     
     //==========================================================================
-    // Master 2 - Bus Bridge Master
-    // Receives UART commands from external system and executes on local bus
-    // Connected to GPIO_0_BRIDGE_M_TX/RX
+    // Master Port 2 - Local master (lower priority)
     //==========================================================================
-    bus_bridge_master #(
+    master_port #(
         .ADDR_WIDTH(ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH),
-        .SLAVE_MEM_ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH),
-        .BB_ADDR_WIDTH(BB_ADDR_WIDTH),
-        .UART_CLOCKS_PER_PULSE(UART_CLOCKS_PER_PULSE)
-    ) master2_bridge (
+        .SLAVE_MEM_ADDR_WIDTH(SLAVE3_MEM_ADDR_WIDTH)
+    ) master2_port (
         .clk(clk),
         .rstn(rstn),
+        .dwdata(m2_dwdata),
+        .drdata(m2_drdata),
+        .daddr(m2_daddr),
+        .dvalid(m2_dvalid),
+        .dready(m2_dready),
+        .dmode(m2_dmode),
         .mrdata(m2_rdata),
         .mwdata(m2_wdata),
         .mmode(m2_mode),
@@ -512,9 +465,7 @@ module demo_uart_bridge #(
         .mbreq(m2_breq),
         .mbgrant(m2_bgrant),
         .msplit(m2_split),
-        .ack(m2_ack),
-        .u_tx(GPIO_0_BRIDGE_M_TX),   // TX for read responses to external
-        .u_rx(GPIO_0_BRIDGE_M_RX)    // RX commands from external
+        .ack(m2_ack)
     );
     
     //==========================================================================
