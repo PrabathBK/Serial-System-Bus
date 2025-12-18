@@ -30,11 +30,12 @@ rm -f webtalk*.jou webtalk*.log
 
 echo -e "${YELLOW}Analyzing Verilog source files...${NC}"
 
-# Analyze RTL files - Your system (ADS)
+# Clean previous library directories
+rm -rf xsim.dir ads_work.dir other_work.dir work.dir
+
+# Analyze RTL files - Your system (ADS) into work library first
 xvlog -sv \
     rtl/core/fifo.v \
-    rtl/core/arbiter.v \
-    rtl/core/addr_decoder.v \
     rtl/core/mux2.v \
     rtl/core/mux3.v \
     rtl/core/dec3.v \
@@ -44,14 +45,16 @@ xvlog -sv \
     rtl/core/addr_convert.v \
     rtl/core/slave_memory_bram.v \
     rtl/core/master_memory_bram.v \
-    rtl/core/bus_m2_s3.v \
     rtl/core/uart_tx.v \
     rtl/core/uart_rx.v \
     rtl/core/uart.v \
-    rtl/core/bus_bridge_master.v \
-    rtl/core/bus_bridge_slave.v \
     rtl/core/uart_to_other_team_tx_adapter.v \
     rtl/core/uart_to_other_team_rx_adapter.v \
+    rtl/core/arbiter.v \
+    rtl/core/addr_decoder.v \
+    rtl/core/bus_m2_s3.v \
+    rtl/core/bus_bridge_master.v \
+    rtl/core/bus_bridge_slave.v \
     rtl/demo_uart_bridge.v
 
 if [ $? -ne 0 ]; then
@@ -62,6 +65,9 @@ fi
 echo -e "${YELLOW}Analyzing other team's system files...${NC}"
 
 # Analyze RTL files - Other team's system
+# NOTE: Their uart and addr_decoder will overwrite ours in the work library,
+# but we instantiate demo_uart_bridge before system_top_with_bus_bridge_b
+# so the correct references should be maintained
 xvlog -sv \
     another_team/serial-bus-design/rtl/uart/buadrate.v \
     another_team/serial-bus-design/rtl/uart/receiver.v \
@@ -101,8 +107,8 @@ fi
 
 echo -e "${YELLOW}Elaborating design...${NC}"
 
-# Elaborate
-xelab -debug typical tb_cross_system_with_adapters -s tb_cross_system_with_adapters_sim
+# Elaborate with default timescale
+xelab -debug typical -timescale 1ns/1ps tb_cross_system_with_adapters -s tb_cross_system_with_adapters_sim
 
 if [ $? -ne 0 ]; then
     echo -e "${RED}ERROR: Elaboration failed!${NC}"

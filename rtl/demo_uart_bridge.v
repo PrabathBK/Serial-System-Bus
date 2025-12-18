@@ -63,7 +63,7 @@ module demo_uart_bridge #(
     // Debounce parameter - set to small value for simulation, large for hardware
     parameter DEBOUNCE_COUNT = 50000,   // ~1ms at 50MHz for real hardware
     // Adapter enable - set to 1 to use protocol adapters for other team's system
-    parameter ENABLE_ADAPTERS = 0       // 0=Direct UART (internal test), 1=With adapters (cross-system)
+    parameter ENABLE_ADAPTERS = 1       // 0=Direct UART (internal test), 1=With adapters (cross-system)
 ) (
     //--------------------------------------------------------------------------
     // Clock and Reset
